@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleConnect</title>
+    <link rel="stylesheet" href="prosProfile.css">
+</head>
+<body>
+    <h2>Professional Profile</h2>
+    <form class="add">
+        <label for="fname">First Name</label>
+        <input type="text" name="fname" id="" required>
+        <label for="lname">Last Name</label>
+        <input type="text" name="lname" id="" required>
+        <label for="bio">Bio</label>
+        <input type="text" name="bio" id="" required>
+        <label for="photo">Photo Link</label>
+        <input type="url" name="photo" id="" required>
+    </div>
+    <div class="category">
+        <input type="checkbox" id="category1" name="category1" value="Haircut">
+        <label for="category1">Haircut</label><br>
+        <input type="checkbox" id="category2" name="category2" value="Eyelash">
+        <label for="category2">Eyelash</label><br>
+        <input type="checkbox" id="category3" name="category3" value="Massage">
+        <label for="category3">Massage</label>
+    </div>
+        <button>submit</button>
+    </form>
+    <h2>Services Listing</h2>
+    <form class="list">
+        <label for="userId">UserId</label>
+        <input type="text" name="userId" id="" >
+        <div class="address">
+            <label for="address1">Address Line1</label>
+            <input type="text" name="address1" id="" >
+            <label for="city">City</label>
+            <input type="text" name="city" id="" >
+            <label for="country">Country</label>
+            <input type="text" name="country" id="" >
+            <label for="province">Province</label>
+            <input type="text" name="province" id="" >
+        </div>
+
+        <div class="avarea">
+        <input type="checkbox" id="area1" name="area1" value="downtown">
+        <label for="area1">Downtown</label><br>
+        <input type="checkbox" id="area2" name="area2" value="burnaby">
+        <label for="area2">Burnaby</label><br>
+        <input type="checkbox" id="area3" name="area3" value="richmond">
+        <label for="area3">Richmond</label>
+        </div>
+
+        <div class="onlocationtype">
+            <h3>On Location</h3>
+            <select name="onlocation">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+        </div>
+        <div class="onhometype">
+            <h3>On Home</h3>
+            <select name="onhome">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+        </div>
+        <label for="listingdes">Service Description</label>
+        <input type="text" name="listingdes" id="" >
+
+        <div class="avservices">
+            <label for="service1">Service Name1</label>
+            <input type="text" name="service1" id="" >
+            <label for="serviceprice1">Service Price1</label>
+            <input type="text" name="serviceprice1" id="" >
+            <label for="service2">Service Name2</label>
+            <input type="text" name="service2" id="" >
+            <label for="serviceprice2">Service Price2</label>
+            <input type="text" name="serviceprice2" id="" >
+        </div>
+        <button>submit</button>
+    </form>
+
+
+    <form class="delete">
+        <label for="DocID">Document id</label>
+        <input type="text" name="id" required>
+        <button>delete a profile</button>
+    </form>
+    <form class="update">
+        <label for="DocID">Document id</label>
+        <input type="text" name="id" required>
+        <button>update a profile</button>
+    </form>
+    <script src="bundle.js"></script>
+</body>
+</html>
