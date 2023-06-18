@@ -97,7 +97,7 @@ const errorCallback = (error) => {
 
 const optionObj = {
     timeout: 5000,
-    enableHighAccuracy: true,
+    enableHighAccuracy: false, // avoid the long loading time.
     maximumAge: 0,
 }
 
