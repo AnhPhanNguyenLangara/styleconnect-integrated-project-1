@@ -1,0 +1,20 @@
+/* 
+Theme: Hotpink Rubber Chicken
+Author: Krisana Arunyamitanon
+Author Url: https://google.com
+Description: this is a WordPress theme to learn about theming and sass
+Version: .1
+*/
+
+
+// @import 'vendors/reset';
+
+@import "abstracts/abstracts";
+@import "vendors/reset";
+@import "base/base";
+@import "utilities/utilities";
+@import "component/component";
+
+@import "layouts/main-content.scss";
+@import "layouts/header.scss";
+@import "layouts/footer.scss";

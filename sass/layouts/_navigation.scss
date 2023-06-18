@@ -1,0 +1,22 @@
+/* NAVIGATION ================ */
+nav{
+    width:100%;
+    padding: .25rem;
+    ul{
+        letter-spacing: normal;
+        margin: 0;
+        padding:0;
+        @include flex-display();
+        li{
+            list-style: none;
+            @include flex-display();
+        }
+    }
+
+    a{
+        text-align: center;
+        flex-basis: 100%;
+        padding: .25rem .5rem;
+    }
+
+}

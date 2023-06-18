@@ -124,11 +124,11 @@ span {
 /* LINKS =============== */
 a {
   text-decoration: none;
-  color: #B971FF;
+  color: #ff798d;
 }
 a:hover {
   color: rgb(255, 255, 255);
-  background: #8949E1;
+  background: #79313c;
 }
 
 a.first-service {
@@ -157,98 +157,6 @@ img.rounded {
 }
 .social ul i {
   font-size: 1.5rem;
-}
-
-header {
-  background-image: linear-gradient(to right, #FCE289, #FADC73, #FBB549);
-}
-header .intro p {
-  margin: 1rem 0;
-}
-header .top-bar {
-  padding: 0 1rem;
-}
-header .header-main {
-  padding: 0 1rem 1rem 1rem;
-}
-@media screen and (min-width: 1000px) {
-  header .top-bar {
-    background: white;
-  }
-}
-
-footer {
-  background-image: linear-gradient(to left, #FBB549, #FADC73, #FCE289);
-  padding: 1rem;
-}
-
-main {
-  background-color: rgb(255, 255, 255);
-  padding: 0 1rem 1rem 1rem;
-}
-main .product-review ul {
-  margin-bottom: 1rem;
-}
-main .product-review ul li a {
-  padding: 0.25rem;
-}
-
-.pros-card h3 {
-  background-color: rgba(251, 181, 73, 0.8);
-  border-radius: 16px 16px 0px 0px;
-  color: #5B24C6;
-}
-.pros-card p {
-  background-color: rgba(251, 181, 73, 0.8);
-  color: #8949E1;
-}
-
-/* TEST ACCESSIBILITY ============ */
-.visually-hidden {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-form {
-  padding: 1.5rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.5em;
-  color: #000;
-}
-
-input {
-  width: 100%;
-  padding: 0.7em;
-  border: 1px solid rgb(195, 195, 195);
-  border-radius: 3px;
-  margin-bottom: 1em;
-  font-size: 0.8em;
-}
-
-input[type=checkbox], select {
-  width: auto;
-}
-
-button {
-  background-color: #B971FF;
-  color: rgb(255, 255, 255);
-  border: none;
-  border-radius: 3px;
-  padding: 0.5em 1em;
-  cursor: pointer;
-  font-size: 0.8em;
-}
-
-button:hover {
-  background-color: #5B24C6;
 }
 
 /* BUTTON ============= */
@@ -292,11 +200,11 @@ button:hover {
 }
 
 .btn-show {
-  background-color: #8949E1;
+  background-color: #79313c;
   color: rgb(255, 255, 255);
 }
 .btn-show::after {
-  background-color: #8949E1;
+  background-color: #79313c;
 }
 .btn-show:hover::after {
   transform: scale(1.5);
@@ -309,7 +217,62 @@ button:hover {
 }
 
 .list-service {
-  border: 1px solid #8949E1;
+  border: 1px solid #ef465f;
+}
+
+header {
+  background-image: linear-gradient(to right, #f6e4da, #f2d9ca, #edcab6);
+}
+header .intro p {
+  margin: 1rem 0;
+}
+header .top-bar {
+  padding: 0 1rem;
+}
+header .header-main {
+  padding: 0 1rem 1rem 1rem;
+}
+@media screen and (min-width: 1000px) {
+  header .top-bar {
+    background: white;
+  }
+}
+
+footer {
+  background-image: linear-gradient(to left, #edcab6, #f2d9ca, #f6e4da);
+  padding: 1rem;
+}
+
+main {
+  background-color: rgb(255, 255, 255);
+  padding: 0 1rem 1rem 1rem;
+}
+main .product-review ul {
+  margin-bottom: 1rem;
+}
+main .product-review ul li a {
+  padding: 0.25rem;
+}
+
+.pros-card h3 {
+  background-color: rgba(237, 202, 182, 0.8);
+  border-radius: 16px 16px 0px 0px;
+  color: #87202f;
+}
+.pros-card p {
+  background-color: rgba(237, 202, 182, 0.8);
+  color: #79313c;
+}
+
+/* TEST ACCESSIBILITY ============ */
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 /* NAVIGATION ================ */
@@ -367,7 +330,7 @@ main {
   letter-spacing: normal;
   margin: 0;
   padding: 0;
-  border-bottom: solid 2px #5B24C6;
+  border-bottom: solid 2px #87202f;
   display: flex;
   gap: 0;
   flex-flow: row nowrap;
@@ -381,7 +344,7 @@ main {
   flex-grow: 1;
 }
 .product-review ul li:first-child {
-  background-color: #8949E1;
+  background-color: #79313c;
 }
 .product-review ul li a {
   display: flex;

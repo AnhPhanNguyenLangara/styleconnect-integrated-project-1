@@ -1,0 +1,44 @@
+header{
+    @include bg-gradient();
+    .intro p{
+        margin:1rem 0;
+    }
+    .top-bar{
+    padding: 0 1rem;}
+    .header-main{
+        padding: 0 1rem 1rem 1rem;
+    }
+    @media screen and (min-width: 1000px) {
+    .top-bar{
+        background: white;
+    }
+}
+}
+footer{
+    @include bg-gradient(left, $base-d, $base-m, $base-l);
+    padding: 1rem;
+}
+main{
+    background-color: $brightness-l;
+    padding: 0 1rem 1rem 1rem;
+    .product-review{
+    ul{
+        margin-bottom: 1rem;
+        li a{
+            padding: 0.25rem;
+        }
+    }
+}
+}
+
+.pros-card { 
+    h3{
+        background-color: rgba($base-d,0.8);
+        border-radius: 16px 16px 0px 0px;
+        color:$text-main;
+}
+    p{
+        background-color: rgba($base-d,0.8);
+        color:$text-sub;
+    }
+}

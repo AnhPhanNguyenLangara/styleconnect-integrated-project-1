@@ -1,0 +1,37 @@
+/* HEADER ================ */
+header{
+    display: flex;
+    flex-flow: column;
+    gap:1rem;
+    .top-bar{
+        @include flex-display(1rem, column, nowrap);
+        justify-content: space-between;
+        align-items: center;
+    }
+    .top-menu{
+        @include flex-display(1rem, column, nowrap)
+    }
+    @media screen and (min-width: 1000px) {
+
+        .header-main{
+        display: flex;
+        max-width: 1200px;
+        margin: auto;
+        @include flex-display();
+
+        }
+       .top-bar{
+        @include flex-display(1rem, row, nowrap);
+        .top-menu{
+            @include flex-display(1rem, row, nowrap);
+            justify-content: flex-end;
+        }
+        }
+       }
+      }
+.header-main{
+    @include flex-display(1rem, column, nowrap)
+}
+      
+
+

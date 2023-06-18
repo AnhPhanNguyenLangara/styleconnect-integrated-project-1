@@ -1,0 +1,38 @@
+/* TYPOGRAPHY ========== */
+body{
+    font-family: $font-serif;
+    font-weight: $fw-regular;
+    line-height: 1.5;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: $font-sans;
+    margin:0;
+}
+h1{
+    font-weight: $fw-heavy;
+    margin-bottom: 0.5rem;
+}
+h3{
+    margin: 0.5rem 0;
+}
+span{
+    font-size: 0.8rem;
+}
+.pros-card { 
+    h3{
+    margin:0;
+    font-size: 1rem;
+    padding-left:1rem;
+}
+    p{
+        margin:0;
+        font-size: 1rem;
+        padding-left:1rem;
+    }
+}
+.pro-detail{
+    p{
+        margin-bottom: 1rem;
+    }
+}
