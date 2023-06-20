@@ -1,0 +1,38 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 1rem;
+    flex-flow: column nowrap;
+    padding: 5px;
+    margin: 0;
+    
+}
+#display_image{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    border:1px solid black;
+}
+img{
+max-width: 100%;
+height: auto;
+}
+form{
+    display: grid;
+    
+}
+label,input{
+    margin: 2px;
+    padding: 2px;
+}
+#myimg{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    border:1px solid black; 
+}
