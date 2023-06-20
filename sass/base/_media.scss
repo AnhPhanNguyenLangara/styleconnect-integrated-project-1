@@ -1,0 +1,36 @@
+/*  MEDIA ===================================== */
+
+img {
+    @include pictureSize();
+
+    .face {
+        display: block;
+        text-align: center;
+        margin: 0;
+    }
+}
+
+.logo {
+    @include pictureSize(60px, 60px)
+    // width: 60px;
+    // height: 60px;
+}
+
+
+// .video-1333 {
+//     @include iFrameVideo(640px, 480px);
+// }
+
+// .video-1777 {
+//     @include iFrameVideo();
+// }
+
+.video-wrapper {
+    @include iFrameVideoLegacy();
+}
+
+.feature .feature-image {
+    // @include polyClip();
+    @include advancedPolyClip(left,5%)
+}
+

@@ -1,0 +1,448 @@
+/*
+Theme: Rubber Chicken
+Author: kn
+Version: .1
+*/
+/* RESET ================================*/
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role=list],
+ol[role=list] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* TYPOGRAPHY ============================*/
+body {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: helvetica, arial, sans-serif;
+  margin: 0;
+}
+
+h1 {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  background-color: #34221F;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.5rem 0;
+  margin-top: 3rem;
+  text-align: center;
+}
+
+body {
+  background-color: #FAEBD6;
+}
+
+/* LINKS =====================================*/
+a {
+  text-decoration: none;
+  color: #000;
+}
+a:visited {
+  color: #D78F23;
+}
+a:hover {
+  color: #D78F23;
+}
+
+/*  MEDIA ===================================== */
+img {
+  max-width: max-width;
+  max-height: auto;
+}
+img .face {
+  display: block;
+  text-align: center;
+  margin: 0;
+}
+
+.logo {
+  max-width: 60px;
+  max-height: 60px;
+}
+
+.video-wrapper {
+  position: relative;
+  height: 0;
+  padding-top: 25px;
+  padding-bottom: 56.25%;
+}
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.feature .feature-image {
+  clip-path: polygon(0 0, 50% 0, 100% 0, 100% 50%, 100% 100%, 50% 100%, 0% 100%, 5% 50%);
+}
+
+/* BUTOONS ========================*/
+button {
+  border-radius: 15px;
+  border: 1px solid #717f97;
+  background-color: #D78F23;
+  color: #fff;
+}
+
+button.wired {
+  border: 5px solid papayawhip;
+}
+
+button.ultra-round {
+  border-radius: 10px;
+}
+
+/*ICON ================================*/
+.fa-magnifying-glass {
+  font-size: 2rem;
+}
+
+/* NAVIGATION =============================*/
+nav {
+  padding: 0.25rem;
+}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+nav a {
+  text-align: center;
+  display: block;
+  padding: 0.25rem 0.5rem;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+}
+@media screen and (min-width: 640px) {
+  .main-nav {
+    display: block;
+  }
+}
+
+.type-nav {
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 640px) {
+  .type-nav {
+    flex-direction: row;
+    flex-basis: 100%;
+    justify-content: space-evenly;
+    gap: 1.5rem;
+    margin: 2rem;
+    background-color: #D78F23;
+    padding: 1rem;
+  }
+  .type-nav a {
+    color: #fff;
+  }
+}
+
+.filter-nav {
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 640px) {
+  .filter-nav {
+    flex-direction: row;
+    flex-basis: 100%;
+    background-color: #D78F23;
+    justify-content: space-evenly;
+    gap: 1.5rem;
+    margin: 2rem;
+    padding: 1rem;
+  }
+  .filter-nav a {
+    color: #fff;
+  }
+}
+
+/*HEADER - FOOTER =============================*/
+header {
+  padding: 1rem;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.heading-menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 1rem;
+}
+@media screen and (min-width: 640px) {
+  .heading-menu-wrapper {
+    flex-flow: row nowrap;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+}
+
+.header-nav-icon {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
+}
+@media screen and (min-width: 640px) {
+  .header-nav-icon {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+}
+
+#sns-menu {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+/*CONTENT ==================================*/
+main {
+  padding: 2rem;
+  text-align: center;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  grid-template-rows: repeat(7, auto);
+  border: 1px solid #4b5566;
+  margin: 2rem 0;
+  border-radius: 10px;
+  background-color: #fff;
+}
+.card .card-photo {
+  grid-column: 1/-1;
+  grid-row: 1/4;
+  width: 100%;
+  border-radius: 10px;
+}
+.card .pro-name {
+  grid-column: 1/5;
+  grid-row: 4/6;
+  justify-self: start;
+  align-self: end;
+  padding: 0.5rem 1rem;
+}
+.card .price {
+  grid-column: 1/5;
+  grid-row: 6/8;
+  justify-self: start;
+  align-self: start;
+  padding: 0.5rem 1rem;
+}
+.card .booknow {
+  grid-column: 5/7;
+  grid-row: 5/7;
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  justify-self: end;
+}
+
+.pro-photo {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(6, auto);
+  grid-template-rows: repeat(6, auto);
+}
+.pro-photo .face {
+  border-radius: 50%;
+  grid-column: 1/-1;
+  grid-row: 1/3;
+}
+.pro-photo h4 {
+  grid-column: 1/-1;
+}
+.pro-photo p {
+  grid-column: 1/-1;
+}
+
+@media screen and (min-width: 640px) {
+  .pro-wrapper {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .haircut {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    justify-content: center;
+    gap: 1rem;
+  }
+  .haircut h3 {
+    grid-column: 1/-1;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .makeup {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    justify-content: center;
+    gap: 1rem;
+  }
+  .makeup h3 {
+    grid-column: 1/-1;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .wellness {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    justify-content: center;
+    gap: 1rem;
+  }
+  .wellness h3 {
+    grid-column: 1/-1;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .styling {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    justify-content: center;
+    gap: 1rem;
+  }
+  .styling h3 {
+    grid-column: 1/-1;
+  }
+}
+
+.editor {
+  display: flex;
+}
+
+.footer-nav-wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0;
+}
+
+footer ul {
+  padding-left: 0;
+}
+footer li {
+  list-style: none;
+}
+
+/* Accessibility ========================== */
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* import as a folder*/
+.centered {
+  margin: unset auto;
+  display: block;
+}
+
+.rounded {
+  border-radius: 50%;
+}
+
+.centered-rounded {
+  margin: unset auto;
+  display: block;
+  border-radius: 50%;
+}
+
+/*# sourceMappingURL=style.css.map */

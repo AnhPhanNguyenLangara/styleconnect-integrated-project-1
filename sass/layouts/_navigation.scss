@@ -1,0 +1,63 @@
+/* NAVIGATION =============================*/
+
+nav {
+    padding: 0.25rem;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    a {
+        text-align: center;
+        display: block;
+        padding: 0.25rem .5rem;
+    }
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    @media screen and (min-width: 640px) {
+        display: block;
+    }
+   
+}
+.type-nav {
+    display: flex;
+    flex-direction: column;
+ 
+    @media screen and (min-width: 640px) {
+        flex-direction: row;
+        flex-basis: 100%;
+        justify-content: space-evenly;
+        gap: 1.5rem;
+        margin: 2rem;
+        background-color: $accent-m;
+        padding: 1rem;
+
+    
+        a{
+        color: $base-l;
+        }
+}
+}
+
+.filter-nav {
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: 640px) {
+        flex-direction: row;
+        flex-basis: 100%;
+        background-color: $accent-m;
+        justify-content: space-evenly;
+        gap: 1.5rem;
+        margin: 2rem;
+        padding: 1rem;
+
+    a{
+        color: $base-l;
+        }
+}
+}

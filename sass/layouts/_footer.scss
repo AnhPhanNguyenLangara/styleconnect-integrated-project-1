@@ -1,0 +1,19 @@
+.editor {
+    display: flex;
+}
+
+.footer-nav-wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+}
+
+footer {
+    ul{
+        padding-left: 0;  
+    }
+    li{
+      list-style: none;
+    }
+}
+

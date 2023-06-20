@@ -1,0 +1,26 @@
+/* TYPOGRAPHY ============================*/
+
+body {
+    font-family: $font-sans;
+    font-weight: $fw-regular;
+    line-height: 1.5;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: $font-sans;
+    margin: 0;
+}
+
+h1{
+    font-weight: $fw-heavy;
+    margin-bottom: 0.5rem;
+}
+
+h3 {
+    background-color: $accent-d;
+    color: $base-l;
+    @include cornered(10px);
+    padding: .5rem 0;
+    margin-top: 3rem;
+    text-align: center;
+}

@@ -1,0 +1,9 @@
+.centered {
+    @include centered;
+}
+.rounded {
+    @include rounded;
+}
+.centered-rounded {
+    @include centered-rounded;
+}

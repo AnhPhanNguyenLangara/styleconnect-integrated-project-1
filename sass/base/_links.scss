@@ -1,0 +1,14 @@
+/* LINKS =====================================*/
+
+a {
+    text-decoration: none;
+    color: $base-b;
+
+    &:visited {
+        color: $accent-m;
+    }
+
+    &:hover {
+        color: $accent-m;
+    }
+}

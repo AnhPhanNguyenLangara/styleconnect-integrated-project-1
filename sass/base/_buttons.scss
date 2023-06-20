@@ -1,0 +1,15 @@
+/* BUTOONS ========================*/
+
+button {
+    @include cornered(15px);
+    @include border(1px, solid, $contrast-l);
+    background-color: $accent-m;
+    color: $base-l;
+}
+
+button.wired {
+    @include border(5px, solid, papayawhip)
+}
+button.ultra-round {
+    @include cornered()
+}
