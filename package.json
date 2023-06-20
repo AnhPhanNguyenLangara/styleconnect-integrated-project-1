@@ -1,0 +1,23 @@
+{
+  "name": "styleconnect-integrated-project-1",
+  "version": "1.0.0",
+  "description": "Semester 2, Integrated Project 1, team Creative Nexus Repository for PWA project TEST TEST2",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=development"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^9.22.2",
+    "firebaseui": "^6.0.2"
+  },
+  "devDependencies": {
+    "css-loader": "^6.8.1",
+    "less-loader": "^11.1.3",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.87.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
