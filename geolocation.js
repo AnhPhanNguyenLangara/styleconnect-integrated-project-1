@@ -108,3 +108,53 @@ const optionObj = {
 // navigator.geolocation.clearWatch(watchId);
 
 
+//Tomtom API
+
+const APIKEY = "ptANjRylatoh5zEIajtZ3GGJe2GLI6ZS";
+
+
+// Reverse Geo Coding
+
+const reverseGeoBaseURL = "https://api.tomtom.com/search/2/reverseGeocode/";
+const ext = "json";
+const position = "lat,lon";
+
+async function getReverseLocation( (reverseGeoBaseURL + '.' + ext + '?' + APIKEY) => {
+
+    const res = await fetch(url)
+    const data = await res.json()
+    const getData = data.addresses.address;
+    const getAddress = getData.freefromAddress; // get address(street# & streetName & municipality & countrySubdivision & Postalcode  i.g 4085 Ash Street, Vancouver BC V5Z 3G1);
+
+    document.getElementById("displayRevGeo").innerHTML = getAddress;
+})
+
+getReverseLocation();
+
+
+
+
+//Geo Coding
+
+const geoBaseURL = "https://api.tomtom.com/search/2/geocode/";
+
+const address = document.getElementById("address").value
+
+async function getGeoLocation( (geoBaseURL + address + ext + '?' + APIKEY) => {
+
+    const res = await fetch();
+    const data = await res.json();
+    const getData = data.results.position; //get latitude & logititude;
+
+    document.getElementById("displayGeo").innerHTML = getData;
+
+})
+
+document.getElementById('submit').addEventListener("click", ()=>{
+    getGeoLocation();
+})
+
+document.getElementById("reset").addEventListener("click", ()=>{
+    address.reset();
+})
+
