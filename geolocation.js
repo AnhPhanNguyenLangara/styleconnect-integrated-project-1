@@ -113,7 +113,7 @@ const optionObj = {
 const APIKEY = "ptANjRylatoh5zEIajtZ3GGJe2GLI6ZS";
 
 
-// Reverse Geo Coding
+// Reverse Geo Coding ==============================
 
 const reverseGeoBaseURL = "https://api.tomtom.com/search/2/reverseGeocode/";
 const ext = "json";
@@ -134,7 +134,7 @@ getReverseLocation();
 
 
 
-//Geo Coding
+//Geo Coding ====================================
 
 const geoBaseURL = "https://api.tomtom.com/search/2/geocode/";
 
