@@ -35,9 +35,7 @@ main{
           @include flex-display();
           justify-content: center;
           flex-grow:1;
-          &:first-child{
-            background-color: $text-sub;
-          }
+
           a{
             @include flex-display(0, column, nowrap);
             align-items: center;

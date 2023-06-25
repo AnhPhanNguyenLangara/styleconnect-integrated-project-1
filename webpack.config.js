@@ -5,7 +5,9 @@ module.exports ={
     mode: 'development',
     entry: {
         main:'./src/index.js',
-        sub: './src/listing.js'
+        listing: './src/listing.js',
+        fetchList: './src/fetchList.js',
+        edit: './src/edit.js'
     },
     output:{
         path: path.resolve(__dirname, 'dist'),

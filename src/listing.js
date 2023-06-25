@@ -1,6 +1,40 @@
+// Single Page for Tab
+const listHairLI = document.getElementById('listHairLI');
+const listEyeLI = document.getElementById("listEyeLI");
+const listMassageLI = document.getElementById("listMassageLI");
+const listNailLI = document.getElementById("listNailLI");
+const listHair = document.getElementById('listHair');
+const listEye = document.getElementById("listEye");
+const listMassage = document.getElementById("listMassage");
+const listNail = document.getElementById("listNail");
+
+const allLI = [listHairLI, listEyeLI, listMassageLI, listNailLI];
+const allpages = [listHair, listEye, listMassage, listNail];
+
+
+function navigateToPage() {
+  const pageId = location.hash ? location.hash : '#listHair';
+  for (let i = 0; i < allpages.length; i++) {
+    const page = allpages[i];
+    const li = allLI[i];
+    
+    if (pageId === '#' + page.id) {
+      page.style.display = 'grid';
+      page.classList.add("first-service");
+      li.classList.add("active");
+    } else {
+      page.style.display = 'none';
+      page.classList.remove("first-service");
+      li.classList.remove("active");
+    }
+  }
+}
+navigateToPage();
+window.addEventListener('hashchange', navigateToPage);
+
+
+
 /* For adding profile and service list into firebase */
-
-
 import { initializeApp } from 'firebase/app'
 import {
   getFirestore, collection,
@@ -17,15 +51,6 @@ const firebaseConfig = {
   appId: "1:700825424755:web:a0fcfadde53d4248912b06",
   measurementId: "G-BW2ZJHSJ2G"
 };
-const hairTab = document.getElementById("hairTab");
-const eyeTab = document.getElementById("eyeTab");
-const massageTab = document.getElementById("massageTab");
-const nailTab = document.getElementById("nailTab");
-const allpages = [];
-allpages.push(hairTab);
-allpages.push(eyeTab);
-allpages.push(massageTab);
-allpages.push(nailTab);
 
 // init firebase
 initializeApp(firebaseConfig)
@@ -39,27 +64,35 @@ const colRefListing = collection(db, 'pros_listing');
 // qureies
 const q = query(colRefListing, orderBy('createdAt', 'desc'))
 // get collection data
-const listservices = document.getElementById('listservices');
+
+
+
 
 const listingsPromise  = getDocs(colRefListing)
   .then((snapshot)=> {
     let listings = [];
     snapshot.docs.forEach((x)=>{
     listings.push({ ...x.data() , id: x.id})})
+    console.log(listings);
     return listings
   }).catch(err =>{
     console.log(err.message);
-  })
+  }
+  )
+
+
   const usersPromise = getDocs(colRef)
   .then((snapshot)=> {
     let listings = [];
     snapshot.docs.forEach((x)=>{
-    listings.push({ ...x.data() , id: x.id})
+    listings.push({ ...x.data() , listingId: x.id})
     })
   return listings
   }).catch(err =>{
     console.log(err.message);
   })
+
+
 
   const mergePromise = Promise.all([listingsPromise, usersPromise])
   .then(([listings, users]) => {
@@ -88,9 +121,9 @@ const listingsPromise  = getDocs(colRefListing)
         <i class="fa-regular fa-heart"></i>
         <p class="location">${x.address1+ " " + x.city}</p>
     <img src="${x.photoURL}" alt="">
-        <p class="price">${x.price[0]}<span>CAD</span></p>
+        <p class="price">${x.price}<span>CAD</span></p>
         <a href="#" class="btn btn-show btn-animated">Book Now</a>
 </div>`;
     })
-    listservices.innerHTML = listingDisplay;}
+    listHair.innerHTML = listingDisplay;}
   displayListing();

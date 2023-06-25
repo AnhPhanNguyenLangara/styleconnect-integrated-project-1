@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>StyleConnect</title>
     <link rel="stylesheet" href="prosProfile.css">
     <link rel="icon" type="image/x-icon" href="/img/favicon 1.png">
     <script src="https://kit.fontawesome.com/c8c6d1441b.js" crossorigin="anonymous"></script>
@@ -25,24 +25,35 @@
         </nav>
         </div>
     </header>
+
     <main>
-    <section class="product-review">
-        <ul>
-            <li><a class="active" href="#listHair" id="listHairLI"><i class="fa-solid fa-scissors"></i><span>Hair care</span></a></li>
-            <li><a href="#listEye" id="listEyeLI"><i class="fa-solid fa-eye"></i><span>Eyelash & Eyebrow</span></a></li>
-            <li><a href="#listMassage" id="listMassageLI"><i class="fa-solid fa-hot-tub-person"></i><span>Massage</span></a></li>
-            <li><a href="#listNail" id="listNailLI"><i class="fa-solid fa-hand-sparkles"></i><span>Nail</span></a></li>
-        </ul>
-        <div class="services" id="listHair">
+        <div id="listing-display">
         </div>
-        <div class="services" id="listEye">
-        </div>
-        <div class="services" id="listMassage">
-        </div>
-        <div class="services" id="listNail">
-        </div>
-    </section>
-</main>
+    <h2>Input UserID to Fetch</h2>
+    <form id="fetchListing">
+        <label for="userId">UserId</label>
+        <input type="text" name="userId" id="" >
+        <button>Fetch</button>
+    </form>
+    <h2>Update Lisitng</h2>
+        <form class="update">
+            <label for="DocID">Document id</label>
+            <input type="text" name="id" required>
+            <label for="service">Service Name</label>
+            <input type="text" name="service" id="" >
+            <label for="serviceprice">Service Price</label>
+            <input type="text" name="serviceprice" id="" >
+            <button>update a listing</button>
+        </form>
+
+    <h2>Delete Lisitng</h2>
+        <form class="delete">
+            <label for="DocID">Document id</label>
+            <input type="text" name="id" required>
+            <button>delete a listing</button>
+        </form>
+
+    </main>
     <footer>
         <div class="footer-menu1">
             <h1>StyleConnect</h1>
@@ -77,7 +88,6 @@
         </div>
     </footer>
 
-
-    <script src="./listing.bundle.js" defer></script>
+    <script src="./fetchList.bundle.js" defer></script>
 </body>
 </html>

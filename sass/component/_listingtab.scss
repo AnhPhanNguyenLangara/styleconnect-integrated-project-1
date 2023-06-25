@@ -1,0 +1,5 @@
+.listing-tab{
+    @include flex-display();
+    @include flex-content(space-between);
+    @include border();
+}

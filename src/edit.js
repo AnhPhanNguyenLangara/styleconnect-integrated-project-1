@@ -1,13 +1,28 @@
-/* For adding profile and service list into firebase */
+const addServiceForm = document.querySelector('.list');
+const url =window.location.href;
+const searchParams = new URL(url).searchParams;
+const entries = new URLSearchParams(searchParams).values();
+const array = Array.from(entries);
+const obj = JSON.parse(array[0])
+addServiceForm.address1.value = obj.address
+for (const field in obj) {
+    if (addServiceForm[field]) {
+      addServiceForm[field].value = obj[field];
+    }
+  }
+addServiceForm.area1.checked = obj.area.downtown;
+addServiceForm.area2.checked = obj.area.burnaby;
+addServiceForm.area3.checked = obj.area.richmond;
+console.log(obj)
 
 
 import { initializeApp } from 'firebase/app'
 import {
-  getFirestore, collection, onSnapshot,
-  addDoc, deleteDoc, doc,
-  query, where,
-  orderBy, serverTimestamp,
-  getDoc, updateDoc, setDoc 
+    getFirestore, collection, onSnapshot,
+    addDoc, deleteDoc, doc,
+    query, where,
+    orderBy, serverTimestamp,
+    getDoc, updateDoc, setDoc 
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -30,56 +45,14 @@ const db =getFirestore();
 const colRef = collection(db, 'professional_profile');
 const colRefListing = collection(db, 'pros_listing');
 // qureies
-const q = query(colRef, orderBy('createdAt', 'desc'))
-// get collection data
 
+// Update doc
 
-
-onSnapshot(q, (snapshot)=>{
-    let prosProfile = [];
-    snapshot.docs.forEach((x)=>{
-        prosProfile.push({ ...x.data() , id: x.id})
-    })
-    console.log(prosProfile)
-})
-
-
-
-//   adding Profile documents
-const addProfileForm = document.querySelector('.add')
-
-addProfileForm.addEventListener('submit', async (e) =>{
-    e.preventDefault();
-    try{
-    const newDocRef = doc(colRef);
-    await setDoc( newDocRef,{
-        id: newDocRef.id,
-        firstName: addProfileForm.fname.value,
-        lastName: addProfileForm.lname.value,
-        bio: addProfileForm.bio.value,
-        skill: {
-            Haircut: addProfileForm.category1.checked,
-            Eyelash: addProfileForm.category2.checked,
-            Massage: addProfileForm.category3.checked
-        },
-        photoURL: [addProfileForm.photo.value],
-        createdAt: serverTimestamp()
-    })
-    addProfileForm.reset()}
-    catch(error){
-        console.log(error)
-    }
-})
-
-//   adding service documents
-const addServiceForm = document.querySelector('.list');
 addServiceForm.addEventListener('submit', async (e) =>{
     e.preventDefault();
     try{
-    const newDocRef = doc(colRefListing);
-    await setDoc(newDocRef,{
-        userId: addServiceForm.userId.value,
-        listingId: newDocRef.id,
+    const docRef = doc(colRefListing,obj.listingId);
+    await updateDoc(docRef,{
         address1: addServiceForm.address1.value,
         city: addServiceForm.city.value,
         country: addServiceForm.country.value,
@@ -102,5 +75,3 @@ addServiceForm.addEventListener('submit', async (e) =>{
     }
 
 })
-
-

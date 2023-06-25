@@ -131,7 +131,17 @@ a:hover {
   background: #8949E1;
 }
 
-a.first-service {
+a.active {
+  color: rgb(255, 255, 255);
+}
+
+.active {
+  background-color: #8949E1;
+}
+.active i {
+  color: rgb(255, 255, 255);
+}
+.active span {
   color: rgb(255, 255, 255);
 }
 
@@ -166,7 +176,7 @@ header .intro p {
   margin: 1rem 0;
 }
 header .top-bar {
-  padding: 0 1rem;
+  padding: 1rem;
 }
 header .header-main {
   padding: 0 1rem 1rem 1rem;
@@ -312,6 +322,16 @@ button:hover {
   border: 1px solid #8949E1;
 }
 
+.listing-tab {
+  display: flex;
+  gap: 1rem;
+  flex-flow: row nowrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #8949E1;
+}
+
 /* NAVIGATION ================ */
 nav {
   width: 100%;
@@ -379,9 +399,6 @@ main {
   flex-flow: row nowrap;
   justify-content: center;
   flex-grow: 1;
-}
-.product-review ul li:first-child {
-  background-color: #8949E1;
 }
 .product-review ul li a {
   display: flex;

@@ -8,12 +8,22 @@ a{
         color:$brightness-l;
         background: $text-sub;
     }
-
+ 
 
 }
-a.first-service{
+a.active{
+    color:$brightness-l;}
+.active{
+    background-color: $text-sub;
+    i{
         color:$brightness-l;
+
+    }
+    span{
+        color:$brightness-l;
+    }
 }
+
 footer nav a{
     text-align: left;
     padding:0;
