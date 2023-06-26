@@ -1,0 +1,56 @@
+const bookingDetail = document.querySelector('#booking-detail');
+const bookingTime = document.querySelector('#booking-time')
+const url =window.location.href;
+const arr = url.split('?')
+
+import { initializeApp } from 'firebase/app'
+import {
+  getFirestore, collection, onSnapshot,
+  addDoc, deleteDoc, doc,
+  query, where,
+  orderBy, serverTimestamp,
+  getDocs, updateDoc, setDoc 
+} from 'firebase/firestore'
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD7wzxQRs4mKcMOB0Vcydzdxl0NRtZbXno",
+  authDomain: "styleconnect-e781a.firebaseapp.com",
+  projectId: "styleconnect-e781a",
+  storageBucket: "styleconnect-e781a.appspot.com",
+  messagingSenderId: "700825424755",
+  appId: "1:700825424755:web:a0fcfadde53d4248912b06",
+  measurementId: "G-BW2ZJHSJ2G"
+};
+
+
+// init firebase
+initializeApp(firebaseConfig)
+
+// init services
+const db =getFirestore();
+
+// collection ref
+const colRef = collection(db, 'customer_profile');
+
+//   adding Profile documents
+const confirmBooking = document.querySelector('.add')
+
+
+confirmBooking.addEventListener('submit', async (e) =>{
+    e.preventDefault();
+    try{
+    const docRef = doc(colRef,arr[2]);
+    console.log(docRef)
+    console.log(confirmBooking.bookingTime.value)
+    await updateDoc(docRef,{     
+        bookingtime:  confirmBooking.bookingTime.value,
+        prosId:  arr[2],
+        listingId: arr[1],
+    })
+    confirmBooking.reset()}
+    catch(error){
+        console.log(error);
+    }
+alert('Booking Confirm')
+window.location.href = '/dist/';
+})

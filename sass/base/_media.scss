@@ -1,0 +1,44 @@
+/* IMG ========== */
+
+
+img.rounded{
+    @include rounded;
+}
+
+
+.product-review 
+{
+    ul i{
+    font-size: 1.5rem;
+}
+    .pros-card img{
+        border-radius: 16px 16px 0 0;
+    }
+
+}
+.social {
+    ul {
+    margin-top:1rem;
+    i{
+        font-size: 1.5rem;
+    }
+}
+}
+
+.pro-start{
+    img{
+      max-width: 40%;
+      flex-basis: 40%;
+    }
+  }
+  .header-main {
+    img{
+      max-width: 50%;
+      flex-basis: 50%;
+    }
+  }
+
+  .footer-menu1 .logo img{
+    margin: 1rem 0;
+  }
+  

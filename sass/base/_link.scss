@@ -1,0 +1,30 @@
+/* LINKS =============== */
+
+a{
+    text-decoration: none;
+    color: $contrast-d;
+
+    &:hover{
+        color:$brightness-l;
+        background: $text-sub;
+    }
+ 
+
+}
+a.active{
+    color:$brightness-l;}
+.active{
+    background-color: $text-sub;
+    i{
+        color:$brightness-l;
+
+    }
+    span{
+        color:$brightness-l;
+    }
+}
+
+footer nav a{
+    text-align: left;
+    padding:0;
+}

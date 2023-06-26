@@ -1,0 +1,54 @@
+
+form{
+    padding:1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: $contrast-d;
+}
+
+input {
+    width: 100%;
+    padding: 0.7em;
+    border: 1px solid $brightness-d;
+    border-radius: 3px;
+    margin-bottom: 1em;
+    font-size: 0.8em;
+}
+
+input[type="checkbox"], select{
+    width: auto;
+}
+
+button {
+    background-color: $accent-l;
+    color: $brightness-l;
+    border: none;
+    border-radius: 3px;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+button:hover {
+    background-color: $accent-d;
+}
+.checkbox-wrapper {
+    :first-child{
+        flex-basis:100%;
+        margin-bottom: 0.5rem;
+    }
+    label{
+        margin-right: 0.5rem;
+        margin-bottom: 0;
+    }
+    input{
+        margin: 0 0.25rem 0 0;
+    }
+    @include flex-display(0, row, wrap);
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+}
