@@ -21,13 +21,13 @@ const getGeobtn = document.getElementById("geobtn")
         } else {
             displayGeo.innerText = "";
             const errorMsg = document.createElement("p");
-            errorMsg.innerText = `Geolocation in not supported by this browser.`
+            errorMsg.innerText = `Geolocation in not supported by this browser.`;
+            displayGeo.appendChild(errorMsg);
         }
     }
 
 // Display the location ======================================================
 getGeobtn.addEventListener("click", getLocation);
-
 
 // SuccessCall back ==========================================================
 
@@ -35,16 +35,18 @@ const successCallback = (x) => {
     console.log(x);
     const latitude = x.coords.latitude;
     const longitude = x.coords.longitude;
+    position = `${latitude},${longitude}`;
+    getReverseLocation();
     // console.log(latitude); -> OK
 
-    displayGeo.innerText = "";
-    const displayLatitude = document.createElement("p");
-    const displayLongitude = document.createElement("p");
-    displayLatitude.innerText = `Latitude: ${latitude}`;
-    displayLongitude.innerText = `Longitude: ${longitude}`;
+    // displayGeo.innerText = "";
+    // const displayLatitude = document.createElement("p");
+    // const displayLongitude = document.createElement("p");
+    // displayLatitude.innerText = `Latitude: ${latitude}`;
+    // displayLongitude.innerText = `Longitude: ${longitude}`;
 
-    displayGeo.appendChild(displayLatitude);
-    displayLatitude.append(displayLongitude);
+    // displayGeo.appendChild(displayLatitude);
+    // displayLatitude.append(displayLongitude);
 }
 
 
@@ -110,26 +112,27 @@ const optionObj = {
 
 //Tomtom API
 
-const APIKEY = "ptANjRylatoh5zEIajtZ3GGJe2GLI6ZS";
+const APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
 
 
 // Reverse Geo Coding ==============================
 
 const reverseGeoBaseURL = "https://api.tomtom.com/search/2/reverseGeocode/";
 const ext = "json";
-const position = "lat,lon";
+let position = "lat,lon";
 
-async function getReverseLocation( (reverseGeoBaseURL + '.' + ext + '?' + APIKEY) => {
-
+async function getReverseLocation() {
+    const url= reverseGeoBaseURL + position + '.' +  ext + '?key=' + APIKEY;
     const res = await fetch(url)
     const data = await res.json()
-    const getData = data.addresses.address;
-    const getAddress = getData.freefromAddress; // get address(street# & streetName & municipality & countrySubdivision & Postalcode  i.g 4085 Ash Street, Vancouver BC V5Z 3G1);
+    console.log(data);
+    const getData = data.addresses[0].address;
+    console.log(getData);
+    const getAddress = getData.freeformAddress;
+    console.log(getAddress) // get address(street# & streetName & municipality & countrySubdivision & Postalcode  i.g 4085 Ash Street, Vancouver BC V5Z 3G1);
 
     document.getElementById("displayRevGeo").innerHTML = getAddress;
-})
-
-getReverseLocation();
+}
 
 
 
@@ -138,23 +141,26 @@ getReverseLocation();
 
 const geoBaseURL = "https://api.tomtom.com/search/2/geocode/";
 
-const address = document.getElementById("address").value
+let address = "";
 
-async function getGeoLocation( (geoBaseURL + address + ext + '?' + APIKEY) => {
+async function getGeoLocation() {
 
-    const res = await fetch();
+    const url= geoBaseURL + encodeURI(address) + '.' + ext + '?key=' + APIKEY;
+    console.log(geoBaseURL);
+    const res = await fetch(url);
     const data = await res.json();
-    const getData = data.results.position; //get latitude & logititude;
+    const getData = data.results[0].position; //get latitude & logititude;
 
-    document.getElementById("displayGeo").innerHTML = getData;
+    document.getElementById("displayGeo").innerHTML = `latitude: ${getData.lat} , longititude: ${getData.lon}`;
+}
 
-})
-
-document.getElementById('submit').addEventListener("click", ()=>{
+document.getElementById('submit').addEventListener("click", (e)=>{
+    e.preventDefault();
+    address = document.getElementById("address").value;
+    // console.log(getGeoLocation());
     getGeoLocation();
 })
 
-document.getElementById("reset").addEventListener("click", ()=>{
-    address.reset();
-})
-
+// document.getElementById("reset").addEventListener("click", ()=>{
+//     document.getElementById("address") this.reset();
+// })
