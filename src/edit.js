@@ -4,17 +4,13 @@ const searchParams = new URL(url).searchParams;
 const entries = new URLSearchParams(searchParams).values();
 const array = Array.from(entries);
 const obj = JSON.parse(array[0])
-addServiceForm.address1.value = obj.address
-for (const field in obj) {
-    if (addServiceForm[field]) {
-      addServiceForm[field].value = obj[field];
-    }
-  }
-addServiceForm.area1.checked = obj.area.downtown;
-addServiceForm.area2.checked = obj.area.burnaby;
-addServiceForm.area3.checked = obj.area.richmond;
 console.log(obj)
-
+console.log(addServiceForm)
+addServiceForm.onlocation.value = obj.onlocation;
+addServiceForm.onhome.value = obj.onhome;
+addServiceForm.servicedescription.value = obj.servicedescription;
+addServiceForm.service.value = obj.service;
+addServiceForm.price.value = obj.price;
 
 import { initializeApp } from 'firebase/app'
 import {
@@ -42,8 +38,8 @@ initializeApp(firebaseConfig)
 const db =getFirestore();
 
 // collection ref
-const colRef = collection(db, 'professional_profile');
-const colRefListing = collection(db, 'pros_listing');
+const colRef = collection(db, 'professional_profile_v2');
+const colRefListing = collection(db, 'pros_listing_v2');
 // qureies
 
 // Update doc
@@ -52,16 +48,7 @@ addServiceForm.addEventListener('submit', async (e) =>{
     e.preventDefault();
     try{
     const docRef = doc(colRefListing,obj.listingId);
-    await updateDoc(docRef,{
-        address1: addServiceForm.address1.value,
-        city: addServiceForm.city.value,
-        country: addServiceForm.country.value,
-        province: addServiceForm.province.value,
-        area: {
-            downtown: addServiceForm.area1.checked,
-            burnaby: addServiceForm.area2.checked,
-            richmond: addServiceForm.area3.checked
-        },        
+    await updateDoc(docRef,{     
         onlocation:  addServiceForm.onlocation.value,
         onhome:  addServiceForm.onhome.value,
         servicedescription: addServiceForm.servicedescription.value,

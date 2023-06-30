@@ -17,8 +17,8 @@
         </div>
         <nav>
             <ul class="top-menu mobile">
-                <li><a href="./services.html">Services</a></li>
-                <li><a href="">Schedule</a></li>
+                <li><a href="./index.html">Services</a></li>
+                <li><a href="./bookingrequest.html">Schedule</a></li>
                 <li><a href="./prosProfile.html">Profile</a></li>
                 <li><a href="">Register</a></li>
                 <li class="login"><a href="">Log in</a></li>
@@ -38,13 +38,36 @@
         <label for="photo">Photo Link</label>
         <input type="url" name="photo" id="" required>
     </div>
-    <div class="category">
-        <input type="checkbox" id="category1" name="category1" value="Haircut">
+    <div class="checkbox-wrapper category">
+        <label for="available-areas">Category</label>
+        <input type="checkbox" id="category1" name="category1" value="haircut">
         <label for="category1">Haircut</label><br>
-        <input type="checkbox" id="category2" name="category2" value="Eyelash">
-        <label for="category2">Eyelash</label><br>
-        <input type="checkbox" id="category3" name="category3" value="Massage">
+        <input type="checkbox" id="category2" name="category2" value="eyelash">
+        <label for="category2">Eyelash and Eyebrow</label><br>
+        <input type="checkbox" id="category3" name="category3" value="massage">
         <label for="category3">Massage</label>
+        <input type="checkbox" id="category4" name="category4" value="nail">
+        <label for="category4">Nail</label>
+    </div>
+    <div class="address">
+        <label for="address">Address Line</label>
+        <input type="text" name="address1" id="" >
+        <label for="city">City</label>
+        <input type="text" name="city" id="" >
+        <label for="country">Country</label>
+        <input type="text" name="country" id="" >
+        <label for="province">Province</label>
+        <input type="text" name="province" id="" >
+    </div>
+
+    <div class="checkbox-wrapper avarea">
+    <label for="available-areas">Available Areas</label>
+    <input type="checkbox" id="area1" name="area1" value="downtown">
+    <label for="area1">Downtown</label><br>
+    <input type="checkbox" id="area2" name="area2" value="burnaby">
+    <label for="area2">Burnaby</label><br>
+    <input type="checkbox" id="area3" name="area3" value="richmond">
+    <label for="area3">Richmond</label>
     </div>
         <button>submit</button>
     </form>
@@ -52,35 +75,16 @@
     <form class="list">
         <label for="userId">UserId</label>
         <input type="text" name="userId" id="" >
-        <div class="address">
-            <label for="address1">Address Line1</label>
-            <input type="text" name="address1" id="" >
-            <label for="city">City</label>
-            <input type="text" name="city" id="" >
-            <label for="country">Country</label>
-            <input type="text" name="country" id="" >
-            <label for="province">Province</label>
-            <input type="text" name="province" id="" >
-        </div>
-
-        <div class="avarea">
-        <input type="checkbox" id="area1" name="area1" value="downtown">
-        <label for="area1">Downtown</label><br>
-        <input type="checkbox" id="area2" name="area2" value="burnaby">
-        <label for="area2">Burnaby</label><br>
-        <input type="checkbox" id="area3" name="area3" value="richmond">
-        <label for="area3">Richmond</label>
-        </div>
 
         <div class="onlocationtype">
-            <h3>On Location</h3>
+            <label for="onlocation">On Location</label>
             <select name="onlocation">
                 <option value="true">Yes</option>
                 <option value="false">No</option>
               </select>
         </div>
         <div class="onhometype">
-            <h3>On Home</h3>
+            <label for="onhome">On home</label>
             <select name="onhome">
                 <option value="true">Yes</option>
                 <option value="false">No</option>
@@ -100,41 +104,44 @@
 
 
 
-    
     <footer>
-        <div class="footer-menu1">
-            <h1>StyleConnect</h1>
-            <p>Our vision is to provide convenience and help increase your sales business.</p>
-            <nav class="social">
-            <ul>
-                <li><a href=""><i class="fa-brands fa-facebook"><span class="visually-hidden">facebook</span></i></a></li>
-                <li><a href=""><i class="fa-brands fa-twitter"><span class="visually-hidden">twitter</span></i></a></li>
-                <li><a href=""><i class="fa-brands fa-instagram"><span class="visually-hidden">instagram</span></i></a></li>
-            </ul>
-            </nav>
-        </div>
-        <div class="footer-menu2">
-            <nav class="about">
-                <h3>About</h3>
-                <ul>
-                    <li><a href="">How it Works</a></li>
-                    <li><a href="">Best Professional</a></li>
-                    <li><a href="">FAQ's</a></li>
-                    <li><a href="">About Us</a></li>
-                </ul>
-            </nav>
-            <nav class="pages">
-                <h3>Pages</h3>
-                <ul>
-                    <li><a href="">Services</a></li>
-                    <li><a href="">Schedule</a></li>
-                    <li><a href="">Profile</a></li>
-                    <li><a href="">List a Service</a></li>
-                </ul>
-            </nav>
+        <div class="footer-wrapper">
+            <div class="footer-menu1">
+                <div class="logo">
+                    <img src="../img/black_logo.png" alt="">
+                </div>
+                <p>Our vision is to provide convenience and help increase your sales business.</p>
+                <nav class="social">
+                    <ul>
+                        <li><a href=""><i class="fa-brands fa-facebook"><span class="visually-hidden">facebook</span></i></a></li>
+                        <li><a href=""><i class="fa-brands fa-twitter"><span class="visually-hidden">twitter</span></i></a></li>
+                        <li><a href=""><i class="fa-brands fa-instagram"><span class="visually-hidden">instagram</span></i></a></li>
+                    </ul>
+                    </nav>
+            </div>
+            <div class="footer-menu2">
+                <nav class="about">
+                    <h5>About</h5>
+                    <ul>
+                        <li><a href="">How it Works</a></li>
+                        <li><a href="">Best Professional</a></li>
+                        <li><a href="">FAQ's</a></li>
+                        <li><a href="">About Us</a></li>
+                    </ul>
+                </nav>
+                <nav class="pages">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="">Services</a></li>
+                        <li><a href="">Schedule</a></li>
+                        <li><a href="">Profile</a></li>
+                        <li><a href="./prosListing.html">Your Services</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </footer>
 
-    <script src="./main.bundle.js" defer></script>
+    <script src="./proStart.bundle.js" defer></script>
 </body>
 </html>

@@ -9,6 +9,7 @@ Version: .1
 The second mixin is flex-display becasue we will use flex to style many element in this way it is really useful*/
 /* RESET ============= */
 /* Box sizing rules */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 *,
 *::before,
 *::after {
@@ -83,14 +84,16 @@ select {
 }
 /* TYPOGRAPHY ========== */
 body {
-  font-family: charter, georgia, serif;
+  font-family: "Plus Jakarta Sans", georgia, serif;
   font-weight: 400;
   line-height: 1.5;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: Optima, arial, sans-serif;
+  font-family: "Plus Jakarta Sans", arial, sans-serif;
   margin: 0;
+  letter-spacing: 0.1rem;
+  line-height: 1.1;
 }
 
 h1 {
@@ -98,8 +101,34 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
+h2 {
+  font-size: 3rem;
+}
+h2 ::after {
+  content: "\a";
+  white-space: pre;
+}
+h2 span {
+  font-size: 3rem;
+}
+
 h3 {
-  margin: 0.5rem 0;
+  margin: 1rem 0;
+  font-size: 2.5rem;
+}
+
+h4 {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+label {
+  font-weight: 700;
 }
 
 span {
@@ -124,7 +153,7 @@ span {
 /* LINKS =============== */
 a {
   text-decoration: none;
-  color: #B971FF;
+  color: #000;
 }
 a:hover {
   color: rgb(255, 255, 255);
@@ -169,9 +198,20 @@ img.rounded {
   font-size: 1.5rem;
 }
 
-header {
-  background-image: linear-gradient(to right, #FCE289, #FADC73, #FBB549);
+.pro-start img {
+  max-width: 40%;
+  flex-basis: 40%;
 }
+
+.header-main img {
+  max-width: 50%;
+  flex-basis: 50%;
+}
+
+.footer-menu1 .logo img {
+  margin: 1rem 0;
+}
+
 header .intro p {
   margin: 1rem 0;
 }
@@ -183,13 +223,17 @@ header .header-main {
 }
 @media screen and (min-width: 1000px) {
   header .top-bar {
-    background: white;
+    background: rgb(255, 255, 255);
   }
 }
 
 footer {
-  background-image: linear-gradient(to left, #FBB549, #FADC73, #FCE289);
+  background-image: linear-gradient(to left, #000, #000, #000);
   padding: 1rem;
+  color: rgb(255, 255, 255);
+}
+footer a {
+  color: rgb(255, 255, 255);
 }
 
 main {
@@ -259,6 +303,25 @@ button {
 
 button:hover {
   background-color: #5B24C6;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  gap: 0;
+  flex-flow: row wrap;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.checkbox-wrapper :first-child {
+  flex-basis: 100%;
+  margin-bottom: 0.5rem;
+}
+.checkbox-wrapper label {
+  margin-right: 0.5rem;
+  margin-bottom: 0;
+}
+.checkbox-wrapper input {
+  margin: 0 0.25rem 0 0;
 }
 
 /* BUTTON ============= */
@@ -465,6 +528,14 @@ main {
   grid-column: 7/11;
 }
 
+/* Pro listing */
+.pro-start {
+  display: flex;
+  gap: 2rem;
+  flex-flow: row nowrap;
+  margin: 3rem 0;
+}
+
 /* HEADER ================ */
 header {
   display: flex;
@@ -483,11 +554,13 @@ header .top-menu {
   gap: 1rem;
   flex-flow: column nowrap;
 }
+header .header-main {
+  margin: 3rem auto;
+}
 @media screen and (min-width: 1000px) {
   header .header-main {
     display: flex;
     max-width: 1200px;
-    margin: auto;
     display: flex;
     gap: 1rem;
     flex-flow: row nowrap;
@@ -513,7 +586,7 @@ header .top-menu {
 
 footer .footer-menu2 {
   display: flex;
-  gap: 1rem;
+  gap: 0rem;
   flex-flow: row nowrap;
   justify-content: space-between;
 }
@@ -523,15 +596,17 @@ footer ul {
   flex-flow: column nowrap;
 }
 @media screen and (min-width: 1000px) {
-  footer {
+  footer .footer-menu2 {
+    flex-basis: 30%;
+    justify-content: space-evenly;
+  }
+  footer .footer-wrapper {
     display: flex;
     gap: 1rem;
     flex-flow: row nowrap;
     justify-content: space-between;
-  }
-  footer .footer-menu2 {
-    flex-basis: 40%;
-    justify-content: space-evenly;
+    margin: auto;
+    max-width: 1200px;
   }
 }
 

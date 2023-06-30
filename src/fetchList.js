@@ -27,61 +27,31 @@ initializeApp(firebaseConfig)
 const db =getFirestore();
 
 
-const colRefListing = collection(db, 'pros_listing');
+const colRefListing = collection(db, 'pros_listing_v2');
 const fetchListing = document.getElementById('fetchListing');
 let queryRef;
 let prosListArr;
 
 fetchListing.addEventListener('submit', async (e)=>{
     e.preventDefault();
-    fetchListingData();
+    let y = await fetchListingData();
+    displayListing(y);
 })
 
 
-async function fetchListingData(){
-    queryRef =  query(colRefListing, where('userId', '==', fetchListing.userId.value));
-    console.log(queryRef)
-    const listingPromise = await getDocs(queryRef).then((snapshot)=>{
-        let listing =[]
-        snapshot.forEach((x)=>{
-            console.log(x.id)
-            listing.push(x.data());
-        })
-        return listing})
-        console.log(listingPromise)
-        displayListing(listingPromise);
-}
+async function fetchListingData() {
+    try {
+      const queryRef = query(colRefListing, where('userId', '==', fetchListing.userId.value));
+      const snapshot = await getDocs(queryRef);
+      let listing = [];
+      snapshot.forEach((x) => listing.push(x.data()));
+      console.log(listing)
+      return listing;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
-// Delete listing records
-const deleteListing = document.querySelector('.delete')
-deleteListing.addEventListener('submit', (e) =>{
-    e.preventDefault();
-    const docRef = doc(db, 'pros_listing', deleteListing.id.value)
-    console.log(docRef)
-    deleteDoc(docRef).then(()=>{
-        deleteListing.reset();
-    })
-})
-
-
-// Update listing reocrds
-const updateListing = document.querySelector('.update')
-updateListing.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    const docRef =  doc(db, 'pros_listing', updateListing.id.value)
-    console.log(docRef)
-    await updateDoc(docRef,{
-        city: 'Newyork',
-        service: [updateListing.service1.value],
-        price: [updateListing.serviceprice1.value]
-    }).then(()=>{
-        updateListing.reset();
-    })
-})
-
-
-
-const startURL = window.location.host;
 const listCard = document.getElementById('listing-display')
   const displayListing = async (listingPromise) =>{
     prosListArr = listingPromise;
@@ -89,29 +59,22 @@ const listCard = document.getElementById('listing-display')
     prosListArr.forEach((x)=>{
         let obj ={
             listingId: x.listingId,
-            address: x.address1,
-            city: x.city,
             country: x.country,
             onhome: x.onhome,
-            area: {
-                downtown: x.area.downtown,
-                burnaby: x.area.burnaby,
-                richmond: x.area.richmond
-            },  
             onlocation: x.onlocation,
             servicedescription: x.servicedescription,
             price: x.price,
             service: x.service,
-            province: x.province
         }
         console.log(obj)
         const searchParams = new URLSearchParams();
         searchParams.append('v1', JSON.stringify(obj))
+
         let queryString =searchParams.toString();
         console.log(queryString)
         listingDisplay += `
         <div class="listing-tab">
-        <h3 id="serviceName">Service: ${x.service}</h3>
+        <h4 id="serviceName">Service: ${x.service}</h4>
         <p id="servicePrice">Price: ${x.price}</p>
         <a href="editlisting.html?${queryString}" class="btn btn-show btn-animated" id="edit">Edit</a>
         </div>`;

@@ -1,5 +1,5 @@
 header{
-    @include bg-gradient();
+ 
     .intro p{
         margin:1rem 0;
     }
@@ -10,13 +10,17 @@ header{
     }
     @media screen and (min-width: 1000px) {
     .top-bar{
-        background: white;
+        background: $brightness-l;
     }
 }
 }
 footer{
-    @include bg-gradient(left, $base-d, $base-m, $base-l);
+    @include bg-gradient(left, $contrast-d, $contrast-d, $contrast-d);
     padding: 1rem;
+    color:  $brightness-l;
+    a{
+        color: $brightness-l;
+    }
 }
 main{
     background-color: $brightness-l;

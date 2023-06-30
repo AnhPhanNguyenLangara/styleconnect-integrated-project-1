@@ -93,3 +93,10 @@ main{
   }
 
 }
+
+/* Pro listing */
+.pro-start{
+  @include flex-display(2rem, row, nowrap);
+  margin: 3rem 0;
+
+}
