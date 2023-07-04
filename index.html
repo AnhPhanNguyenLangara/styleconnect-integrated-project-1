@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps.css"
+    />
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps-web.min.js"></script>
+    <title>Document</title>
+</head>
+<body style="width: 100vw; height: 100vh; margin: 0; padding: 0; background-color: hotpink;">
+    <p>what is going on</p>
+    <div id="map" style="width: 100%; height: 100%;"></div>
+    <script>
+    let center = [-123.1207, 49.2827];
+      let map = tt.map({
+        key: "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG",
+        container: "map",
+        center: center,
+        zoom: 10
+      });
+      console.log(map);
+      console.log("hello");
+      map.on("load", () => {
+        new tt.Marker().setLngLat(center).addTo(map);
+      })
+    </script>
+  </body>
+</html>
