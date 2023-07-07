@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps.css" />
+  <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps-web.min.js"></script>
+  <title>Route API</title>
+</head>
+
+<body>
+  <input type="text" id="query" value="">
+  <button>Click me</button>
+  <div id="result"></div>
+  <div style="width: 80vw; height:80vh;" id="map"></div>
+
+  <script>
+    let APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
+    let Vancouver = [-123.1207, 49.2827];
+    let map = tt.map({
+      key: APIKEY,
+      container: 'map',
+      center: Vancouver,
+      zoom: 14,
+    });
+
+    // search & get location
+    let search = function () {
+      tt.services.fuzzuySearch({}).go.then(handleResults)
+    }
+
+    // add new marker
+    new tt.Marker().setLngLat([longitude, latitude]).addTo(map)
+
+    // load & show the map
+    map.on("load", () => {
+      new tt.Marker().setLngLat(center).addTo(map);
+    })
+
+
+    // Getaddress customer's address from Firebase
+    function getAddressFromFirebase() {
+
+
+      // Firebaseから住所情報を取得する処理を記述する
+      // 例: Firebase Realtime Databaseの参照を作成し、目的地の住所情報を取得する
+    }
+
+    // Get longtitude and latitude from the address
+    function getLatLngFromAddress(address) {
+      // 住所情報を使ってジオコーディングサービスを呼び出し、緯度経度情報を取得する
+      // 例: Google Maps Geocoding APIやTomTom Geocoding APIを利用する
+    }
+
+    // Set the destination as a center.
+    function setDestination(center) {
+      const map = tt.map({
+        key: '<your-tomtom-maps-API-key>',
+        container: 'map',
+        dragPan: !isMobileOrTablet(),
+        center: center,
+        zoom: 14
+      });
+    }
+
+    // メインの処理フロー
+    getAddressFromFirebase()
+      .then((address) => getLatLngFromAddress(address))
+      .then((center) => setDestination(center))
+      .catch((error) => console.error(error));
+
+    // full screen & zoomin & zoom out
+    map.addControl(new tt.FullscreenControl());
+    map.addControl(new tt.NavigationControl());
+
+  </script>
+</body>
+
+</html>
