@@ -20,6 +20,7 @@
     <script>
         let APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
         let Vancouver = [-123.1207, 49.2827];
+        let destination = [longtitude, latitude];
         let map = tt.map({
             key: APIKEY,
             container: 'map',
@@ -28,28 +29,59 @@
             // style:"tomtom://vector/1/basic-main"
         });
     
+        // search & get location
         let search = function() {
             tt.services.fuzzuySearch({}).go.then(handleResults)
         }
 
 
+        // add new marker
+        new tt.Marker().setLngLat([longitude, latitude]).addTo(map)
 
-//         <body style="width: 100vw; height: 100vh; margin: 0; padding: 0; background-color: hotpink;">
 
-// <div id="map" style="width: 100%; height: 100%;"></div>
-// <script>
-// let center = [-123.1207, 49.2827];
-//   let map = tt.map({
-//     key: "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG",
-//     container: "map",
-//     center: center,
-//     zoom: 10
-//   });
-//   console.log(map);
-//   console.log("hello");
-//   map.on("load", () => {
-//     new tt.Marker().setLngLat(center).addTo(map);
-//   })
+        // load & show the map
+        map.on("load", () => {
+        new tt.Marker().setLngLat(center).addTo(map);
+      })
+
+
+// Getaddress customer's address from Firebase
+function getAddressFromFirebase() {
+  // Firebaseから住所情報を取得する処理を記述する
+  // 例: Firebase Realtime Databaseの参照を作成し、目的地の住所情報を取得する
+
+  getAddressFromFirebase()
+  .then((address) => getLatLngFromAddress(address))
+  .then((center) => setDestination(center))
+  .catch((error) => console.error(error));
+
+}
+
+// Get longtitude and latitude from the address
+function getLatLngFromAddress(address) {
+  // 住所情報を使ってジオコーディングサービスを呼び出し、緯度経度情報を取得する
+  // 例: Google Maps Geocoding APIやTomTom Geocoding APIを利用する
+}
+
+// Set the destination as a center.
+function setDestination(center) {
+  const map = tt.map({
+    key: '<your-tomtom-maps-API-key>',
+    container: 'map',
+    dragPan: !isMobileOrTablet(),
+    center: center,
+    zoom: 14
+  });
+}
+
+// メインの処理フロー
+getAddressFromFirebase()
+  .then((address) => getLatLngFromAddress(address))
+  .then((center) => setDestination(center))
+  .catch((error) => console.error(error));
+
+
+
 </script>
 
         <!-- // let moveMapTo = function(result) {
