@@ -19,15 +19,38 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-console.log(app);
+// console.log(app);
 // const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const colRefListing = collection(db, 'kimi_test')
 //
+
+console.log()
 const storeAdd = document.querySelector(".add");
-storeAdd.addEventListener("submit", (event)=> {
-    event.preventDefault();
-    console.log("test");
-})
-console.log(colRefListing)
-console.log("ssss")
+storeAdd.addEventListener("submit", (e)=>{
+e.preventDefault();
+addAddress();
+
+});
+// console.log(colRefListing)
+// console.log("ssss")
+
+async function addAddress() {
+  console.log("addAddress called")
+}
+
+
+
+// todoForm.addEventListener('submit', addTodo); //benefits from validation
+
+// async function addTodo() {
+//   console.log('addTodo called');
+//   let todoName = document.getElementById('name').value;
+//   let dueValue = document.getElementById('due').value;
+//   // use firestore API to add a document to DB_NAME collection //
+//   try {
+//     const docRef = await addDoc( collection( db , DB_NAME ) , { todoName , dueValue} );
+//     console.log(docRef);
+//   } catch(error){
+//     console.log(error);
+//   }

@@ -1,8 +1,8 @@
 {
-  "name": "webpack-tutorial",
+  "name": "styleconnect-integrated-project-1",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Semester 2, Integrated Project 1, team Creative Nexus Repository for PWA project TEST TEST2 local change",
+  "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
