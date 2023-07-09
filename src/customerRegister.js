@@ -24,36 +24,22 @@ initializeApp(firebaseConfig)
 const db =getFirestore();
 
 // collection ref
-const colRef = collection(db, 'professional_profile_v2');
+const colRef = collection(db, 'customer_profile');
+
 
 //   adding Profile documents
 const addProfileForm = document.querySelector('.add')
 
 addProfileForm.addEventListener('submit', async (e) =>{
     e.preventDefault();
-    console.log('test')
     try{
     const newDocRef = doc(colRef);
     await setDoc( newDocRef,{
         userId: newDocRef.id,
         firstName: addProfileForm.fname.value,
         lastName: addProfileForm.lname.value,
-        bio: addProfileForm.bio.value,
-        skill: {
-            Haircut: addProfileForm.category1.checked,
-            Eyelash: addProfileForm.category2.checked,
-            Massage: addProfileForm.category3.checked,
-            Nail: addProfileForm.category4.checked,
-        },
+        phone: addProfileForm.phone.value,
         address1: addProfileForm.address1.value,
-        city: addProfileForm.city.value,
-        country: addProfileForm.country.value,
-        province: addProfileForm.province.value,
-        area: {
-            downtown: addProfileForm.area1.checked,
-            burnaby: addProfileForm.area2.checked,
-            richmond: addProfileForm.area3.checked
-        },    
         photoURL: [addProfileForm.photo.value],
         createdAt: serverTimestamp()
     })

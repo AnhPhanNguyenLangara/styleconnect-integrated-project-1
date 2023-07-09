@@ -10,11 +10,14 @@ module.exports ={
         edit: './src/edit.js',
         booking: './src/booking.js',
         bookingConfirm: './src/bookingConfirm.js',
-        bookingrequest: './src/bookingrequest.js'
+        prosDashboard: './src/prosDashboard.js',
+        customerDashboard: './src/customerDashboard.js',
+        customerRegister: './src/customerRegister.js'
     },
     output:{
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js'
     },
-    watch: true
+    watch: true,
+    devtool: "eval-source-map"
 }

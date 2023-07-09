@@ -84,6 +84,7 @@ const listingsPromise  = getDocs(colRefListing)
   const usersPromise = getDocs(colRef)
   .then((snapshot)=> {
     let listings = [];
+    console.log(snapshot.docs)
     snapshot.docs.forEach((x)=>{
     listings.push({ ...x.data() , listingId: x.id})
     })
@@ -96,6 +97,7 @@ const listingsPromise  = getDocs(colRefListing)
 
   const mergePromise = Promise.all([listingsPromise, usersPromise])
   .then(([listings, users]) => {
+    console.log(usersPromise)
     let newArr = users.map((user) => {
       let lowestListing = listings.reduce((lowest, listing) => {
         if(user.userId === listing.userId && listing.price < (lowest ? lowest.price : Infinity)) {

@@ -56,3 +56,11 @@
 .list-service{
     @include border();
 }
+
+button:disabled{
+    background-color: gray;
+    cursor:initial;
+}
+button{
+    margin:1rem;
+}

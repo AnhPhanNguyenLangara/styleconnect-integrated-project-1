@@ -41,9 +41,11 @@ confirmBooking.addEventListener('submit', async (e) =>{
       const bookingDate =  new Date(confirmBooking.bookingTime.value);
  let firebastTime = Timestamp.fromDate(bookingDate);
     const docRef = doc(colRef);
-    await setDoc(docRef,{     
+    await setDoc(docRef,{
+        customerId: arr[2],
+        bookingId: docRef.id,
         bookingtime: firebastTime,
-        prosId:  arr[2],
+        prosId:  arr[3],
         listingId: arr[1],
         accpected: false,
         createdAt: serverTimestamp()
