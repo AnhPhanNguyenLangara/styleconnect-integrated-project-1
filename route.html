@@ -25,6 +25,15 @@
       zoom: 14,
     });
 
+
+    // get latitude and longitude dynamically.
+
+    const latitude = position.coords.latitude;
+    const longitude = position.coors.longitude;
+    
+
+    
+
     // search & get location
     let search = function () {
       tt.services.fuzzuySearch({}).go.then(handleResults)
@@ -40,12 +49,7 @@
 
 
     // Getaddress customer's address from Firebase
-    function getAddressFromFirebase() {
-
-
-      // Firebaseから住所情報を取得する処理を記述する
-      // 例: Firebase Realtime Databaseの参照を作成し、目的地の住所情報を取得する
-    }
+    displayAddress();
 
     // Get longtitude and latitude from the address
     function getLatLngFromAddress(address) {

@@ -39,7 +39,6 @@ onAuthStateChanged(auth, async (user)=>{
     
         const userDocSnap = await getDoc(userRef);
         const accessAddress = userDocSnap.data().address;
-
         addressContainer.innerHTML = accessAddress;
     
         // go through every document in the collection
@@ -55,7 +54,7 @@ onAuthStateChanged(auth, async (user)=>{
     }
     await displayAddress();
   } else {
-
+    console.error("error", error);
   }
 } )
 
@@ -69,14 +68,16 @@ displayAddress();
 const addressContainer = document.getElementById('addressContainer');
 
 
+
+
+// addEvent listener for subtting 
 const storeBtn = document.querySelector(".add");
 storeBtn.addEventListener("submit", (e)=>{
 e.preventDefault();
 addAddress();
 });
-// console.log(colRefListing)
-// console.log("ssss")
 
+// input & store user address.
 async function addAddress() {
   console.log("addAddress called");
   try {
