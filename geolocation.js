@@ -15,16 +15,16 @@ const getGeobtn = document.getElementById("geobtn")
 
 // Get current position() method =============================================
 
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(successCallback, errorCallback, optionObj);
-        } else {
-            displayGeo.innerText = "";
-            const errorMsg = document.createElement("p");
-            errorMsg.innerText = `Geolocation in not supported by this browser.`;
-            displayGeo.appendChild(errorMsg);
-        }
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(successCallback, errorCallback, optionObj);
+    } else {
+        displayGeo.innerText = "";
+        const errorMsg = document.createElement("p");
+        errorMsg.innerText = `Geolocation in not supported by this browser.`;
+        displayGeo.appendChild(errorMsg);
     }
+}
 
 // Display the location ======================================================
 getGeobtn.addEventListener("click", getLocation);
