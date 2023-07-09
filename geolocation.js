@@ -11,7 +11,7 @@
 // Get HTML elements & AddEventListener ======================================
 
 const displayGeo = document.getElementById("displayGeo");
-const getGeobtn = document.getElementById("geobtn")
+const getGeobtn = document.getElementById("geobtn")；
 
 // Get current position() method =============================================
 
@@ -111,9 +111,7 @@ const optionObj = {
 
 
 //Tomtom API
-
 const APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
-
 
 // Reverse Geo Coding ==============================
 
@@ -133,8 +131,6 @@ async function getReverseLocation() {
 
     document.getElementById("displayRevGeo").innerHTML = getAddress;
 }
-
-
 
 
 //Geo Coding ====================================
