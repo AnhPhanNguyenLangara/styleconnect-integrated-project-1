@@ -1,0 +1,66 @@
+/* TYPOGRAPHY ========== */
+
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+body{
+    font-family: $font-serif;
+    font-weight: $fw-regular;
+    line-height: 1.5;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: $font-sans;
+    margin:0;
+    letter-spacing: 0.1rem;
+    line-height: 1.1;
+}
+h1{
+    font-weight: $fw-heavy;
+    margin-bottom: 0.5rem;
+}
+h2{
+    font-size: 3rem;
+    ::after{
+        content: "\a";
+        white-space: pre;
+    }
+    span{
+        font-size: 3rem;
+    }
+}
+h3{
+    margin: 1rem 0;
+    font-size: 2.5rem;
+}
+h4{
+    margin: 1rem 0;
+    font-size: 1.5rem;
+
+}
+h5{
+    font-size: 1.5rem;
+    margin: 1.5rem 0;
+}
+label{
+    font-weight: 700;
+}
+span{
+    font-size: 0.8rem;
+}
+.pros-card { 
+    h3{
+    margin:0;
+    font-size: 1rem;
+    padding-left:1rem;
+}
+    p{
+        margin:0;
+        font-size: 1rem;
+        padding-left:1rem;
+    }
+}
+.pro-detail{
+    p{
+        margin-bottom: 1rem;
+    }
+}

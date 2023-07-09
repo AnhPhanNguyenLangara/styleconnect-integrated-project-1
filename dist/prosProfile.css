@@ -1,0 +1,751 @@
+/* 
+Theme: Hotpink Rubber Chicken
+Author: Krisana Arunyamitanon
+Author Url: https://google.com
+Description: this is a WordPress theme to learn about theming and sass
+Version: .1
+*/
+/* The first mixin can help our team to adjust gradient base on what color and which direction they want.
+The second mixin is flex-display becasue we will use flex to style many element in this way it is really useful*/
+/* RESET ============= */
+/* Box sizing rules */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role=list],
+ol[role=list] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* TYPOGRAPHY ========== */
+body {
+  font-family: "Plus Jakarta Sans", georgia, serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Plus Jakarta Sans", arial, sans-serif;
+  margin: 0;
+  letter-spacing: 0.1rem;
+  line-height: 1.1;
+}
+
+h1 {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+h2 ::after {
+  content: "\a";
+  white-space: pre;
+}
+h2 span {
+  font-size: 3rem;
+}
+
+h3 {
+  margin: 1rem 0;
+  font-size: 2.5rem;
+}
+
+h4 {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+label {
+  font-weight: 700;
+}
+
+span {
+  font-size: 0.8rem;
+}
+
+.pros-card h3 {
+  margin: 0;
+  font-size: 1rem;
+  padding-left: 1rem;
+}
+.pros-card p {
+  margin: 0;
+  font-size: 1rem;
+  padding-left: 1rem;
+}
+
+.pro-detail p {
+  margin-bottom: 1rem;
+}
+
+/* LINKS =============== */
+a {
+  text-decoration: none;
+  color: #000;
+}
+a:hover {
+  color: rgb(255, 255, 255);
+  background: #8949E1;
+}
+
+a.active {
+  color: rgb(255, 255, 255);
+}
+
+.active {
+  background-color: #8949E1;
+}
+.active i {
+  color: rgb(255, 255, 255);
+}
+.active span {
+  color: rgb(255, 255, 255);
+}
+
+footer nav a {
+  text-align: left;
+  padding: 0;
+}
+
+/* IMG ========== */
+img.rounded {
+  border-radius: 20px;
+}
+
+.product-review ul i {
+  font-size: 1.5rem;
+}
+.product-review .pros-card img {
+  border-radius: 16px 16px 0 0;
+}
+
+.social ul {
+  margin-top: 1rem;
+}
+.social ul i {
+  font-size: 1.5rem;
+}
+
+.pro-start img {
+  max-width: 40%;
+  flex-basis: 40%;
+}
+
+.header-main img {
+  max-width: 50%;
+  flex-basis: 50%;
+}
+
+.footer-menu1 .logo img {
+  margin: 1rem 0;
+}
+
+header .intro p {
+  margin: 1rem 0;
+}
+header .top-bar {
+  padding: 1rem;
+}
+header .header-main {
+  padding: 0 1rem 1rem 1rem;
+}
+@media screen and (min-width: 1000px) {
+  header .top-bar {
+    background: rgb(255, 255, 255);
+  }
+}
+
+footer {
+  background-image: linear-gradient(to left, #000, #000, #000);
+  padding: 1rem;
+  color: rgb(255, 255, 255);
+}
+footer a {
+  color: rgb(255, 255, 255);
+}
+
+main {
+  background-color: rgb(255, 255, 255);
+  padding: 0 1rem 1rem 1rem;
+}
+main .product-review ul {
+  margin-bottom: 1rem;
+}
+main .product-review ul li a {
+  padding: 0.25rem;
+}
+
+.pros-card h3 {
+  background-color: rgba(251, 181, 73, 0.8);
+  border-radius: 16px 16px 0px 0px;
+  color: #5B24C6;
+}
+.pros-card p {
+  background-color: rgba(251, 181, 73, 0.8);
+  color: #8949E1;
+}
+
+/* TEST ACCESSIBILITY ============ */
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+form {
+  padding: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5em;
+  color: #000;
+}
+
+input {
+  width: 100%;
+  padding: 0.7em;
+  border: 1px solid rgb(195, 195, 195);
+  border-radius: 3px;
+  margin-bottom: 1em;
+  font-size: 0.8em;
+}
+
+input[type=checkbox], select {
+  width: auto;
+}
+
+button {
+  background-color: #B971FF;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 3px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+
+button:hover {
+  background-color: #5B24C6;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  gap: 0;
+  flex-flow: row wrap;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.checkbox-wrapper :first-child {
+  flex-basis: 100%;
+  margin-bottom: 0.5rem;
+}
+.checkbox-wrapper label {
+  margin-right: 0.5rem;
+  margin-bottom: 0;
+}
+.checkbox-wrapper input {
+  margin: 0 0.25rem 0 0;
+}
+
+/* BUTTON ============= */
+.btn {
+  font-size: 13px;
+}
+@media screen and (min-width: 1000px) {
+  .btn {
+    font-size: 10px;
+  }
+}
+.btn:link, .btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.75rem;
+  border-radius: 100px;
+  margin: 0.75rem 0.75rem 0.75rem 0rem;
+  text-align: center;
+  transition: all 0.2s;
+  position: relative;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.btn::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all 0.4s;
+}
+
+.btn-show {
+  background-color: #8949E1;
+  color: rgb(255, 255, 255);
+}
+.btn-show::after {
+  background-color: #8949E1;
+}
+.btn-show:hover::after {
+  transform: scale(1.5);
+  opacity: 0;
+}
+
+.btn-animated {
+  animation: moveInBottom 0.5s ease-out 0.75s;
+  animation-fill-mode: backwards;
+}
+
+.list-service {
+  border: 1px solid #8949E1;
+}
+
+button:disabled {
+  background-color: gray;
+  cursor: initial;
+}
+
+button {
+  margin: 1rem;
+}
+
+.listing-tab {
+  display: flex;
+  gap: 1rem;
+  flex-flow: row nowrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #8949E1;
+}
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden;
+  margin: 1rem;
+  width: 100%; /* Set a default minimum width */
+  background-color: #5B24C6; /* Black background color */
+  color: rgb(255, 255, 255); /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 5px; /* Rounded borders */
+  padding: 1rem; /* Padding */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+#rating-form {
+  width: 250px;
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid #d9d9d9;
+}
+
+#rating-form div,
+#rating-form input[type=submit] {
+  text-align: center;
+  font-size: 20px;
+}
+
+#star-dialog #rating-form input[type=submit] {
+  border: 1px solid #d9d9d9;
+  background-color: #efefef;
+}
+
+#rating-form input[type=radio] {
+  display: none;
+}
+
+#rating-form label {
+  color: grey;
+  font-size: 2rem;
+}
+
+#rating-form .clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+#rating-form label:hover,
+#rating-form label:hover ~ label {
+  color: orange;
+  cursor: pointer;
+}
+
+#rating-form input[type=radio]:checked ~ label {
+  color: orange;
+}
+
+#rating-form .clasificacion {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.star-span {
+  color: orange;
+  font-size: 2rem;
+}
+
+.service-span {
+  font-size: 1rem;
+}
+
+/* NAVIGATION ================ */
+nav {
+  width: 100%;
+  padding: 0.25rem;
+}
+nav ul {
+  letter-spacing: normal;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  flex-flow: row nowrap;
+}
+nav ul li {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  flex-flow: row nowrap;
+}
+nav a {
+  text-align: center;
+  flex-basis: 100%;
+  padding: 0.25rem 0.5rem;
+}
+
+/* CONTENT =============== */
+main {
+  display: grid;
+  gap: 2rem;
+}
+@media screen and (min-width: 1000px) {
+  main {
+    max-width: 1200px;
+    margin: auto;
+  }
+}
+
+.main-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.product-review .services {
+  display: grid;
+  gap: 1rem;
+}
+@media screen and (min-width: 1000px) {
+  .product-review .services {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.product-review ul {
+  letter-spacing: normal;
+  margin: 0;
+  padding: 0;
+  border-bottom: solid 2px #5B24C6;
+  display: flex;
+  gap: 0;
+  flex-flow: row nowrap;
+}
+.product-review ul li {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  flex-flow: row nowrap;
+  justify-content: center;
+  flex-grow: 1;
+}
+.product-review ul li a {
+  display: flex;
+  gap: 0;
+  flex-flow: column nowrap;
+  align-items: center;
+  flex-basis: 100%;
+}
+@media screen and (min-width: 1000px) {
+  .product-review ul li {
+    display: flex;
+    flex-grow: 1;
+  }
+  .product-review ul li a {
+    flex-grow: 1;
+  }
+}
+
+/* CARDS ================= */
+.pros-card {
+  display: grid;
+  grid-template-rows: 2rem 2rem repeat(9, 1fr) 4rem;
+  grid-template-columns: repeat(10, 1fr);
+}
+.pros-card h3 {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  grid-row: 1/2;
+  grid-column: 1/-1;
+  z-index: 1;
+}
+.pros-card i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-row: 1/2;
+  grid-column: 10/11;
+  z-index: 1;
+}
+.pros-card p.location {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  grid-row: 2/3;
+  grid-column: 1/-1;
+  z-index: 1;
+}
+.pros-card img {
+  grid-row: 1/12;
+  grid-column: 1/11;
+}
+.pros-card p.price {
+  font-size: 1.5rem;
+  grid-row: 12/13;
+  grid-column: 1/-1;
+  border-radius: 0 0 16px 16px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+@media screen and (min-width: 1000px) {
+  .pros-card p.price {
+    font-size: 1rem;
+  }
+}
+.pros-card a {
+  grid-row: 12/13;
+  grid-column: 7/11;
+}
+
+/* Pro listing */
+.pro-start {
+  display: flex;
+  gap: 2rem;
+  flex-flow: row nowrap;
+  margin: 3rem 0;
+}
+
+/* HEADER ================ */
+header {
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
+}
+header .top-bar {
+  display: flex;
+  gap: 1rem;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+header .top-menu {
+  display: flex;
+  gap: 1rem;
+  flex-flow: column nowrap;
+}
+header .header-main {
+  margin: 3rem auto;
+}
+@media screen and (min-width: 1000px) {
+  header .header-main {
+    display: flex;
+    max-width: 1200px;
+    display: flex;
+    gap: 1rem;
+    flex-flow: row nowrap;
+  }
+  header .top-bar {
+    display: flex;
+    gap: 1rem;
+    flex-flow: row nowrap;
+  }
+  header .top-bar .top-menu {
+    display: flex;
+    gap: 1rem;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+  }
+}
+
+.header-main {
+  display: flex;
+  gap: 1rem;
+  flex-flow: column nowrap;
+}
+
+footer .footer-menu2 {
+  display: flex;
+  gap: 0rem;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+footer ul {
+  display: flex;
+  gap: 1rem;
+  flex-flow: column nowrap;
+}
+@media screen and (min-width: 1000px) {
+  footer .footer-menu2 {
+    flex-basis: 30%;
+    justify-content: space-evenly;
+  }
+  footer .footer-wrapper {
+    display: flex;
+    gap: 1rem;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin: auto;
+    max-width: 1200px;
+  }
+}
+
+footer .social ul {
+  display: flex;
+  gap: 1rem;
+  flex-flow: row nowrap;
+}
+
+/*# sourceMappingURL=prosProfile.css.map */
