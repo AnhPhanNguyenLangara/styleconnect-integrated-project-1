@@ -1,15 +1,17 @@
 const bookingDetail = document.querySelector('#booking-detail');
 const bookingTime = document.querySelector('#booking-time');
-const url =window.location.href;
+const url = window.location.href;
 const arr = url.split('?')
-console.log(arr)
-import { initializeApp } from 'firebase/app'
 import {
-  getFirestore, collection, onSnapshot,
-  addDoc, deleteDoc, doc,
-  query, where,
-  orderBy, serverTimestamp,Timestamp, 
-  getDocs, updateDoc, setDoc 
+  initializeApp
+} from 'firebase/app'
+import {
+  getFirestore,
+  collection,
+  doc,
+  serverTimestamp,
+  Timestamp,
+  setDoc
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -27,7 +29,7 @@ const firebaseConfig = {
 initializeApp(firebaseConfig)
 
 // init services
-const db =getFirestore();
+const db = getFirestore();
 
 // collection ref
 const colRef = collection(db, 'customer_booking');
@@ -35,25 +37,25 @@ const colRef = collection(db, 'customer_booking');
 //   adding Profile documents
 const confirmBooking = document.querySelector('.add')
 
-confirmBooking.addEventListener('submit', async (e) =>{
-    e.preventDefault();
-    try{
-      const bookingDate =  new Date(confirmBooking.bookingTime.value);
- let firebastTime = Timestamp.fromDate(bookingDate);
+confirmBooking.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  try {
+    const bookingDate = new Date(confirmBooking.bookingTime.value);
+    let firebastTime = Timestamp.fromDate(bookingDate);
     const docRef = doc(colRef);
-    await setDoc(docRef,{
-        customerId: arr[2],
-        bookingId: docRef.id,
-        bookingtime: firebastTime,
-        prosId:  arr[3],
-        listingId: arr[1],
-        accpected: false,
-        createdAt: serverTimestamp()
+    await setDoc(docRef, {
+      customerId: arr[2],
+      bookingId: docRef.id,
+      bookingtime: firebastTime,
+      prosId: arr[3],
+      listingId: arr[1],
+      accpected: false,
+      createdAt: serverTimestamp()
     })
-    confirmBooking.reset()}
-    catch(error){
-        console.log(error);
-    }
-alert('Booking Confirm')
-/* window.location.href = '/dist/'; */
+    confirmBooking.reset()
+  } catch (error) {
+    console.log(error);
+  }
+  alert('Booking Confirm')
+  /* window.location.href = '/dist/'; */
 })

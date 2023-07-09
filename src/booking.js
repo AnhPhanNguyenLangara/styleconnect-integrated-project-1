@@ -5,7 +5,6 @@ const entries = new URLSearchParams(searchParams).values();
 const array = Array.from(entries);
 const obj = JSON.parse(array[0])
 const fetchId = obj.userId
-console.log(obj)
 
 bookingDetail.innerHTML = 
 `
@@ -58,7 +57,6 @@ async function fetchListingData() {
     }
   }
 const fecthLising = await fetchListingData();
-console.log(fecthLising)
 const bookingListing = document.querySelector('#booking-listing');
 fecthLising.forEach((x,index)=>{
     let label = document.createElement("label");

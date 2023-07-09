@@ -73,7 +73,6 @@ const listingsPromise  = getDocs(colRefListing)
     let listings = [];
     snapshot.docs.forEach((x)=>{
     listings.push({ ...x.data() , id: x.id})})
-    console.log(listings);
     return listings
   }).catch(err =>{
     console.log(err.message);
@@ -84,7 +83,6 @@ const listingsPromise  = getDocs(colRefListing)
   const usersPromise = getDocs(colRef)
   .then((snapshot)=> {
     let listings = [];
-    console.log(snapshot.docs)
     snapshot.docs.forEach((x)=>{
     listings.push({ ...x.data() , listingId: x.id})
     })
@@ -97,7 +95,6 @@ const listingsPromise  = getDocs(colRefListing)
 
   const mergePromise = Promise.all([listingsPromise, usersPromise])
   .then(([listings, users]) => {
-    console.log(usersPromise)
     let newArr = users.map((user) => {
       let lowestListing = listings.reduce((lowest, listing) => {
         if(user.userId === listing.userId && listing.price < (lowest ? lowest.price : Infinity)) {
@@ -125,8 +122,7 @@ const listingsPromise  = getDocs(colRefListing)
       nail: ""
     };
 
-console.log(displayOBJ)
-        
+      
     const createCard = (x, queryString) => `
       <div class="pros-card">
         <h3>${x.firstName + " " + x.lastName}</h3>
@@ -151,26 +147,21 @@ console.log(displayOBJ)
         startPrice: x.startPrice,
         province: x.province
     }
-    console.log(obj)
     const searchParams = new URLSearchParams();
     searchParams.append('v1', JSON.stringify(obj))
     let queryString =searchParams.toString();
 
       if(x.skill.Haircut === true){
         listingDisplay.haircut += createCard(x, queryString);
-        console.log(listingDisplay)
       }
       if(x.skill.Eyelash === true){
         listingDisplay.eyelash += createCard(x, queryString);
-        console.log(listingDisplay)
       }
       if(x.skill.Massage === true){
         listingDisplay.wellness += createCard(x, queryString);
-        console.log(listingDisplay)
       }
       if(x.skill.Nail === true){
         listingDisplay.nail += createCard(x, queryString);
-        console.log(listingDisplay)
       }
     })
     listHair.innerHTML = listingDisplay.haircut;

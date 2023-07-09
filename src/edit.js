@@ -4,8 +4,6 @@ const searchParams = new URL(url).searchParams;
 const entries = new URLSearchParams(searchParams).values();
 const array = Array.from(entries);
 const obj = JSON.parse(array[0])
-console.log(obj)
-console.log(addServiceForm)
 addServiceForm.onlocation.value = obj.onlocation;
 addServiceForm.onhome.value = obj.onhome;
 addServiceForm.servicedescription.value = obj.servicedescription;
@@ -14,11 +12,8 @@ addServiceForm.price.value = obj.price;
 
 import { initializeApp } from 'firebase/app'
 import {
-    getFirestore, collection, onSnapshot,
-    addDoc, deleteDoc, doc,
-    query, where,
-    orderBy, serverTimestamp,
-    getDoc, updateDoc, setDoc 
+    getFirestore, collection, doc,
+    serverTimestamp, updateDoc
 } from 'firebase/firestore'
 
 const firebaseConfig = {

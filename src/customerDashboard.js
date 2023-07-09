@@ -50,6 +50,13 @@ fetchBooking.addEventListener('submit', async (e) => {
     const div = document.createElement("div");
     const data = record.data();
     const btn = document.createElement("button");
+    let timestamp = await data.bookingtime; // Firestore Timestamp
+    let date = await timestamp.toDate(); // Convert to JavaScript Date object
+    let formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+date.getDate().toString().padStart(2, '0') + '/' +
+date.getFullYear().toString().substr(-2) + ' TIME:' +
+date.getHours().toString().padStart(2, '0') + ':' +
+date.getMinutes().toString().padStart(2, '0');
     btn.innerText = "Rate this service";
     btn.addEventListener("click",()=>{
         starDialog.setAttribute('docId', record.id);
@@ -68,14 +75,6 @@ fetchBooking.addEventListener('submit', async (e) => {
         starSpan.classList.add('star-span');
         serviceSpan.classList.add('service-span');
         btn.disabled = true;
-        console.log(data)
-        let timestamp = await data.bookingtime; // Firestore Timestamp
-        let date = await timestamp.toDate(); // Convert to JavaScript Date object
-        let formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
-    date.getDate().toString().padStart(2, '0') + '/' +
-    date.getFullYear().toString().substr(-2) + ' TIME:' +
-    date.getHours().toString().padStart(2, '0') + ':' +
-    date.getMinutes().toString().padStart(2, '0');
         paragraph.textContent = `Booking at ${formattedDate} -- You gave ${prosData.firstName} ${data.rating}`;
         paragraph.appendChild(starSpan);
         paragraph.appendChild(serviceSpan);
