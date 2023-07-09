@@ -6,12 +6,17 @@
     <title>Document</title>
 </head>
 <body>
+    <h2>Input & Store address</h2>
    <form class="add">
     <label for="address">address</label>
-    <input type="text" name="address">
-    <button type="submit">Submit</button>
-
+    <input type="text" name="address" id="address">
+    <button type="submit" id="sbtn">Submit</button>
    </form> 
+
+   <h2>Getting Address from Firebase</h2>
+   <button id="gbtn">Get address</button>
+   <div id="addressContainer">Here is the address getting from Firebase.</div>
+   
 
    <script src="./dist/main.bundle.js" defer></script>
 </body>
