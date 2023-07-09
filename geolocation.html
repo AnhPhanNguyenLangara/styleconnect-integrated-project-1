@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./geolocation.js" defer></script>
+    <title>Geolocation API test</title>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+    <!-- Input area -->
+    <p> Geolocation API TEST</p>
+
+
+    <div class="revgeo">
+        <button id="geobtn">Show the geolocation infor</button>
+        <!-- Plan B <button id="geobtn" onclick="getLocation()"> Show the geolocation infor</button> -->
+        <!-- Output area -->
+        <div id="displayRevGeo"></div>
+    </div>
+
+    <form action="">
+        <label for="">
+        <input type="text" id="address">
+        <input type="submit" id="submit">
+        <input type="reset" id="reset">
+    </label>
+    </form>
+    <div id="displayGeo"></div>
+
+</body>
+</html>
+
