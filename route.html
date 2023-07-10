@@ -37,7 +37,9 @@
     // search & get location
     let search = function () {
       tt.services.fuzzuySearch({}).go.then(handleResults)
-    }
+    };
+
+    getLocation();
 
     // add new marker
     new tt.Marker().setLngLat([longitude, latitude]).addTo(map)
@@ -46,7 +48,6 @@
     map.on("load", () => {
       new tt.Marker().setLngLat(center).addTo(map);
     })
-
 
     // Getaddress customer's address from Firebase
     displayAddress();

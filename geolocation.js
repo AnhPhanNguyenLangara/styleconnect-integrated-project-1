@@ -11,7 +11,7 @@
 // Get HTML elements & AddEventListener ======================================
 
 const displayGeo = document.getElementById("displayGeo");
-const getGeobtn = document.getElementById("geobtn")；
+const getGeobtn = document.getElementById("geobtn");
 
 // Get current position() method =============================================
 
@@ -71,7 +71,7 @@ const errorCallback = (error) => {
 
     const errorMsg = document.createElement("p");
     const errorNo = error.code;
-    errorMsg.innerHTML = `error#${error.code}: ${errorArr[error.code]}`;
+    errorMsg.innerHTML = `error#${errorNo}: ${errorArr[errorNo]}`;
     displayGeo.appendChild(errorMsg);
 
 // Plan B (using Switch)
@@ -121,13 +121,13 @@ let position = "lat,lon";
 
 async function getReverseLocation() {
     const url= reverseGeoBaseURL + position + '.' +  ext + '?key=' + APIKEY;
-    const res = await fetch(url)
-    const data = await res.json()
+    const res = await fetch(url);
+    const data = await res.json();
     console.log(data);
     const getData = data.addresses[0].address;
     console.log(getData);
     const getAddress = getData.freeformAddress;
-    console.log(getAddress) // get address(street# & streetName & municipality & countrySubdivision & Postalcode  i.g 4085 Ash Street, Vancouver BC V5Z 3G1);
+    console.log(getAddress); // get address(street# & streetName & municipality & countrySubdivision & Postalcode  i.g 4085 Ash Street, Vancouver BC V5Z 3G1);
 
     document.getElementById("displayRevGeo").innerHTML = getAddress;
 }
@@ -136,18 +136,21 @@ async function getReverseLocation() {
 //Geo Coding ====================================
 
 const geoBaseURL = "https://api.tomtom.com/search/2/geocode/";
+console.log(geoBaseURL);
 
 let address = "";
 
 async function getGeoLocation() {
 
-    const url= geoBaseURL + encodeURI(address) + '.' + ext + '?key=' + APIKEY;
-    console.log(geoBaseURL);
+    const url= geoBaseURL + encodeURI(accessAddress) + '.' + ext + '?key=' + APIKEY;
     const res = await fetch(url);
     const data = await res.json();
     const getData = data.results[0].position; //get latitude & logititude;
 
-    document.getElementById("displayGeo").innerHTML = `latitude: ${getData.lat} , longititude: ${getData.lon}`;
+
+    //getData is coming from route.html
+    new tt.Marker().setLngLat([getData.lat, getData.lon]).addTo(map)
+    // document.getElementById("displayGeo").innerHTML = `latitude: ${getData.lat} , longititude: ${getData.lon}`;
 }
 
 document.getElementById('submit').addEventListener("click", (e)=>{
