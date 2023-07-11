@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="prosProfile.css">
     <link rel="icon" type="image/x-icon" href="/img/favicon 1.png">
     <script src="https://kit.fontawesome.com/c8c6d1441b.js" crossorigin="anonymous"></script>
+    <style>
+        #suggestions {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .suggestion {
+            padding: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -53,12 +67,7 @@
         <div class="address">
             <label for="address">Address Line</label>
             <input type="text" name="address1" id="">
-            <label for="city">City</label>
-            <input type="text" name="city" id="">
-            <label for="country">Country</label>
-            <input type="text" name="country" id="">
-            <label for="province">Province</label>
-            <input type="text" name="province" id="">
+            <div id="suggestions"></div>
         </div>
 
         <div class="checkbox-wrapper avarea">

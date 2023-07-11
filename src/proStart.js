@@ -54,6 +54,53 @@ onAuthStateChanged(auth, (user) => {
 //   adding Profile documents
 const addProfileForm = document.querySelector('.add')
 
+const API_KEY = 'ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG';
+const addressInput = addProfileForm.address1;
+const suggestionsContainer = document.getElementById('suggestions');
+
+// Event listener for input changes
+addressInput.addEventListener('input', handleInput);
+
+// Fetch autocomplete suggestions
+function handleInput() {
+    const inputValue = addressInput.value;
+    const autocompleteUrl = `https://api.tomtom.com/search/2/search/${encodeURIComponent(
+        inputValue
+    )}.json?key=${API_KEY}&limit=5&language=en-US`;
+    console.log(autocompleteUrl);
+    fetch(autocompleteUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            showSuggestions(data.results);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+// Display autocomplete suggestions
+function showSuggestions(suggestions) {
+    suggestionsContainer.innerHTML = '';
+
+    suggestions.forEach(suggestion => {
+        const suggestionElement = document.createElement('div');
+        suggestionElement.classList.add('suggestion');
+        suggestionElement.textContent = suggestion.address.freeformAddress;
+
+        suggestionElement.addEventListener('click', () => {
+            // Handle the selected address
+            const selectedAddress = suggestion.address.freeformAddress;
+            addressInput.value=selectedAddress;
+            suggestionsContainer.innerHTML="";
+        });
+
+        suggestionsContainer.appendChild(suggestionElement);
+    });
+}
+
+
+
 addProfileForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     try {
@@ -71,9 +118,7 @@ addProfileForm.addEventListener('submit', async (e) => {
                 Nail: addProfileForm.category4.checked,
             },
             address1: addProfileForm.address1.value,
-            city: addProfileForm.city.value,
             country: addProfileForm.country.value,
-            province: addProfileForm.province.value,
             area: {
                 downtown: addProfileForm.area1.checked,
                 burnaby: addProfileForm.area2.checked,

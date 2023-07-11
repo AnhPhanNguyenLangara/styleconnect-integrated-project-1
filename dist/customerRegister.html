@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="prosProfile.css">
     <link rel="icon" type="image/x-icon" href="/img/favicon 1.png">
     <script src="https://kit.fontawesome.com/c8c6d1441b.js" crossorigin="anonymous"></script>
+    <style>
+        #suggestions {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .suggestion {
+            padding: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -40,6 +54,7 @@
         <input type="url" name="photo" id="" required>  
         <label for="address">Address Line</label>
         <input type="text" name="address1" id="">
+        <div id="suggestions"></div>
         <button>submit</button>
     </form>
 </main>
