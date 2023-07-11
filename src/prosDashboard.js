@@ -31,9 +31,6 @@ initializeApp(firebaseConfig)
 const db = getFirestore();
 const colRefListing = collection(db, 'customer_booking');
 const colRefProsListing = collection(db, 'pros_listing_v2');
-
-
-
 const bookingTime = document.querySelector('#booking-time');
 const fetchListing = document.getElementById('fetchBooking');
 async function fetchBookingData() {
