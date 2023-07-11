@@ -12,6 +12,9 @@ const allLI = [listHairLI, listEyeLI, listMassageLI, listNailLI];
 const allpages = [listHair, listEye, listMassage, listNail];
 
 
+
+
+
 function navigateToPage() {
   const pageId = location.hash ? location.hash : '#listHair';
   for (let i = 0; i < allpages.length; i++) {
@@ -66,6 +69,22 @@ const q = query(colRefListing, orderBy('createdAt', 'desc'))
 // get collection data
 
 
+// get UID
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/auth.user
+    const uid = user.uid;
+    console.log(uid);
+    // ...
+  } else {
+    // User is signed out
+    // ...
+  }
+});
 
 
 const listingsPromise  = getDocs(colRefListing)

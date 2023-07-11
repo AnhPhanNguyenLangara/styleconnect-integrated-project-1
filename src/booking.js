@@ -39,12 +39,30 @@ const firebaseConfig = {
 
 // init firebase
 initializeApp(firebaseConfig)
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+const auth = getAuth();
+
+let currentUserUID = null;
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/auth.user
+    currentUserUID = user.uid;
+    console.log(currentUserUID);
+    // ...
+  } else {
+    // User is signed out
+    // ...
+  }
+});
+
+
 
 // init services
 const db =getFirestore();
-
-
 const colRefListing = collection(db, 'pros_listing_v2');
+
 async function fetchListingData() {
     try {
       const queryRef = query(colRefListing, where('userId', '==', fetchId));
@@ -73,12 +91,10 @@ fecthLising.forEach((x,index)=>{
 
 const bookService = document.querySelector('#book-service');
 bookService.addEventListener('click',(e)=>{
-    let radio = document.getElementsByName('listing');
-    const customerId = document.getElementById('userId');
-    for (let i = 0; i < radio.length; i++) {
-        if (radio[i].checked){
-        bookService.href = `/dist/bookingConfirm.html?${radio[i].value}?${customerId.value}?${obj.userId}`;
-        }
+  let radio = document.getElementsByName('listing');
+  for (let i = 0; i < radio.length; i++) {
+    if (radio[i].checked){
+      bookService.href = `/dist/bookingConfirm.html?${radio[i].value}?${currentUserUID}?${obj.userId}`;
     }
-
-})
+  }
+});

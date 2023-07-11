@@ -49,7 +49,7 @@ confirmBooking.addEventListener('submit', async (e) => {
       bookingtime: firebastTime,
       prosId: arr[3],
       listingId: arr[1],
-      accpected: false,
+      accepted: false,
       createdAt: serverTimestamp()
     })
     confirmBooking.reset()

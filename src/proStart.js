@@ -30,6 +30,24 @@ const db = getFirestore();
 
 // collection ref
 const colRef = collection(db, 'professional_profile_v2');
+// get UID
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+const auth = getAuth();
+let currentUserUID = null;
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/auth.user
+    currentUserUID = user.uid;
+    // ...
+  } else {
+    // User is signed out
+    // ...
+  }
+});
+
 
 //   adding Profile documents
 const addProfileForm = document.querySelector('.add')
@@ -39,6 +57,7 @@ addProfileForm.addEventListener('submit', async (e) => {
     try {
         const newDocRef = doc(colRef);
         await setDoc(newDocRef, {
+            customerId: currentUserUID,
             userId: newDocRef.id,
             firstName: addProfileForm.fname.value,
             lastName: addProfileForm.lname.value,

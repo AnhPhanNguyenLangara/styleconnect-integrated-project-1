@@ -5,6 +5,7 @@ import {
   getFirestore,
   collection,
   doc,
+  onSnapshot,
   setDoc,
   serverTimestamp,
   query,
@@ -26,19 +27,44 @@ const firebaseConfig = {
 
 // init firebase
 initializeApp(firebaseConfig)
+import {
+  getAuth,
+  onAuthStateChanged
+} from "firebase/auth";
+let prosId = null;
+const auth = getAuth();
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    prosId = await getProsId(user.uid);
+    let bookingData = await fetchBookingData(prosId);
+    displayBooking(bookingData);
+    fetchListingData(prosId);
+  } else {
+    // User is signed out
+    // ...
+  }
+});
+
+
 
 // init services
 const db = getFirestore();
-const colRefListing = collection(db, 'customer_booking');
+const colRefBooking = collection(db, 'customer_booking');
+const colRefListing = collection(db, 'pros_listing_v2');
 const colRefProsListing = collection(db, 'pros_listing_v2');
+const colRefProsProfile = collection(db, 'professional_profile_v2')
 
+// fetch prosId
+async function getProsId(currentUserUID) {
+  const queryProsRef = query(colRefProsProfile, where('customerId', '==', currentUserUID));
+  const prosIdSnap = await getDocs(queryProsRef);
+  return prosIdSnap.docs[0].data().userId;
+}
 
-
-const bookingTime = document.querySelector('#booking-time');
-const fetchListing = document.getElementById('fetchBooking');
-async function fetchBookingData() {
+// get Booking request Data
+async function fetchBookingData(prosId) {
   try {
-    const queryRef = query(colRefListing, where('prosId', '==', fetchListing.userId.value));
+    const queryRef = query(colRefBooking, where('prosId', '==', prosId));
     const snapshot = await getDocs(queryRef);
     let listing = [];
     snapshot.forEach((x) => listing.push(x.data()));
@@ -49,26 +75,12 @@ async function fetchBookingData() {
 }
 
 
-fetchListing.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  let y = await fetchBookingData();
-  displayListing(y);
-})
-
-
 
 const bookCard = document.getElementById('booking-request')
-const displayListing = async (bookingPromise) => {
+const displayBooking = async (bookingPromise) => {
   let bookListArr = await bookingPromise;
   let listingDisplay = "";
   bookListArr.forEach((x) => {
-    let obj = {
-      listingId: x.listingId,
-      accepted: x.accepted
-    }
-    const searchParams = new URLSearchParams();
-    searchParams.append('v1', JSON.stringify(obj))
-    let queryString = searchParams.toString();
     listingDisplay += `<div class="listing-tab">
         <h4 id="serviceName">Booking-Id: <span>${x.bookingId}</span></h4>
         ${
@@ -82,13 +94,50 @@ const displayListing = async (bookingPromise) => {
 }
 
 
+function fetchListingData(prosId) {
+  const queryRef = query(colRefListing, where('userId', '==', prosId));
+  onSnapshot(queryRef, (snapshot) => {
+    let listing = [];
+    snapshot.forEach((x) => listing.push(x.data()));
+    displayListing(listing);
+  }, (err) => {
+    console.log(err);
+  });
+}
+
+const listCard = document.getElementById('listing-display')
+
+function displayListing(prosListArr) {
+  let listingDisplay = "";
+  prosListArr.forEach((x) => {
+    let obj = {
+      listingId: x.listingId,
+      country: x.country,
+      servicedescription: x.servicedescription,
+      price: x.price,
+      service: x.service,
+    }
+    const searchParams = new URLSearchParams();
+    searchParams.append('v1', JSON.stringify(obj))
+
+    let queryString = searchParams.toString();
+    listingDisplay += `
+        <div class="listing-tab">
+        <h4 id="serviceName">Service: ${x.service}</h4>
+        <p id="servicePrice">Price: ${x.price}</p>
+        <a href="editlisting.html?${queryString}" class="btn btn-show btn-animated" id="edit">Edit</a>
+        </div>`;
+  })
+  listCard.innerHTML = listingDisplay;
+}
+// Event handler for confirm/cancel request
 bookCard.addEventListener('click', async (e) => {
   var button = e.target;
   var bookingId = button.getAttribute("data");
   if (e.target.classList.value === 'confirm') {
     if (confirm('Are you sure you want to confirm?')) {
       try {
-        const docRef = doc(colRefListing, bookingId);
+        const docRef = doc(colRefBooking, bookingId);
         await updateDoc(docRef, {
           accepted: true
         })
@@ -102,7 +151,7 @@ bookCard.addEventListener('click', async (e) => {
   } else if (e.target.classList.value === 'cancel') {
     if (confirm('Are you sure you want to cancel?')) {
       try {
-        const docRef = doc(colRefListing, bookingId);
+        const docRef = doc(colRefBooking, bookingId);
         await updateDoc(docRef, {
           accepted: false
         })
@@ -114,9 +163,8 @@ bookCard.addEventListener('click', async (e) => {
       console.log('Cancellation cancelled!');
     }
   }
-  let y = await fetchBookingData();
-  displayListing(y);
-
+  let bookingData = await fetchBookingData(prosId);
+  displayBooking(bookingData);
 });
 
 
@@ -125,7 +173,6 @@ function toastDisplay(text) {
   // Add the "show" class to DIV
   toast.className = "show";
   toast.innerText = text;
-  // After 3 seconds, remove the show class from DIV
   setTimeout(function () {
     toast.className = toast.className.replace("show", "");
   }, 1500);
@@ -139,10 +186,8 @@ addServiceForm.addEventListener('submit', async (e) => {
   try {
     const newDocRef = doc(colRefProsListing);
     await setDoc(newDocRef, {
-      userId: addServiceForm.userId.value,
+      userId: prosId,
       listingId: newDocRef.id,
-      onlocation: addServiceForm.onlocation.value,
-      onhome: addServiceForm.onhome.value,
       servicedescription: addServiceForm.servicedescription.value,
       service: addServiceForm.service.value,
       price: +addServiceForm.price.value,

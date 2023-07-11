@@ -1,50 +1,68 @@
-const ratingSubmit = document.querySelector('#rating-form');
-const fetchBooking = document.querySelector('#fetchBooking');
-const bookingDetail = document.querySelector('#booking-detail');
-const starDialog = document.getElementById("star-dialog");
-const confirmBtn = starDialog.querySelector("#confirmBtn");
-
+import { initializeApp } from 'firebase/app';
 import {
-    initializeApp
-} from 'firebase/app'
-import {
-    getFirestore,
-    collection,
-    onSnapshot,
-    doc,
-    query,
-    where,
-    updateDoc,
-    getDoc
-} from 'firebase/firestore'
+  getFirestore,
+  collection,
+  onSnapshot,
+  doc,
+  query,
+  where,
+  updateDoc,
+  getDoc,
+} from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD7wzxQRs4mKcMOB0Vcydzdxl0NRtZbXno",
-    authDomain: "styleconnect-e781a.firebaseapp.com",
-    projectId: "styleconnect-e781a",
-    storageBucket: "styleconnect-e781a.appspot.com",
-    messagingSenderId: "700825424755",
-    appId: "1:700825424755:web:a0fcfadde53d4248912b06",
-    measurementId: "G-BW2ZJHSJ2G"
+  apiKey: "AIzaSyD7wzxQRs4mKcMOB0Vcydzdxl0NRtZbXno",
+  authDomain: "styleconnect-e781a.firebaseapp.com",
+  projectId: "styleconnect-e781a",
+  storageBucket: "styleconnect-e781a.appspot.com",
+  messagingSenderId: "700825424755",
+  appId: "1:700825424755:web:a0fcfadde53d4248912b06",
+  measurementId: "G-BW2ZJHSJ2G",
 };
-initializeApp(firebaseConfig)
+
+initializeApp(firebaseConfig);
 const db = getFirestore();
+
+// get UID
+const auth = getAuth();
+let currentUserUID = null;
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/auth.user
+    currentUserUID = user.uid;
+
+    // Fetch bookings immediately after user logs in
+    fetchBookings(currentUserUID);
+  } else {
+    // User is signed out
+    // Clear out existing bookings
+    bookingDetail.innerHTML = "";
+  }
+});
 
 // collection ref
 const colRef = collection(db, 'customer_booking');
 const procolRef = collection(db, 'professional_profile_v2');
 
-fetchBooking.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const data = query(colRef, where('customerId', '==', fetchBooking.userId.value));
-    onSnapshot(data, async (snapshot) => {
-        bookingDetail.innerHTML = "";
-        for (let doc of snapshot.docs) {
-            let record = await createRecord(doc);
-            bookingDetail.appendChild(record);
-        }
-    });
-});
+const ratingSubmit = document.querySelector('#rating-form');
+const bookingDetail = document.querySelector('#booking-detail');
+const starDialog = document.getElementById("star-dialog");
+const confirmBtn = starDialog.querySelector("#confirmBtn");
+
+
+function fetchBookings(uid) {
+  const data = query(colRef, where('customerId', '==', uid));
+  onSnapshot(data, async (snapshot) => {
+    bookingDetail.innerHTML = "";
+    for (let doc of snapshot.docs) {
+      let record = await createRecord(doc);
+      bookingDetail.appendChild(record);
+    }
+  });
+}
 
  async function createRecord(record) {
     const div = document.createElement("div");
