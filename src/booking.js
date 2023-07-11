@@ -1,3 +1,5 @@
+import { showMenu } from './menuStart.js';
+
 const bookingDetail = document.querySelector('#booking-detail');
 const url = window.location.href;
 const searchParams = new URL(url).searchParams;
@@ -7,7 +9,7 @@ const obj = JSON.parse(array[0])
 const fetchId = obj.userId
 
 bookingDetail.innerHTML =
-  `
+`
 <h3 id="fullname">${obj.firstName} ${obj.lastName}</h3>
 <p id="address">${obj.address} ${obj.city} ,${obj.country}</p>
 <p id="bio">${obj.bio}</p>
@@ -62,6 +64,7 @@ onAuthStateChanged(auth,async (user) => {
   } else {
     // User is signed out
     // ...
+    showMenu()
   }
 });
 

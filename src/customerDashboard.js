@@ -1,3 +1,5 @@
+import { showMenu } from './menuStart.js';
+
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
@@ -9,7 +11,7 @@ import {
   updateDoc,
   getDoc,
 } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD7wzxQRs4mKcMOB0Vcydzdxl0NRtZbXno",
@@ -40,6 +42,7 @@ onAuthStateChanged(auth, (user) => {
     // User is signed out
     // Clear out existing bookings
     bookingDetail.innerHTML = "";
+    showMenu()
   }
 });
 
@@ -51,7 +54,15 @@ const ratingSubmit = document.querySelector('#rating-form');
 const bookingDetail = document.querySelector('#booking-detail');
 const starDialog = document.getElementById("star-dialog");
 const confirmBtn = starDialog.querySelector("#confirmBtn");
+const logOut = document.getElementById('log-out');
 
+logOut.addEventListener('click',(e)=>{
+signOut(auth).then(() => {
+  // Sign-out successful.
+}).catch((error) => {
+  // An error happened.
+});
+})
 
 function fetchBookings(uid) {
   const data = query(colRef, where('customerId', '==', uid));

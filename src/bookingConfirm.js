@@ -1,3 +1,4 @@
+import { showMenu } from './menuStart.js';
 const bookingDetail = document.querySelector('#booking-detail');
 const bookingTime = document.querySelector('#booking-time');
 const url = window.location.href;
@@ -30,6 +31,22 @@ initializeApp(firebaseConfig)
 
 // init services
 const db = getFirestore();
+// get UID
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/auth.user
+    const uid = user.uid;
+    // ...
+  } else {
+    // User is signed out
+    // ...
+    showMenu()
+  }
+});
 
 // collection ref
 const colRef = collection(db, 'customer_booking');

@@ -1,3 +1,6 @@
+import { showMenu } from './menuStart.js';
+
+
 import {
   initializeApp
 } from 'firebase/app'
@@ -42,6 +45,7 @@ onAuthStateChanged(auth, async (user) => {
   } else {
     // User is signed out
     // ...
+    showMenu()
   }
 });
 

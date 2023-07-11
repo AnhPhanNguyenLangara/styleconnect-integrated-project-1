@@ -1,4 +1,5 @@
-/* For adding profile and service list into firebase */
+import { showMenu } from './menuStart.js';
+
 
 
 import {
@@ -45,6 +46,7 @@ onAuthStateChanged(auth, (user) => {
   } else {
     // User is signed out
     // ...
+    showMenu()
   }
 });
 

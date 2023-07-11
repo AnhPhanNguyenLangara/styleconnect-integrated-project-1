@@ -1,3 +1,5 @@
+import { showMenu } from './menuStart.js';
+
 const addServiceForm = document.querySelector('.list');
 const url =window.location.href;
 const searchParams = new URL(url).searchParams;
@@ -44,6 +46,7 @@ onAuthStateChanged(auth, (user) => {
   } else {
     // User is signed out
     // ...
+    showMenu()
   }
 });
 

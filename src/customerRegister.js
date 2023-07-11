@@ -1,3 +1,5 @@
+import { showMenu } from './menuStart.js';
+
 import {
     initializeApp
   } from 'firebase/app'
@@ -36,6 +38,7 @@ import {
       console.log(currentUserUID);
     } else {
       // User is signed out
+      showMenu()
       currentUserUID = null;
     }
   });
