@@ -1,3 +1,5 @@
+import { showMenu } from './menuStart.js';
+
 // Single Page for Tab
 const listHairLI = document.getElementById('listHairLI');
 const listEyeLI = document.getElementById("listEyeLI");
@@ -10,6 +12,9 @@ const listNail = document.getElementById("listNail");
 
 const allLI = [listHairLI, listEyeLI, listMassageLI, listNailLI];
 const allpages = [listHair, listEye, listMassage, listNail];
+
+
+
 
 
 function navigateToPage() {
@@ -66,6 +71,21 @@ const q = query(colRefListing, orderBy('createdAt', 'desc'))
 // get collection data
 
 
+// get UID
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/auth.user
+    const uid = user.uid;
+   
+    // ...
+  } else {
+    showMenu()
+  }
+});
 
 
 const listingsPromise  = getDocs(colRefListing)

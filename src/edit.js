@@ -1,11 +1,11 @@
+import { showMenu } from './menuStart.js';
+
 const addServiceForm = document.querySelector('.list');
 const url =window.location.href;
 const searchParams = new URL(url).searchParams;
 const entries = new URLSearchParams(searchParams).values();
 const array = Array.from(entries);
 const obj = JSON.parse(array[0])
-addServiceForm.onlocation.value = obj.onlocation;
-addServiceForm.onhome.value = obj.onhome;
 addServiceForm.servicedescription.value = obj.servicedescription;
 addServiceForm.service.value = obj.service;
 addServiceForm.price.value = obj.price;
@@ -32,20 +32,33 @@ initializeApp(firebaseConfig)
 // init services
 const db =getFirestore();
 
-// collection ref
-const colRef = collection(db, 'professional_profile_v2');
-const colRefListing = collection(db, 'pros_listing_v2');
-// qureies
 
-// Update doc
+// get UID
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/auth.user
+    const uid = user.uid;
+    // ...
+  } else {
+    // User is signed out
+    // ...
+    showMenu()
+  }
+});
+
+// collection ref
+const colRefListing = collection(db, 'pros_listing_v2');
+
 
 addServiceForm.addEventListener('submit', async (e) =>{
     e.preventDefault();
     try{
     const docRef = doc(colRefListing,obj.listingId);
     await updateDoc(docRef,{     
-        onlocation:  addServiceForm.onlocation.value,
-        onhome:  addServiceForm.onhome.value,
         servicedescription: addServiceForm.servicedescription.value,
         service: addServiceForm.service.value,
         price: +addServiceForm.price.value,

@@ -1,12 +1,14 @@
+import { showMenu } from './menuStart.js';
+
 const bookingDetail = document.querySelector('#booking-detail');
-const url =window.location.href;
+const url = window.location.href;
 const searchParams = new URL(url).searchParams;
 const entries = new URLSearchParams(searchParams).values();
 const array = Array.from(entries);
 const obj = JSON.parse(array[0])
 const fetchId = obj.userId
 
-bookingDetail.innerHTML = 
+bookingDetail.innerHTML =
 `
 <h3 id="fullname">${obj.firstName} ${obj.lastName}</h3>
 <p id="address">${obj.address} ${obj.city} ,${obj.country}</p>
@@ -17,13 +19,15 @@ bookingDetail.innerHTML =
 
 
 
-import { initializeApp } from 'firebase/app'
 import {
-  getFirestore, collection, onSnapshot,
-  addDoc, deleteDoc, doc,
-  query, where,
-  orderBy, serverTimestamp,
-  getDocs, updateDoc, setDoc 
+  initializeApp
+} from 'firebase/app'
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -41,44 +45,74 @@ const firebaseConfig = {
 initializeApp(firebaseConfig)
 
 // init services
-const db =getFirestore();
-
-
+const db = getFirestore();
 const colRefListing = collection(db, 'pros_listing_v2');
-async function fetchListingData() {
-    try {
-      const queryRef = query(colRefListing, where('userId', '==', fetchId));
-      const snapshot = await getDocs(queryRef);
-      let listing = [];
-      snapshot.forEach((x) => listing.push(x.data()));
-      return listing;
-    } catch (err) {
-      console.error(err);
-    }
+const colRefProsProfile = collection(db, 'professional_profile_v2')
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from 'firebase/auth';
+const auth = getAuth();
+
+let currentUserUID = null;
+let prosId = null;
+onAuthStateChanged(auth,async (user) => {
+  if (user) {
+    prosId = await getProsId(user.uid);
+    // ...
+  } else {
+    // User is signed out
+    // ...
+    showMenu()
   }
+});
+
+// fetch prosId
+async function getProsId(currentUserUID) {
+  const queryProsRef = query(colRefProsProfile, where('customerId', '==', currentUserUID));
+  const prosIdSnap = await getDocs(queryProsRef);
+  return prosIdSnap.docs[0].data().userId;
+}
+
+
+async function fetchListingData() {
+  try {
+    const queryRef = query(colRefListing, where('userId', '==', fetchId));
+    const snapshot = await getDocs(queryRef);
+    let listing = [];
+    snapshot.forEach((x) => listing.push(x.data()));
+    return listing;
+  } catch (err) {
+    console.error(err);
+  }
+}
 const fecthLising = await fetchListingData();
 const bookingListing = document.querySelector('#booking-listing');
-fecthLising.forEach((x,index)=>{
-    let label = document.createElement("label");
-    label.innerText = x.service + " "+ x.price +" CAD";
-    let input = document.createElement("input");
-    input.type = "radio";
-    input.value = x.listingId
-    input.name = "listing"
-    input.checked =  index ===0? 'checked':false;
-    bookingListing.appendChild(label);
-    bookingListing.appendChild(input);
+fecthLising.forEach((x, index) => {
+  let label = document.createElement("label");
+  label.innerText = x.service + " " + x.price + " CAD";
+  let input = document.createElement("input");
+  input.type = "radio";
+  input.value = x.listingId
+  input.name = "listing"
+  input.checked = index === 0 ? 'checked' : false;
+  bookingListing.appendChild(label);
+  bookingListing.appendChild(input);
 
 })
 
 const bookService = document.querySelector('#book-service');
-bookService.addEventListener('click',(e)=>{
-    let radio = document.getElementsByName('listing');
-    const customerId = document.getElementById('userId');
-    for (let i = 0; i < radio.length; i++) {
-        if (radio[i].checked){
-        bookService.href = `/dist/bookingConfirm.html?${radio[i].value}?${customerId.value}?${obj.userId}`;
-        }
+bookService.addEventListener('click', (e) => {
+  let radio = document.getElementsByName('listing');
+  if(prosId === obj.userId){
+    e.preventDefault();
+    alert('you cannot book your service')
+    return;
+  }
+  for (let i = 0; i < radio.length; i++) {
+    if (radio[i].checked) {
+      bookService.href = `/dist/bookingConfirm.html?${radio[i].value}?${currentUserUID}?${obj.userId}`;
     }
-
-})
+  }
+});
