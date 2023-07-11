@@ -23,6 +23,8 @@ const db = getFirestore(app);
 const colRefListing = collection(db, 'kimi_test')
 const auth = getAuth();
 
+const addressContainer = document.getElementById('addressContainer');
+
 // to pick up specific User's address and display it.
 onAuthStateChanged(auth, async (user)=>{
   if (user) {
@@ -32,6 +34,7 @@ onAuthStateChanged(auth, async (user)=>{
 
     // Refer to the specific document and their ID.
     const userRef = doc (colRefListing, userId);
+    // console.log(userRef)
 
     async function displayAddress() {
       try {
@@ -65,11 +68,6 @@ e.preventDefault();
 displayAddress();
 });
 
-const addressContainer = document.getElementById('addressContainer');
-
-
-
-
 // addEvent listener for subtting 
 const storeBtn = document.querySelector(".add");
 storeBtn.addEventListener("submit", (e)=>{
@@ -79,7 +77,7 @@ addAddress();
 
 // input & store user address.
 async function addAddress() {
-  console.log("addAddress called");
+  // console.log("addAddress called");
   try {
     const address = document.getElementById("address").value;
     // console.log(address);
@@ -87,7 +85,7 @@ async function addAddress() {
       address});
     // console.log("Data added to Firebase successfully");
   } catch (error) {
-    // console.error("Error adding data to Firestore", error);
+    console.error("Error. Your infomation has already existed.", error);
   };
 }
 

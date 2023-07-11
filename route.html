@@ -6,6 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps.css" />
   <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps-web.min.js"></script>
+  <style>
+    #suggestions {
+        position: absolute;
+        background: #fff;
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    .suggestion {
+        padding: 5px;
+        cursor: pointer;
+    }
+</style>
   <title>Route API</title>
 </head>
 
@@ -29,10 +42,8 @@
     // get latitude and longitude dynamically.
 
     const latitude = position.coords.latitude;
-    const longitude = position.coors.longitude;
-    
-
-    
+    const longitude = position.coords.longitude;
+    console.log(latitude);
 
     // search & get location
     let search = function () {
@@ -41,12 +52,9 @@
 
     getLocation();
 
-    // add new marker
-    new tt.Marker().setLngLat([longitude, latitude]).addTo(map)
-
-    // load & show the map
+    // load & add the marker on the map
     map.on("load", () => {
-      new tt.Marker().setLngLat(center).addTo(map);
+      new tt.Marker().setLngLat([longitude, latitude]).addTo(map);
     })
 
     // Getaddress customer's address from Firebase
@@ -82,23 +90,78 @@
   </script>
 
 
+
+  <!-- <form>
+    <input type="text" id="addressInput" placeholder="Enter an address">
+  </form>
+  <div id="suggestions"></div>
+  <script>
+    const addressInput = document.getElementById('addressInput');
+    const suggestionsContainer = document.getElementById('suggestions');
+    // Event listener for input changes
+    addressInput.addEventListener('input', handleInput);
+
+    // fazzy search
+    function handleInput() {
+      const inputValue = addressInput.value;
+      const searchURL = `https://api.tomtom.com/search/2/search/${encodeURIComponent(inputValue)}.json?key${APIKEY}&limit=5&language=en-US`
+
+      // console.log(searchURL);
+
+      fetch(searchURL)
+        .then(response => response.json())  //response is the object about result of fetch(URL). response.json() purlse the response result in a json.
+        .then(data => { // data is one of the object which response.json() has. Inside the data object, there is the data which we want. 
+          console.log(data);
+          showSuggestion(data.results) // call the showSuggestion() to show the candidate address and data.result go through the fetched data.
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+    }
+
+    // Display autocomplete suggestions
+    function showSuggestions(suggestions) { // "sugestions" is a parameter and here go through the candidate address which user input. 
+      suggestionsContainer.innerHTML = '';
+
+      suggestions.forEach(suggestion => { // go through each candidate.
+        const suggestionElement = document.createElement('div');
+        suggestionElement.classList.add('suggestion');
+        suggestionElement.textContent = suggestion.address.freeformAddress; //show the address inside the div.
+
+        suggestionElement.addEventListener('click', () => {
+          // Handle the selected address
+          const selectedAddress = suggestion.address.freeformAddress;
+          console.log(selectedAddress);
+        });
+
+        suggestionsContainer.appendChild(suggestionElement);
+      });
+    }
+  </script> -->
+
+
+
+
 <form>
   <input type="text" id="addressInput" placeholder="Enter an address">
 </form>
+
 <div id="suggestions"></div>
+
 <script>
   // Replace 'YOUR_API_KEY' with your actual TomTom API key
-  const API_KEY = 'ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG';
   const addressInput = document.getElementById('addressInput');
   const suggestionsContainer = document.getElementById('suggestions');
+
   // Event listener for input changes
   addressInput.addEventListener('input', handleInput);
+
   // Fetch autocomplete suggestions
   function handleInput() {
       const inputValue = addressInput.value;
       const autocompleteUrl = `https://api.tomtom.com/search/2/search/${encodeURIComponent(
           inputValue
-      )}.json?key=${API_KEY}&limit=5&language=en-US`;
+      )}.json?key=${APIKEY}&limit=5&language=en-US`;
       console.log(autocompleteUrl);
       fetch(autocompleteUrl)
           .then(response => response.json())
@@ -129,6 +192,9 @@
           suggestionsContainer.appendChild(suggestionElement);
       });
   }
+
+
+  
 </script>
 </body>
 
