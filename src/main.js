@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
-    getFirestore, collection, query, where, getDocs, getDoc,setDoc, addDoc, onSnapshot, doc
+  getFirestore, collection, query, where, getDocs, getDoc, setDoc, addDoc, onSnapshot, doc
 } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -18,86 +18,106 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // console.log(app);
-// const analytics = getAnalytics(app);
+// Access to the customer_booking collection.
 const db = getFirestore(app);
 const colRefListing = collection(db, 'customer_booking')
 
-const customerID 
+const customerIDs = query(colRefListing, where("customerAddress", "==", true));
 
 
+async function getCustomerAddress() {
+  try {
+    // get documents from the collection which I want to access.
 
-const auth = getAuth();
+    const snapShot = await getDocs(customerIDs);
 
-const addressContainer = document.getElementById('addressContainer');
-
-// to pick up specific User's address and display it.
-
-
-
-
-
-onAuthStateChanged(auth, async (user)=>{
-  if (user) {
-
-    // get a user's ID (dynamic).
-    const userId = user.uid;
-
-    // Refer to the specific document and their ID.
-    const userRef = doc (colRefListing, userId);
-    // console.log(userRef)
-
-    async function displayAddress() {
-      try {
-        // get documents from the collection which I want to access.
-    
-        const userDocSnap = await getDoc(userRef);
-        const accessAddress = userDocSnap.data().address;
-        addressContainer.innerHTML = accessAddress;
-    
-        // go through every document in the collection
-        // querySnap.forEach((document)=> {
-        //   // get each address /  .data() method refer to the data which firebase has.
-        //   console.log(document.data().address);
-        //   document.data()
-        // })
-      }
-      catch(error){
-        console.error("error", error);
-      }
-    }
-    await displayAddress();
-  } else {
-    console.error("error", error);
+    snapShot.forEach((doc) => {
+      //get a document from firebase
+      const customerData = doc.data();
+      const customerAddress = customerData.customerAddress;
+      console.log(customerAddress);
+    });
   }
-} )
+  catch (error) {
+    console.error("Error", error);
+  }
+}
 
 const displayBtn = document.querySelector("#gbtn");
-displayBtn.addEventListener("click", (e)=>{
-e.preventDefault();
-// console.log(23)
-displayAddress();
+displayBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  // console.log(23)
+  getCustomerAddress();
 });
+
+
 
 // addEvent listener for subtting 
-const storeBtn = document.querySelector(".add");
-storeBtn.addEventListener("submit", (e)=>{
-e.preventDefault();
-addAddress();
-});
+// const storeBtn = document.querySelector(".add");
+// storeBtn.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   addAddress();
+// });
 
 // input & store user address.
-async function addAddress() {
-  // console.log("addAddress called");
-  try {
-    const address = document.getElementById("address").value;
-    // console.log(address);
-    const docRef = await setDoc(colRefListing, {
-      address});
-    // console.log("Data added to Firebase successfully");
-  } catch (error) {
-    console.error("Error. Your infomation has already existed.", error);
-  };
-}
+// async function addAddress() {
+//   // console.log("addAddress called");
+//   try {
+//     const address = document.getElementById("address").value;
+//     // console.log(address);
+//     const docRef = await setDoc(colRefListing, {
+//       address
+//     });
+//     // console.log("Data added to Firebase successfully");
+//   } catch (error) {
+//     console.error("Error. Your infomation has already existed.", error);
+//   };
+// }
+
+
+// const auth = getAuth();
+// const addressContainer = document.getElementById('addressContainer');
+
+// addressContainer
+
+// to pick up specific User's address and display it.
+// onAuthStateChanged(auth, async (user) => {
+//   if (user) {
+
+//     // get a user's ID (dynamic).
+//     const userId = user.uid;
+
+//     // Refer to the specific document and their ID.
+//     const userRef = doc(colRefListing, userId);
+//     // console.log(userRef)
+
+//     async function displayAddress() {
+//       try {
+//         // get documents from the collection which I want to access.
+
+//         const userDocSnap = await getDoc(userRef);
+//         const accessAddress = userDocSnap.data().address;
+//         addressContainer.innerHTML = accessAddress;
+
+//         // go through every document in the collection
+//         // querySnap.forEach((document)=> {
+//         //   // get each address /  .data() method refer to the data which firebase has.
+//         //   console.log(document.data().address);
+//         //   document.data()
+//         // })
+//       }
+//       catch (error) {
+//         console.error("error", error);
+//       }
+//     }
+//     await displayAddress();
+//   } else {
+//     console.error("error", error);
+//   }
+// })
+
+
+
 
 // const displayBtn = document.querySelector("#gbtn");
 // displayBtn.addEventListener("click", (e)=>{
