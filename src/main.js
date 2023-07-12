@@ -20,12 +20,22 @@ const app = initializeApp(firebaseConfig);
 // console.log(app);
 // const analytics = getAnalytics(app);
 const db = getFirestore(app);
-const colRefListing = collection(db, 'kimi_test')
+const colRefListing = collection(db, 'customer_booking')
+
+const customerID 
+
+
+
 const auth = getAuth();
 
 const addressContainer = document.getElementById('addressContainer');
 
 // to pick up specific User's address and display it.
+
+
+
+
+
 onAuthStateChanged(auth, async (user)=>{
   if (user) {
 

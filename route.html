@@ -41,24 +41,24 @@
 
     // get latitude and longitude dynamically.
 
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    console.log(latitude);
+    // const latitude = position.coords.latitude;
+    // const longitude = position.coords.longitude;
+    // console.log(latitude);
 
     // search & get location
     let search = function () {
       tt.services.fuzzuySearch({}).go.then(handleResults)
     };
 
-    getLocation();
+    // getLocation();
 
     // load & add the marker on the map
-    map.on("load", () => {
-      new tt.Marker().setLngLat([longitude, latitude]).addTo(map);
-    })
+    // map.on("load", () => {
+    //   new tt.Marker().setLngLat([longitude, latitude]).addTo(map);
+    // })
 
     // Getaddress customer's address from Firebase
-    displayAddress();
+    // displayAddress();
 
     // Get longtitude and latitude from the address
     function getLatLngFromAddress(address) {
