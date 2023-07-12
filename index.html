@@ -104,12 +104,14 @@
          // using split to split any point there is a dot
         let temp = file.name.split('.');
         //then we use slice to return the last element of the string
-        let ext = temp.slice(temp.lenght - 1, temp.lenght);
+        let ext = temp.slice(temp.length - 1, temp.length);
+        console.log(ext);
         return '.' + ext[0];
       }
       function GetFileName(file) {
         let temp = file.name.split('.');
         let fname = temp.slice(0, -1).join('.');
+        console.log(fname);
         return fname;
 
       }
