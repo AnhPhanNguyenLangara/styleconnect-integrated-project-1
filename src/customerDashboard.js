@@ -1,6 +1,10 @@
-import { showMenu } from './menuStart.js';
+import {
+  showMenu
+} from './menuStart.js';
 
-import { initializeApp } from 'firebase/app';
+import {
+  initializeApp
+} from 'firebase/app';
 import {
   getFirestore,
   collection,
@@ -11,7 +15,11 @@ import {
   updateDoc,
   getDoc,
 } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD7wzxQRs4mKcMOB0Vcydzdxl0NRtZbXno",
@@ -56,12 +64,12 @@ const starDialog = document.getElementById("star-dialog");
 const confirmBtn = starDialog.querySelector("#confirmBtn");
 const logOut = document.getElementById('log-out');
 
-logOut.addEventListener('click',(e)=>{
-signOut(auth).then(() => {
-  // Sign-out successful.
-}).catch((error) => {
-  // An error happened.
-});
+logOut.addEventListener('click', (e) => {
+  signOut(auth).then(() => {
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+  });
 })
 
 function fetchBookings(uid) {
@@ -75,76 +83,74 @@ function fetchBookings(uid) {
   });
 }
 
- async function createRecord(record) {
-    const div = document.createElement("div");
-    const data = record.data();
-    const btn = document.createElement("button");
-    let timestamp = await data.bookingtime; // Firestore Timestamp
-    let date = await timestamp.toDate(); // Convert to JavaScript Date object
-    let formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
-date.getDate().toString().padStart(2, '0') + '/' +
-date.getFullYear().toString().substr(-2) + ' TIME:' +
-date.getHours().toString().padStart(2, '0') + ':' +
-date.getMinutes().toString().padStart(2, '0');
-    btn.innerText = "Rate this service";
-    btn.addEventListener("click",()=>{
-        starDialog.setAttribute('docId', record.id);
-        starDialog.showModal();
-    })
-    const prosData = await prosFectching(data.prosId);
-    const paragraph = document.createElement("paragraph");
-    if(data.accepted && isNaN(data.rating)){
-        paragraph.textContent = `Available to Rate for ${prosData.firstName} Booking at ${formattedDate} `
-    }
-    else if(!isNaN(data.rating)){
-        const starSpan = document.createElement('span');
-        const serviceSpan = document.createElement('span');
-        starSpan.textContent = "★"
-        serviceSpan.textContent ="for their service"
-        starSpan.classList.add('star-span');
-        serviceSpan.classList.add('service-span');
-        btn.disabled = true;
-        paragraph.textContent = `Booking at ${formattedDate} -- You gave ${prosData.firstName} ${data.rating}`;
-        paragraph.appendChild(starSpan);
-        paragraph.appendChild(serviceSpan);
-    }
-    else{
-        btn.disabled = true;
-        paragraph.textContent = `Waiting confirm from ${prosData.firstName}`
-    }
-    div.appendChild(paragraph);
-    div.prepend(btn);
-    return div;
+async function createRecord(record) {
+  const div = document.createElement("div");
+  const data = record.data();
+  const btn = document.createElement("button");
+  let timestamp = await data.bookingtime; // Firestore Timestamp
+  let date = await timestamp.toDate(); // Convert to JavaScript Date object
+  let formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+    date.getDate().toString().padStart(2, '0') + '/' +
+    date.getFullYear().toString().substr(-2) + ' TIME:' +
+    date.getHours().toString().padStart(2, '0') + ':' +
+    date.getMinutes().toString().padStart(2, '0');
+  btn.innerText = "Rate this service";
+  btn.addEventListener("click", () => {
+    starDialog.setAttribute('docId', record.id);
+    starDialog.showModal();
+  })
+  const prosData = await prosFectching(data.prosId);
+  const paragraph = document.createElement("paragraph");
+  if (data.accepted && isNaN(data.rating)) {
+    paragraph.textContent = `Available to Rate for ${prosData.firstName} Booking at ${formattedDate} `
+  } else if (!isNaN(data.rating)) {
+    const starSpan = document.createElement('span');
+    const serviceSpan = document.createElement('span');
+    starSpan.textContent = "★"
+    serviceSpan.textContent = "for their service"
+    starSpan.classList.add('star-span');
+    serviceSpan.classList.add('service-span');
+    btn.disabled = true;
+    paragraph.textContent = `Booking at ${formattedDate} -- You gave ${prosData.firstName} ${data.rating}`;
+    paragraph.appendChild(starSpan);
+    paragraph.appendChild(serviceSpan);
+  } else {
+    btn.disabled = true;
+    paragraph.textContent = `Waiting confirm from ${prosData.firstName}`
   }
-async function prosFectching(prosId){
-    const prosTemp = await getDoc(doc(db,'professional_profile_v2', prosId)).then((prosSnap)=>{
-        return prosSnap.data()
-    });
-    return prosTemp;
+  div.appendChild(paragraph);
+  div.prepend(btn);
+  return div;
+}
+async function prosFectching(prosId) {
+  const prosTemp = await getDoc(doc(db, 'professional_profile_v2', prosId)).then((prosSnap) => {
+    return prosSnap.data()
+  });
+  return prosTemp;
 }
 // Get rating data
 ratingSubmit.addEventListener("change", (e) => {
-    e.preventDefault();
-    confirmBtn.value = document.querySelector('input[name="star"]:checked').value;
+  e.preventDefault();
+  confirmBtn.value = document.querySelector('input[name="star"]:checked').value;
+});
+
+// "Cancel" button closes the dialog without submitting because of [formmethod="dialog"], triggering a close event.
+starDialog.addEventListener("close", async (e) => {
+  const starRadios = document.querySelectorAll('input[name="star"]');
+  starRadios.forEach(radio => {
+    radio.checked = false;
   });
-  
-  // "Cancel" button closes the dialog without submitting because of [formmethod="dialog"], triggering a close event.
-  starDialog.addEventListener("close", async (e) => {
-    const starRadios = document.querySelectorAll('input[name="star"]');
-    starRadios.forEach(radio => {
-        radio.checked = false;
-    });
-    if(starDialog.returnValue != 'cancel'){
+  if (starDialog.returnValue != 'cancel') {
     const docId = starDialog.getAttribute('docId');
     const docRef = doc(colRef, docId);
-    await updateDoc(docRef,{
-        rating: starDialog.returnValue
+    await updateDoc(docRef, {
+      rating: starDialog.returnValue
     })
-    }
-  });
-  
-  // Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
-  confirmBtn.addEventListener("click", (event) => {
-    event.preventDefault(); // We don't want to submit this fake form
-    starDialog.close(confirmBtn.value); // Have to send the select box value here.
-  });
+  }
+});
+
+// Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
+confirmBtn.addEventListener("click", (event) => {
+  event.preventDefault(); // We don't want to submit this fake form
+  starDialog.close(confirmBtn.value); // Have to send the select box value here.
+});

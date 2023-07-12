@@ -59,6 +59,7 @@ let currentUserUID = null;
 let prosId = null;
 onAuthStateChanged(auth,async (user) => {
   if (user) {
+    currentUserUID = user.uid
     prosId = await getProsId(user.uid);
     // ...
   } else {
