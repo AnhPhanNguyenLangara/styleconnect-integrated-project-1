@@ -144,6 +144,11 @@
 
 <form>
   <input type="text" id="addressInput" placeholder="Enter an address">
+  <button id="clearAddress" type="clear">Clear Address</button>
+  <button type="submit" id="startFrag">Start</button>
+  <button type="submit" id="endFrag">Destination</button>
+
+
 </form>
 
 <div id="suggestions"></div>
@@ -186,12 +191,34 @@
           suggestionElement.addEventListener('click', () => {
               // Handle the selected address
               const selectedAddress = suggestion.address.freeformAddress;
-              console.log(selectedAddress);
+              addressInput.value = selectedAddress;
+              suggestionsContainer.innerHTML = "";
+              // console.log(selectedAddress);
           });
 
           suggestionsContainer.appendChild(suggestionElement);
       });
   }
+
+
+  let clearAddress = document.getElementById("clearAddress")
+  clearAddress.addEventListener("click", clearSuggestions)
+  function clearSuggestions () {
+    addressInput.value = "";
+  }
+
+
+  let startFrag = document.getElementById("startFrag");
+  startFrag.addEventListener("click", addStartFrag);
+
+  function addStartFrag () {
+    let startMarker = new tt.Marker().setLngLat()
+  }
+
+
+  function addDestinationFrag () {
+
+  } 
 
 
   
