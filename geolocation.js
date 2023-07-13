@@ -35,6 +35,9 @@ const successCallback = (x) => {
     console.log(x);
     const latitude = x.coords.latitude;
     const longitude = x.coords.longitude;
+
+    let startPosition = new tt.Marker().setLngLat([latitude],[longitude]).addTo(Map);
+
     position = `${latitude},${longitude}`;
     getReverseLocation();
     // console.log(latitude); -> OK
@@ -140,7 +143,7 @@ console.log(geoBaseURL);
 
 let address = "";
 
-async function getGeoLocation() {
+async function getGeoLocation(getCustomerAddress) {
 
     const url= geoBaseURL + encodeURI(accessAddress) + '.' + ext + '?key=' + APIKEY;
     const res = await fetch(url);

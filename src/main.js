@@ -3,7 +3,6 @@ import { initializeApp } from "firebase/app";
 import {
   getFirestore, collection, query, where, getDocs, getDoc, setDoc, addDoc, onSnapshot, doc
 } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD7wzxQRs4mKcMOB0Vcydzdxl0NRtZbXno",
@@ -15,15 +14,16 @@ const firebaseConfig = {
   measurementId: "G-BW2ZJHSJ2G"
 };
 
+
+// Get the address data from firebase
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // console.log(app);
 // Access to the customer_booking collection.
 const db = getFirestore(app);
 const colRefListing = collection(db, 'customer_booking')
-
 const customerIDs = query(colRefListing, where("customerAddress", "==", true));
-
 
 async function getCustomerAddress() {
   try {
@@ -43,12 +43,12 @@ async function getCustomerAddress() {
   }
 }
 
-const displayBtn = document.querySelector("#gbtn");
-displayBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  // console.log(23)
-  getCustomerAddress();
-});
+// const displayBtn = document.querySelector("#gbtn");
+// displayBtn.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   // console.log(23)
+//   getCustomerAddress();
+// });
 
 
 

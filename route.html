@@ -41,9 +41,9 @@
 
     // get latitude and longitude dynamically.
 
-    // const latitude = position.coords.latitude;
-    // const longitude = position.coords.longitude;
-    // console.log(latitude);
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    console.log(latitude);
 
     // search & get location
     let search = function () {
@@ -53,9 +53,9 @@
     // getLocation();
 
     // load & add the marker on the map
-    // map.on("load", () => {
-    //   new tt.Marker().setLngLat([longitude, latitude]).addTo(map);
-    // })
+    map.on("load", () => {
+      new tt.Marker().setLngLat([longitude, latitude]).addTo(map);
+    })
 
     // Getaddress customer's address from Firebase
     // displayAddress();
@@ -69,7 +69,7 @@
     // Set the destination as a center.
     function setDestination(center) {
       const map = tt.map({
-        key: '<your-tomtom-maps-API-key>',
+        key: 'ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG',
         container: 'map',
         dragPan: !isMobileOrTablet(),
         center: center,
@@ -141,18 +141,17 @@
 
 
 
-
+<!-- HTML section -->
 <form>
   <input type="text" id="addressInput" placeholder="Enter an address">
   <button id="clearAddress" type="clear">Clear Address</button>
   <button type="submit" id="startFrag">Start</button>
   <button type="submit" id="endFrag">Destination</button>
-
-
 </form>
-
 <div id="suggestions"></div>
 
+
+<!-- JS section -->
 <script>
   // Replace 'YOUR_API_KEY' with your actual TomTom API key
   const addressInput = document.getElementById('addressInput');
@@ -173,6 +172,7 @@
           .then(data => {
               console.log(data);
               showSuggestions(data.results);
+              // "data.results" contains some possible addresses.
           })
           .catch(error => {
               console.error('Error:', error);
@@ -208,17 +208,17 @@
   }
 
 
-  let startFrag = document.getElementById("startFrag");
-  startFrag.addEventListener("click", addStartFrag);
+  // let startFrag = document.getElementById("startFrag");
+  // startFrag.addEventListener("click", addStartFrag);
 
-  function addStartFrag () {
-    let startMarker = new tt.Marker().setLngLat()
-  }
+  // function addStartFrag () {
+  //   let startMarker = new tt.Marker().setLngLat()
+  // }
 
 
-  function addDestinationFrag () {
+  // function addDestinationFrag () {
 
-  } 
+  // } 
 
 
   
