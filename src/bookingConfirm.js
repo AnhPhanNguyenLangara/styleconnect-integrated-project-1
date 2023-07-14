@@ -80,6 +80,7 @@ confirmBooking.addEventListener('submit', async (e) => {
       createdAt: serverTimestamp()
     })
     confirmBooking.reset()
+    window.location.assign("customerDashboard.html");
   } catch (error) {
     console.log(error);
   }

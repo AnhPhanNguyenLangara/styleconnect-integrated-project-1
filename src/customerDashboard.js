@@ -83,17 +83,15 @@ function fetchBookings(uid) {
   });
 }
 
+
 async function createRecord(record) {
-  const div = document.createElement("div");
   const data = record.data();
+  const currentDate = new Date();
+  const bookingDate = record.data().bookingtime.toDate();
+  const div = document.createElement("div");
   const btn = document.createElement("button");
-  let timestamp = await data.bookingtime; // Firestore Timestamp
-  let date = await timestamp.toDate(); // Convert to JavaScript Date object
-  let formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
-    date.getDate().toString().padStart(2, '0') + '/' +
-    date.getFullYear().toString().substr(-2) + ' TIME:' +
-    date.getHours().toString().padStart(2, '0') + ':' +
-    date.getMinutes().toString().padStart(2, '0');
+  
+  let formattedDate = await convertDate(bookingDate)
   btn.innerText = "Rate this service";
   btn.addEventListener("click", () => {
     starDialog.setAttribute('docId', record.id);
@@ -101,7 +99,7 @@ async function createRecord(record) {
   })
   const prosData = await prosFectching(data.prosId);
   const paragraph = document.createElement("paragraph");
-  if (data.accepted && isNaN(data.rating)) {
+  if (data.accepted && isNaN(data.rating) && currentDate >= bookingDate) {
     paragraph.textContent = `Available to Rate for ${prosData.firstName} Booking at ${formattedDate} `
   } else if (!isNaN(data.rating)) {
     const starSpan = document.createElement('span');
@@ -116,12 +114,24 @@ async function createRecord(record) {
     paragraph.appendChild(serviceSpan);
   } else {
     btn.disabled = true;
-    paragraph.textContent = `Waiting confirm from ${prosData.firstName}`
+    paragraph.textContent = data.accepted?`You can rate after the service is completed at ${formattedDate} `:`Waiting accept from ${prosData.firstName}`;
   }
   div.appendChild(paragraph);
   div.prepend(btn);
   return div;
 }
+
+
+async function convertDate(date){
+  let formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+    date.getDate().toString().padStart(2, '0') + '/' +
+    date.getFullYear().toString().substr(-2) + ' TIME:' +
+    date.getHours().toString().padStart(2, '0') + ':' +
+    date.getMinutes().toString().padStart(2, '0');
+    return formattedDate
+}
+
+
 async function prosFectching(prosId) {
   const prosTemp = await getDoc(doc(db, 'professional_profile_v2', prosId)).then((prosSnap) => {
     return prosSnap.data()

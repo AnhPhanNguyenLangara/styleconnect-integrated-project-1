@@ -119,6 +119,8 @@ function displayListing(prosListArr) {
     let obj = {
       listingId: x.listingId,
       country: x.country,
+      onhome: x.onhome,
+      onlocation: x.onlocation,
       servicedescription: x.servicedescription,
       price: x.price,
       service: x.service,
@@ -141,7 +143,7 @@ bookCard.addEventListener('click', async (e) => {
   var button = e.target;
   var bookingId = button.getAttribute("data");
   if (e.target.classList.value === 'confirm') {
-    if (confirm('Are you sure you want to confirm?')) {
+    if (confirm('Are you sure you want to accept this booking?')) {
       try {
         const docRef = doc(colRefBooking, bookingId);
         await updateDoc(docRef, {
@@ -194,6 +196,8 @@ addServiceForm.addEventListener('submit', async (e) => {
     await setDoc(newDocRef, {
       userId: prosId,
       listingId: newDocRef.id,
+      onlocation: addServiceForm.onlocation.value,
+      onhome: addServiceForm.onhome.value,
       servicedescription: addServiceForm.servicedescription.value,
       service: addServiceForm.service.value,
       price: +addServiceForm.price.value,

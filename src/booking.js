@@ -1,4 +1,6 @@
-import { showMenu } from './menuStart.js';
+import {
+  showMenu
+} from './menuStart.js';
 
 const bookingDetail = document.querySelector('#booking-detail');
 const url = window.location.href;
@@ -7,9 +9,9 @@ const entries = new URLSearchParams(searchParams).values();
 const array = Array.from(entries);
 const obj = JSON.parse(array[0])
 const fetchId = obj.userId
-
+console.log(obj)
 bookingDetail.innerHTML =
-`
+  `
 <h3 id="fullname">${obj.firstName} ${obj.lastName}</h3>
 <p id="address">${obj.address} ${obj.city} ,${obj.country}</p>
 <p id="bio">${obj.bio}</p>
@@ -57,7 +59,7 @@ const auth = getAuth();
 
 let currentUserUID = null;
 let prosId = null;
-onAuthStateChanged(auth,async (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUserUID = user.uid
     prosId = await getProsId(user.uid);
@@ -91,22 +93,49 @@ async function fetchListingData() {
 const fecthLising = await fetchListingData();
 const bookingListing = document.querySelector('#booking-listing');
 fecthLising.forEach((x, index) => {
+  // Create a div container
+  let container = document.createElement("div");
+  container.classList.add("listing-container");
+
   let label = document.createElement("label");
   label.innerText = x.service + " " + x.price + " CAD";
+
   let input = document.createElement("input");
   input.type = "radio";
-  input.value = x.listingId
-  input.name = "listing"
+  input.value = x.listingId;
+  input.name = "listing";
   input.checked = index === 0 ? 'checked' : false;
-  bookingListing.appendChild(label);
-  bookingListing.appendChild(input);
 
-})
+  let dropdown = document.createElement("select");
+
+  if (x.onhome) {
+    let option1 = document.createElement("option");
+    option1.value = "onhome";
+    option1.text = "On Professional Location";
+    dropdown.appendChild(option1);
+  }
+
+  if (x.onlocation) {
+    let option2 = document.createElement("option");
+    option2.value = "onlocation";
+    option2.text = "On Your Location";
+    dropdown.appendChild(option2);
+  }
+
+  // Append the elements to the container
+  container.appendChild(label);
+  container.appendChild(input);
+  container.appendChild(dropdown);
+  // Append the container to the bookingListing element
+  bookingListing.appendChild(container);
+});
+
+
 
 const bookService = document.querySelector('#book-service');
 bookService.addEventListener('click', (e) => {
   let radio = document.getElementsByName('listing');
-  if(prosId === obj.userId){
+  if (prosId === obj.userId) {
     e.preventDefault();
     alert('you cannot book your service')
     return;

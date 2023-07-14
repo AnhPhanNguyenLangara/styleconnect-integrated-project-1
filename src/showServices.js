@@ -147,12 +147,11 @@ const listingsPromise  = getDocs(colRefListing)
       <div class="pros-card">
         <h3>${x.firstName + " " + x.lastName}</h3>
         <i class="fa-regular fa-heart"></i>
-        <p class="location">${x.address1+ " " + x.city}</p>
+        <p class="location">${getObjectKeys(x.area, true)}</p>
         <img src="${x.photoURL}" alt="">
         <p class="price">Start from $${x.startPrice}<span>CAD</span></p>
         <a href="booking.html?${queryString}" class="btn btn-show btn-animated">Book Now</a>
       </div>`;
-  
     displayOBJ.forEach((x) => {
       let obj ={
         userId: x.userId,
@@ -190,4 +189,9 @@ const listingsPromise  = getDocs(colRefListing)
     listNail.innerHTML = listingDisplay.nail;
   };
   
+  function getObjectKeys(obj, value) {
+    return Object.keys(obj).filter(key => obj[key] === value);
+  }
+
+
   displayListing();
