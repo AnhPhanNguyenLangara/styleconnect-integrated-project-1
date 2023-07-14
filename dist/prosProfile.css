@@ -150,6 +150,10 @@ span {
   margin-bottom: 1rem;
 }
 
+p.location {
+  text-transform: capitalize;
+}
+
 /* LINKS =============== */
 a {
   text-decoration: none;
@@ -395,6 +399,16 @@ button {
 }
 
 .listing-tab {
+  display: flex;
+  gap: 1rem;
+  flex-flow: row nowrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #8949E1;
+}
+
+.listing-container {
   display: flex;
   gap: 1rem;
   flex-flow: row nowrap;
