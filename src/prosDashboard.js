@@ -87,6 +87,8 @@ const displayBooking = async (bookingPromise) => {
   bookListArr.forEach((x) => {
     listingDisplay += `<div class="listing-tab">
         <h4 id="serviceName">Booking-Id: <span>${x.bookingId}</span></h4>
+        <p>Customer Name:${x.customerfirstName} ${x.customerlastName}</p>
+        <p>Customer Address: ${x.customerAddress}</p>
         ${
           x.accepted
             ? `<button data="${x.bookingId}">RESCHEDULE</button> <button data="${x.bookingId}" class="cancel">CANCEL</button>`

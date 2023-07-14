@@ -118,7 +118,6 @@ addProfileForm.addEventListener('submit', async (e) => {
                 Nail: addProfileForm.category4.checked,
             },
             address1: addProfileForm.address1.value,
-            country: addProfileForm.country.value,
             area: {
                 downtown: addProfileForm.area1.checked,
                 burnaby: addProfileForm.area2.checked,

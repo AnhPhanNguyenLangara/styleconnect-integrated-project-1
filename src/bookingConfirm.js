@@ -12,7 +12,8 @@ import {
   doc,
   serverTimestamp,
   Timestamp,
-  setDoc
+  setDoc,
+  getDoc
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -33,13 +34,17 @@ initializeApp(firebaseConfig)
 const db = getFirestore();
 // get UID
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+// collection ref
+const colRef = collection(db, 'customer_booking');
 
 const auth = getAuth();
-onAuthStateChanged(auth, (user) => {
+let currentUserUID = null
+onAuthStateChanged(auth, async (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
-    const uid = user.uid;
+     currentUserUID = user.uid;
+
     // ...
   } else {
     // User is signed out
@@ -48,8 +53,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// collection ref
-const colRef = collection(db, 'customer_booking');
+
 
 //   adding Profile documents
 const confirmBooking = document.querySelector('.add')
@@ -58,12 +62,18 @@ confirmBooking.addEventListener('submit', async (e) => {
   e.preventDefault();
   try {
     const bookingDate = new Date(confirmBooking.bookingTime.value);
+    console.log(currentUserUID)
+    const colRefCustomer =  doc(db, 'customer_profile', currentUserUID);
+    let customerData = (await getDoc(colRefCustomer)).data();
     let firebastTime = Timestamp.fromDate(bookingDate);
     const docRef = doc(colRef);
     await setDoc(docRef, {
       customerId: arr[2],
       bookingId: docRef.id,
       bookingtime: firebastTime,
+      customerfirstName: customerData.firstName,
+      customerlastName: customerData.lastName,
+      customerAddress: customerData.address1,
       prosId: arr[3],
       listingId: arr[1],
       accepted: false,
