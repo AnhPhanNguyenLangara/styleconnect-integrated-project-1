@@ -100,11 +100,7 @@ const errorCallback = (error) => {
 
 // OptionObj =================================================================
 
-const optionObj = {
-    timeout: 5000,
-    enableHighAccuracy: false,
-    maximumAge: 0,
-}
+
 
 // // Watch position =========================================================
 // const watchId = navigator.geolocation.watchPosition(successCallback, errorCallback);
