@@ -1,0 +1,12 @@
+#suggestionContainer {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+}
+​
+.suggestion {
+    padding: 5px;
+    cursor: pointer;
+}
