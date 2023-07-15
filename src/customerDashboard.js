@@ -90,6 +90,7 @@ async function createRecord(record) {
   const bookingDate = record.data().bookingtime.toDate();
   const div = document.createElement("div");
   const btn = document.createElement("button");
+  const where = data.where === 'onlocation'? 'The professional will service at your location':`You will need to go to the professional's location ${data.address} for the service.`
   
   let formattedDate = await convertDate(bookingDate)
   btn.innerText = "Rate this service";
@@ -98,7 +99,8 @@ async function createRecord(record) {
     starDialog.showModal();
   })
   const prosData = await prosFectching(data.prosId);
-  const paragraph = document.createElement("paragraph");
+  const paragraph1 = document.createElement("p");
+  const paragraph2 = document.createElement("p");
   if (data.accepted && isNaN(data.rating) && currentDate >= bookingDate) {
     paragraph.textContent = `Available to Rate for ${prosData.firstName} Booking at ${formattedDate} `
   } else if (!isNaN(data.rating)) {
@@ -109,14 +111,16 @@ async function createRecord(record) {
     starSpan.classList.add('star-span');
     serviceSpan.classList.add('service-span');
     btn.disabled = true;
-    paragraph.textContent = `Booking at ${formattedDate} -- You gave ${prosData.firstName} ${data.rating}`;
-    paragraph.appendChild(starSpan);
-    paragraph.appendChild(serviceSpan);
+    paragraph1.textContent = `Booking at ${formattedDate} -- You gave ${prosData.firstName} ${data.rating}`;
+    paragraph1.appendChild(starSpan);
+    paragraph1.appendChild(serviceSpan);
   } else {
     btn.disabled = true;
-    paragraph.textContent = data.accepted?`You can rate after the service is completed at ${formattedDate} `:`Waiting accept from ${prosData.firstName}`;
+    paragraph1.textContent = data.accepted?`You can rate after the service is completed at ${formattedDate} `:`Waiting accept from ${prosData.firstName}`;
+    paragraph2.textContent = where;
   }
-  div.appendChild(paragraph);
+  div.appendChild(paragraph1);
+  div.appendChild(paragraph2);
   div.prepend(btn);
   return div;
 }

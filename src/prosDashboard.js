@@ -83,12 +83,15 @@ async function fetchBookingData(prosId) {
 const bookCard = document.getElementById('booking-request')
 const displayBooking = async (bookingPromise) => {
   let bookListArr = await bookingPromise;
+
   let listingDisplay = "";
   bookListArr.forEach((x) => {
+    let bookingType = x.where ==="onhome"? 'On Your Location': 'On Customer Location' ;
     listingDisplay += `<div class="listing-tab">
-        <h4 id="serviceName">Booking-Id: <span>${x.bookingId}</span></h4>
+        <h4 id="serviceName">${bookingType}</h4>
         <p>Customer Name:${x.customerfirstName} ${x.customerlastName}</p>
-        <p>Customer Address: ${x.customerAddress}</p>
+        <p>Service Name: ${x.serviceName}</p>
+        <p>Servcie Address: ${x.address}</p>
         ${
           x.accepted
             ? `<button data="${x.bookingId}">RESCHEDULE</button> <button data="${x.bookingId}" class="cancel">CANCEL</button>`

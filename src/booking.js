@@ -94,6 +94,7 @@ const fecthLising = await fetchListingData();
 const bookingListing = document.querySelector('#booking-listing');
 fecthLising.forEach((x, index) => {
   // Create a div container
+
   let container = document.createElement("div");
   container.classList.add("listing-container");
 
@@ -107,6 +108,8 @@ fecthLising.forEach((x, index) => {
   input.checked = index === 0 ? 'checked' : false;
 
   let dropdown = document.createElement("select");
+  dropdown.classList.add("where");
+  dropdown.setAttribute('service-name', x.service)
 
   if (x.onhome) {
     let option1 = document.createElement("option");
@@ -127,9 +130,8 @@ fecthLising.forEach((x, index) => {
   container.appendChild(input);
   container.appendChild(dropdown);
   // Append the container to the bookingListing element
-  bookingListing.appendChild(container);
+  bookingListing.prepend(container);
 });
-
 
 
 const bookService = document.querySelector('#book-service');
@@ -137,12 +139,15 @@ bookService.addEventListener('click', (e) => {
   let radio = document.getElementsByName('listing');
   if (prosId === obj.userId) {
     e.preventDefault();
-    alert('you cannot book your service')
+    alert('You cannot book your own service');
     return;
   }
   for (let i = 0; i < radio.length; i++) {
     if (radio[i].checked) {
-      bookService.href = `/dist/bookingConfirm.html?${radio[i].value}?${currentUserUID}?${obj.userId}`;
+      let dropdown = document.querySelector('.listing-container:nth-child(' + (i + 1) + ') .where');
+      let dropdownValue = dropdown.value;
+      let serviceName = dropdown.getAttribute('service-name');
+      bookService.href = `/dist/bookingConfirm.html?${radio[i].value}?${currentUserUID}?${obj.userId}?${dropdownValue}?${serviceName}`;
     }
   }
 });
