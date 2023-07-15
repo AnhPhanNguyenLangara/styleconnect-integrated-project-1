@@ -2,12 +2,10 @@
 let APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
 let startPoint = [];
 let goalPoint = [];
-// let Vancouver = [-123.1207, 49.2827];
-
 
 // create map object with SDK to show the map
 let map = tt.map({
-    key: 'ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG',
+    key: APIKEY,
     container: 'map',
     dragPan: !isMobileOrTablet()
 });
@@ -26,7 +24,6 @@ function createMarkerElement(markerType) {
     return element;
 }
 
-
 // add markers at the start point and end point in the map.
 function addMarkers(feature) {
     let startPoint, endPoint;
@@ -35,12 +32,14 @@ function addMarkers(feature) {
         // startPoint = feature.geometry.coordinates[0][0]; 
         startPoint = getDeviceLocation();
         // get only latitude of last point from line array using slice
-        endPoint = feature.geometry.coordinates.slice(-1)[0].slice(-1)[0];
+        endPoint = getCustomerAddress();
+        // endPoint = feature.geometry.coordinates.slice(-1)[0].slice(-1)[0];
     } else {
         // get an first array which has a latitude and longititude
         // startPoint = feature.geometry.coordinates[0];
-        startPoint = getDeviceLocation();;
-        endPoint = feature.geometry.coordinates.slice(-1)[0];
+        startPoint = getDeviceLocation();
+        endPoint = getCustomerAddress();
+        // endPoint = feature.geometry.coordinates.slice(-1)[0];
     }
     // console.log(geojson);
     // console.log(geojson.features[0].geometry.type);
@@ -71,7 +70,7 @@ function findFirstBuildingLayerId() {
 // get a route only when user access the page or reload. 
 map.once('load', function() {
     tt.services.calculateRoute({
-        key: 'ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG',
+        key: APIKEY,
         traffic: false,
         locations: `${getDeviceLocation()}:${getGeoLocation()}`
     })
@@ -149,7 +148,6 @@ const optionObj = {
     enableHighAccuracy: false,
     maximumAge: 0,
 }
-
 
 // conver user's address into a latitude and longitude after get User's location from user's booking
 

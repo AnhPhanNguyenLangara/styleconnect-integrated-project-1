@@ -44,19 +44,17 @@ async function getCustomerAddress() {
   }
 }
 
-
-
 // input & store user address.
-async function addAddress() {
-  // console.log("addAddress called");
-  try {
-    const address = document.getElementById("address").value;
-    // console.log(address);
-    const docRef = await setDoc(colRefListing, {
-      address
-    });
-    // console.log("Data added to Firebase successfully");
-  } catch (error) {
-    console.error("Error. Your infomation has already existed.", error);
-  };
-}
+// async function addAddress() {
+//   // console.log("addAddress called");
+//   try {
+//     const address = document.getElementById("address").value;
+//     // console.log(address);
+//     const docRef = await setDoc(colRefListing, {
+//       address
+//     });
+//     // console.log("Data added to Firebase successfully");
+//   } catch (error) {
+//     console.error("Error. Your infomation has already existed.", error);
+//   };
+// }
