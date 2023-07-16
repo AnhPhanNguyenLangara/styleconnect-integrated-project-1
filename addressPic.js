@@ -26,7 +26,9 @@ const db = getFirestore(app);
 const colRefListing = collection(db, 'customer_booking')
 const customerIDs = query(colRefListing, where("customerAddress", "==", true));
 
-async function getCustomerAddress() {
+
+//Pick customer's address from booking collection in firebase.
+export async function getCustomerAddress() {
   try {
     // get documents from the collection which I want to access.
 
@@ -36,13 +38,15 @@ async function getCustomerAddress() {
       //get a document from firebase
       const customerData = doc.data();
       const customerAddress = customerData.customerAddress;
-      console.log(customerAddress);
+      return customerAddress;
+      // console.log(customerAddress);
     });
   }
   catch (error) {
     console.error("Error", error);
   }
 }
+
 
 // input & store user address.
 // async function addAddress() {
