@@ -1,9 +1,12 @@
-import { getCustomerAddress } from './addressPic.js'
+import { getCustomerAddress } from './addressPic';
 
 // setting and showing a map
 const APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
-// let startPoint = getDeviceLocation();
-// let goalPoint = getCustomerAddress();
+
+// display the distance.
+function displayAddress() {
+    document.getElementById("destination").innerHTML = getCustomerAddress();
+};
 
 
 // create map object with SDK to show the map
@@ -59,7 +62,6 @@ async function addMarkers(feature) {
         let startPoint, endPoint;
         if (feature.geometry.type === 'MultiLineString') {
             //get only latitude of first point from line array
-            // startPoint = feature.geometry.coordinates[0][0]; 
             let deviceLocation = getDeviceLocation();
             startPoint = deviceLocation.latitude;
 
@@ -83,7 +85,7 @@ async function addMarkers(feature) {
         //add start & end marker (decide the marker type in the tt.Maker()constructor (elemnet: createMarkerElement('start)))
         new tt.Marker({ element: createMarkerElement('start') }).setLngLat(startPoint).addTo(map);
         new tt.Marker({ element: createMarkerElement('finish') }).setLngLat(endPoint).addTo(map);
-
+        displayAddress();
     } catch (error) {
         console.error("Error:", error)
     }
@@ -107,6 +109,8 @@ function findFirstBuildingLayerId() {
 
 
 // get a route only when user access the page or reload. 
+var resultsManager = new ResultsManager();
+
 map.once('load', function () {
     tt.services.calculateRoute({
         key: APIKEY,
@@ -130,6 +134,9 @@ map.once('load', function () {
             }, findFirstBuildingLayerId());
             addMarkers(geojson.features[0]);
 
+            resultsManager.success();
+            resultsManager.append(createSummaryContent(geojson.features[0].properties.summary));
+
             let bounds = new tt.LngLatBounds();
             geojson.features[0].geometry.coordinates.forEach(function (point) {
                 bounds.extend(tt.LngLat.convert(point));
@@ -137,12 +144,6 @@ map.once('load', function () {
             map.fitBounds(bounds, { duration: 0, padding: 50 });
         });
 });
-
-
-// display the distance.
-function displayAddress() {
-    document.getElementById("destination").innerHTML = getCustomerAddress();
-};
 
 
 // Convert user's address into a latitude and longitude using user's booking information
@@ -158,7 +159,7 @@ async function getCustomerLocation(customerAddress) {
         const res = await fetch(url);
         const data = await res.json();
         const position = data.results[0].position; //get latitude & logititude;
-        return position
+        return position;
     } catch (error) {
         console.error("Error", error);
     }
@@ -177,10 +178,11 @@ function getDeviceLocation() {
 }
 // When open the map page, the map and start point automatically displayed. 
 const successCallback = (currentLocation) => {
-    console.log(currentLocation);
+    // console.log(currentLocation);
     const latitude = currentLocation.coords.latitude;
     const longitude = currentLocation.coords.longitude;
-    startPoint = [latitude, longitude];
+    let startPoint = [latitude, longitude];
+    return startPoint;
 }
 const errorCallback = (error) => {
     const errorArr = [
@@ -205,5 +207,33 @@ const optionObj = {
 }
 
 
-// Dispaly the distance and detail of the route
-// function handleCa
+// Route summary
+
+let detailsWrapper = document.createElement('div');
+let summaryContent = document.createElement('div');
+let summaryHeader = "";
+
+function createSummaryContent(feature) {
+    if (!summaryHeader) {
+        summaryHeader = DomHelpers.elementFactory('div', 'summary-header', 'Route summary');
+        summaryContent.appendChild(summaryHeader);
+    }
+    let detailsHTML =
+        '<div class="summary-details-bottom">' +
+            '<div class="summary-icon-wrapper">' +
+                '<span class="tt-icon -car -big"></span>' +
+            '</div>' +
+            '<div class="summary-details-text">' +
+                '<span class="summary-details-info">Distance: <b>' +
+                    Formatters.formatAsMetricDistance(feature.lengthInMeters) +
+                '</b></span>' +
+                '<span class="summary-details-info -second">Arrive: <b>' +
+                    Formatters.formatToExpandedDateTimeString(feature.arrivalTime) +
+                '</b></span>' +
+            '</div>' +
+        '</div>';
+
+    detailsWrapper.innerHTML = detailsHTML;
+    summaryContent.appendChild(detailsWrapper);
+    return summaryContent;
+}

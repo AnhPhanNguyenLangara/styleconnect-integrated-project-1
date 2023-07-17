@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps.css" />
     <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps.css'>
+    <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.2.0//SearchBox.css'/>
     <link rel='stylesheet' type='text/css' href='../assets/ui-library/icons-css/routing.css'/>
     <link rel='stylesheet' type='text/css' href='../assets/ui-library/index.css'/>
     <link rel="stylesheet" href="./map.css">
@@ -13,14 +14,37 @@
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps-web.min.js'></script>
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/services/services-web.min.js'></script>
     <script data-showable type='text/javascript' src='../assets/js/mobile-or-tablet.js'></script>
+    <script type='text/javascript' src='../assets/js/mobile-or-tablet.js'></script>
+    <script type='text/javascript' src='../assets/js/foldable.js'></script>
+    <script type='text/javascript' src='../assets/js/formatters.js'></script>
+    <script type='text/javascript' src='../assets/js/info-hint.js'></script>
+    <script type='text/javascript' src='../assets/js/search/dom-helpers.js'></script>
+    <script type='text/javascript' src='../assets/js/search/results-manager.js'></script>
+    <!-- <script type='text/javascript' src='../assets/js/search/searchbox-enter-submit.js'></script> -->
+    <!-- <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.2.0//SearchBox-web.js'></script> -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+
+
     <title>Map</title>
 </head>
 <body>
     <div id="displayError"></div>
     <div id="result"></div>
     <div id="map" class='map'></div>
-    <div id="destination"></div>
-    <div id="route-instruction"></div>
-
+    <div>Customer Address:</div>
+    <div id="distance"></div>
+ 
+    <div class='map-view'>
+        <form class='tt-side-panel js-form'>
+            <div class='tt-tabs js-tabs'>
+                <div class='tt-tabs__panel'>
+                    <div class='tt-results-list js-results'></div>
+                    <div class='js-results-loader' hidden='hidden'>
+                        <div class='loader-center'><span class='loader'></span></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
