@@ -14,6 +14,7 @@ import {
   where,
   updateDoc,
   getDoc,
+  getDocs
 } from 'firebase/firestore';
 import {
   getAuth,
@@ -33,17 +34,11 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
-
-// get UID
 const auth = getAuth();
 let currentUserUID = null;
-
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
-    currentUserUID = user.uid;
-
+    currentUserUID =user.uid
     // Fetch bookings immediately after user logs in
     fetchBookings(currentUserUID);
   } else {
@@ -56,7 +51,7 @@ onAuthStateChanged(auth, (user) => {
 
 // collection ref
 const colRef = collection(db, 'customer_booking');
-const procolRef = collection(db, 'professional_profile_v2');
+const colRefProsProfile = collection(db, 'professional_profile_v2');
 
 const ratingSubmit = document.querySelector('#rating-form');
 const bookingDetail = document.querySelector('#booking-detail');
@@ -83,7 +78,6 @@ function fetchBookings(uid) {
   });
 }
 
-
 async function createRecord(record) {
   const data = record.data();
   const currentDate = new Date();
@@ -96,13 +90,14 @@ async function createRecord(record) {
   btn.innerText = "Rate this service";
   btn.addEventListener("click", () => {
     starDialog.setAttribute('docId', record.id);
+    starDialog.setAttribute('prosId', record.data().prosId);
     starDialog.showModal();
   })
   const prosData = await prosFectching(data.prosId);
   const paragraph1 = document.createElement("p");
   const paragraph2 = document.createElement("p");
   if (data.accepted && isNaN(data.rating) && currentDate >= bookingDate) {
-    paragraph.textContent = `Available to Rate for ${prosData.firstName} Booking at ${formattedDate} `
+    paragraph1.textContent = `Available to Rate for ${prosData.firstName} Booking at ${formattedDate} `
   } else if (!isNaN(data.rating)) {
     const starSpan = document.createElement('span');
     const serviceSpan = document.createElement('span');
@@ -156,15 +151,37 @@ starDialog.addEventListener("close", async (e) => {
   });
   if (starDialog.returnValue != 'cancel') {
     const docId = starDialog.getAttribute('docId');
+    const prosId = starDialog.getAttribute('prosId');
     const docRef = doc(colRef, docId);
+    const proRef = doc(colRefProsProfile, prosId);
+    const prosData = await ratingFetching(prosId);
+    const prosRating = isNaN(prosData.rating)? +starDialog.returnValue : ((+starDialog.returnValue + (prosData.rating * +prosData.ratingCount)) / (+prosData.ratingCount + 1)).toFixed(2);
+    const prosRatingCount = isNaN(prosData.ratingCount)? 1: (prosData.ratingCount + 1)
+
+    const reviewText = document.querySelector('#review-text').value;
+    
     await updateDoc(docRef, {
-      rating: starDialog.returnValue
+      rating: starDialog.returnValue,
+      review: reviewText
     })
+    await updateDoc(proRef, {
+      rating: prosRating,
+      ratingCount:+prosRatingCount
+    })
+    document.querySelector('#review-text').value = '';
   }
 });
+
 
 // Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
 confirmBtn.addEventListener("click", (event) => {
   event.preventDefault(); // We don't want to submit this fake form
   starDialog.close(confirmBtn.value); // Have to send the select box value here.
 });
+
+async function ratingFetching(prosId) {
+  const prosData = await getDoc(doc(db, 'professional_profile_v2' , prosId)).then((snapshot) => {
+    return snapshot.data()
+  });
+  return prosData;
+}

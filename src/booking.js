@@ -9,15 +9,12 @@ const entries = new URLSearchParams(searchParams).values();
 const array = Array.from(entries);
 const obj = JSON.parse(array[0])
 const fetchId = obj.userId
-console.log(obj)
-bookingDetail.innerHTML =
-  `
-<h3 id="fullname">${obj.firstName} ${obj.lastName}</h3>
-<p id="address">${obj.address} ${obj.city} ,${obj.country}</p>
-<p id="bio">${obj.bio}</p>
-<div class="listservice">
-</div>
-`
+document.getElementById('fullname').textContent = `${obj.firstName} ${obj.lastName}`;
+document.getElementById('address').textContent = `${obj.address} ${obj.city} ,${obj.country}`;
+document.getElementById('bio').textContent = obj.bio;
+document.getElementById('rating').textContent = `Rating:${obj.rating}`;
+document.getElementById('ratingCount').textContent = obj.ratingCount;
+
 
 
 
@@ -63,7 +60,25 @@ onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUserUID = user.uid
     prosId = await getProsId(user.uid);
-    // ...
+    let reviews = await getReviews(prosId);
+    
+    // If reviews exist, display them in the modal
+    if (reviews.length > 0) {
+      let reviewModalContent = document.querySelector('.modal-content');
+      reviews.forEach(review => {
+        console.log(review)
+          let reviewElement = document.createElement('div');
+          reviewElement.className = 'review';
+          reviewElement.innerHTML = `
+              <p><strong>Service:</strong> ${review.serviceName}</p>
+              <p><strong>Customer:</strong> ${review.customerFirstName} ${review.customerLastName}</p>
+              <p><strong>Rating:</strong> <span class="stars">${'★'.repeat(review.rating)}</span></p>
+              <p><strong>Review:</strong> ${review.review}</p>  
+          `;
+          reviewModalContent.appendChild(reviewElement);
+      });
+  }
+  
   } else {
     // User is signed out
     // ...
@@ -151,3 +166,39 @@ bookService.addEventListener('click', (e) => {
     }
   }
 });
+
+
+// Review Modal
+let reviewLink = document.querySelector('#review-link');
+let reviewModal = document.querySelector('#reviewModal');
+let closeModalButton = document.querySelector('.close');
+
+reviewLink.addEventListener('click', function() {
+    reviewModal.style.display = 'block';
+});
+
+closeModalButton.addEventListener('click', function() {
+    reviewModal.style.display = 'none';
+});
+
+
+async function getReviews(prosId) {
+  const colRefCustomerBooking = collection(db, 'customer_booking');
+  const queryRef = query(colRefCustomerBooking, where('prosId', '==', prosId));
+  const snapshot = await getDocs(queryRef);
+
+  let reviews = [];
+  snapshot.forEach((doc) => {
+    let data = doc.data();
+    console.log(data.customerFirstName)
+    reviews.push({
+      serviceName: data.serviceName,
+      rating: data.rating,
+      customerFirstName: data.customerfirstName,
+      customerLastName: data.customerlastName,
+      review: data.review
+    });
+  });
+  console.log(reviews)
+  return reviews;
+}
