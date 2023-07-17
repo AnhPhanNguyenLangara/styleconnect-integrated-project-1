@@ -1,4 +1,6 @@
 import { getCustomerAddress } from './addressPic';
+import { default as ttServices } from "@tomtom-international/web-sdk-services";
+import { default as ttMaps } from "@tomtom-international/web-sdk-maps";
 
 // setting and showing a map
 const APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
@@ -6,40 +8,39 @@ const APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
 // display the distance.
 function displayAddress() {
     document.getElementById("destination").innerHTML = getCustomerAddress();
-};
+}
 
 
 // create map object with SDK to show the map
-let map = tt.map({
+let map = ttMaps.map({
     key: APIKEY,
-    container: 'map',
-    dragPan: !isMobileOrTablet(),
-    center: calcMidPoint()
+    container: 'map'
+    // dragPan: !isMobileOrTablet()
 });
-map.addControl(new tt.FullscreenControl());
-map.addControl(new tt.NavigationControl());
+map.addControl(new ttMaps.FullscreenControl());
+map.addControl(new ttMaps.NavigationControl());
 
 
-// get a middle position between device location and customer's location
-async function calcMidPoint() {
-    try {
-        let deviceLocation = await getDeviceLocation();
-        let customerLocation = await getCustomerLocation();
+// // get a middle position between device location and customer's location
+// async function calcMidPoint() {
+//     try {
+//         let deviceLocation = await getDeviceLocation();
+//         let customerLocation = await getCustomerLocation();
 
-        let lat1 = deviceLocation.latitude;
-        let lon1 = deviceLocation.longitude;
-        let lat2 = customerLocation.latitude;
-        let lon2 = customerLocation.longitude;
+//         let lat1 = deviceLocation.latitude;
+//         let lon1 = deviceLocation.longitude;
+//         let lat2 = customerLocation.latitude;
+//         let lon2 = customerLocation.longitude;
 
-        let midLat = (lat1 + lat2) / 2;
-        let midLon = (lon1 + lon2) / 2;
+//         let midLat = (lat1 + lat2) / 2;
+//         let midLon = (lon1 + lon2) / 2;
 
-        return [midLat, midLon];
-    }
-    catch {
-        console.error("Error", error);
-    }
-}
+//         return [midLat, midLon];
+//     }
+//     catch (error) {
+//         console.error("Error", error);
+//     }
+// }
 
 
 // creat markers
@@ -83,8 +84,8 @@ async function addMarkers(feature) {
         // console.log(geojson.features[0].geometry.coordinates[0]);
 
         //add start & end marker (decide the marker type in the tt.Maker()constructor (elemnet: createMarkerElement('start)))
-        new tt.Marker({ element: createMarkerElement('start') }).setLngLat(startPoint).addTo(map);
-        new tt.Marker({ element: createMarkerElement('finish') }).setLngLat(endPoint).addTo(map);
+        new ttMaps.Marker({ element: createMarkerElement('start') }).setLngLat(startPoint).addTo(map);
+        new ttMaps.Marker({ element: createMarkerElement('finish') }).setLngLat(endPoint).addTo(map);
         displayAddress();
     } catch (error) {
         console.error("Error:", error)
@@ -112,7 +113,7 @@ function findFirstBuildingLayerId() {
 var resultsManager = new ResultsManager();
 
 map.once('load', function () {
-    tt.services.calculateRoute({
+    ttServices.services.calculateRoute({
         key: APIKEY,
         traffic: false,
         locations: `${getDeviceLocation()}:${getCustomerLocation()}`
@@ -137,9 +138,9 @@ map.once('load', function () {
             resultsManager.success();
             resultsManager.append(createSummaryContent(geojson.features[0].properties.summary));
 
-            let bounds = new tt.LngLatBounds();
+            let bounds = new ttMaps.LngLatBounds();
             geojson.features[0].geometry.coordinates.forEach(function (point) {
-                bounds.extend(tt.LngLat.convert(point));
+                bounds.extend(ttMaps.LngLat.convert(point));
             });
             map.fitBounds(bounds, { duration: 0, padding: 50 });
         });

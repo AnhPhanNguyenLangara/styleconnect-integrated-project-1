@@ -1,0 +1,21 @@
+{
+  "name": "styleconnect-integrated-project-1",
+  "version": "1.0.0",
+  "description": "Semester 2, Integrated Project 1, team Creative Nexus Repository for PWA project TEST TEST2 local change",
+  "main": "map.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tomtom-international/web-sdk-maps": "^6.23.0",
+    "@tomtom-international/web-sdk-services": "^6.23.0",
+    "firebase": "^10.0.0",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "devDependencies": {
+    "@webpack-cli/generators": "^3.0.7"
+  }
+}

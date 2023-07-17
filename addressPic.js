@@ -33,6 +33,7 @@ export async function getCustomerAddress() {
     // get documents from the collection which I want to access.
 
     const snapShot = await getDocs(customerIDs);
+    console.log(snapShot);
 
     snapShot.forEach((doc) => {
       //get a document from firebase
