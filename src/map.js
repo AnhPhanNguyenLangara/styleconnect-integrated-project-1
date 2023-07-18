@@ -1,4 +1,4 @@
-import { getCustomerAddress } from './addressPic';
+import { getCustomerAddress } from './addressPic.js';
 
 // setting and showing a map
 const APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
@@ -14,8 +14,9 @@ let map = tt.map({
     key: APIKEY,
     container: 'map',
     dragPan: !isMobileOrTablet(),
-    center: calcMidPoint()
+    // center: calcMidPoint()
 });
+
 map.addControl(new tt.FullscreenControl());
 map.addControl(new tt.NavigationControl());
 
@@ -23,7 +24,7 @@ map.addControl(new tt.NavigationControl());
 // get a middle position between device location and customer's location
 async function calcMidPoint() {
     try {
-        let deviceLocation = await getDeviceLocation();
+        let deviceLocation =  getDeviceLocation();
         let customerLocation = await getCustomerLocation();
 
         let lat1 = deviceLocation.latitude;
@@ -115,7 +116,7 @@ map.once('load', function () {
     tt.services.calculateRoute({
         key: APIKEY,
         traffic: false,
-        locations: `${getDeviceLocation()}:${getCustomerLocation()}`
+        locations: `${getDeviceLocation()},${getCustomerLocation()}`
     })
     //response is the route info and convert it to JSON.
         .then(function (response) {
@@ -166,45 +167,88 @@ async function getCustomerLocation(customerAddress) {
 }
 
 
-// get Pro's Device location
-function getDeviceLocation() {
+// // get Pro's Device location
+// window.addEventListener("load",function getDeviceLocation() {
+//     const optionObj = {
+//         timeout: 5000,
+//         enableHighAccuracy: false,
+//         maximumAge: 0,
+//     }
+    
+//     if (navigator.geolocation) {
+//         navigator.geolocation.getCurrentPosition(successCallback, errorCallback, optionObj);
+//     } else {
+//         const displayError = document.getElementById("displayError");
+//         displayError.innerText = "";
+//         displayError.innerText = `Geolocation in not supported by this browser.`;
+//     }
+// })
+// // When open the map page, the map and start point automatically displayed. 
+// const successCallback = (currentLocation) => {
+//     const latitude = currentLocation.coords.latitude;
+//     const longitude = currentLocation.coords.longitude;
+//     let startPoint = [latitude, longitude];
+//     return startPoint;
+// }
+// const errorCallback = (error) => {
+//     const errorArr = [
+//         "An unknown error occurred.",
+//         "User denied the request for Geolocation.",
+//         "Location information is unavailable.",
+//         "The request to get user location timed out."
+//     ];
+//     // console.error(error) -> OK
+
+//     displayGeo.innerText = "";
+
+//     const errorMsg = document.createElement("p");
+//     const errorNo = error.code;
+//     errorMsg.innerHTML = `error#${errorNo}: ${errorArr[errorNo]}`;
+//     displayGeo.appendChild(errorMsg);
+// }
+
+// get Pro’s Device location
+window.addEventListener("load", function getDeviceLocation() {
+    const optionObj = {
+      timeout: 5000,
+      enableHighAccuracy: false,
+      maximumAge: 0,
+    };
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(successCallback, errorCallback, optionObj);
+      navigator.geolocation.getCurrentPosition(
+        successCallback,
+        errorCallback,
+        optionObj
+      );
     } else {
-        const displayError = document.getElementById("displayError");
-        displayError.innerText = "";
-        displayError.innerText = `Geolocation in not supported by this browser.`;
+      const displayError = document.getElementById("displayError");
+      displayError.innerText = "";
+      displayError.innerText = "Geolocation is not supported by this browser.";
     }
-}
-// When open the map page, the map and start point automatically displayed. 
-const successCallback = (currentLocation) => {
-    // console.log(currentLocation);
+  });
+  // When the map page is opened, the map and start point are automatically displayed.
+  const successCallback = (currentLocation) => {
     const latitude = currentLocation.coords.latitude;
     const longitude = currentLocation.coords.longitude;
     let startPoint = [latitude, longitude];
     return startPoint;
-}
-const errorCallback = (error) => {
+    // console.log("Start Point Latitude: " + startPoint[0]);
+    // console.log("Start Point Longitude: " + startPoint[1]);
+  };
+  const errorCallback = (error) => {
     const errorArr = [
-        "An unknown error occurred.",
-        "User denied the request for Geolocation.",
-        "Location information is unavailable.",
-        "The request to get user location timed out."
+      "An unknown error occurred.",
+      "User denied the request for Geolocation.",
+      "Location information is unavailable.",
+      "The request to get user location timed out.",
     ];
-    // console.error(error) -> OK
-
+    const displayGeo = document.getElementById("displayGeo");
     displayGeo.innerText = "";
-
     const errorMsg = document.createElement("p");
     const errorNo = error.code;
     errorMsg.innerHTML = `error#${errorNo}: ${errorArr[errorNo]}`;
     displayGeo.appendChild(errorMsg);
-}
-const optionObj = {
-    timeout: 5000,
-    enableHighAccuracy: false,
-    maximumAge: 0,
-}
+  };
 
 
 // Route summary

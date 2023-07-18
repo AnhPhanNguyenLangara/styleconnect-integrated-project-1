@@ -24,7 +24,7 @@ const app = initializeApp(firebaseConfig);
 // Access to the customer_booking collection.
 const db = getFirestore(app);
 const colRefListing = collection(db, 'customer_booking')
-const customerIDs = query(colRefListing, where("customerAddress", "==", true));
+const customerIDs = query(colRefListing, where("address", "==", true));
 
 
 //Pick customer's address from booking collection in firebase.
@@ -37,7 +37,7 @@ export async function getCustomerAddress() {
     snapShot.forEach((doc) => {
       //get a document from firebase
       const customerData = doc.data();
-      const customerAddress = customerData.customerAddress;
+      const customerAddress = customerData.address;
       return customerAddress;
       // console.log(customerAddress);
     });
