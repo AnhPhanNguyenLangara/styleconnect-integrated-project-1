@@ -7,6 +7,11 @@
     <title>StyleConnect</title>
     <link rel="stylesheet" href="prosProfile.css">
     <link rel="icon" type="image/x-icon" href="/img/favicon 1.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"
+    defer></script>
     <script src="https://kit.fontawesome.com/c8c6d1441b.js" crossorigin="anonymous"></script>
 </head>
 
@@ -20,8 +25,7 @@
                 <ul class="top-menu mobile">
                     <li><a href="./index.html">Services</a></li>
                     <li><a href="./customerDashboard.html">Schedule</a></li>
-                    <li><a href="./prosProfile.html">Profile</a></li>
-                    <li><a href="./customerRegister.html">Register</a></li>
+                    <li><a href="./customerRegister.html">Profile</a></li>
                     <li class="login visually-hidden"><a href="./login.html">Log in</a></li>
                 </ul>
             </nav>
@@ -29,13 +33,24 @@
     </header>
 
     <main>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="./index.html">Service</a></li>
+              <li class="breadcrumb-item"><a href="./booking.html">Booking</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Confirm Booking</li>
+            </ol>
+          </nav>
+        
+        <h2>Confirm Booking</h2>
+        <section id="where-description">
 
+
+        </section>
         <section id="booking-detail">
             <form class="add" action="submit">
                 <label for="booking-time">Choose a time for your appointment:</label>
                 <input type="datetime-local" id="booking-time" name="bookingTime" value="20123-06-24T8:30">
                 <button>Book</button>
-
             </form>
         </section>
         <section id="booking-listing">
@@ -72,12 +87,10 @@
                     </ul>
                 </nav>
                 <nav class="pages">
-                    <h5>Quick Links</h5>
+                    <h5>Professional Links</h5>
                     <ul>
-                        <li><a href="">Services</a></li>
+                        <li><a href="./prosProfile.html">Profile</a></li>
                         <li><a href="./prosDashboard.html">Professional Dashboard</a></li>
-                        <li><a href="">Profile</a></li>
-                        <li><a href="./prosListing.html">Your Services</a></li>
                     </ul>
                 </nav>
             </div>

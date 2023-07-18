@@ -83,12 +83,15 @@ async function fetchBookingData(prosId) {
 const bookCard = document.getElementById('booking-request')
 const displayBooking = async (bookingPromise) => {
   let bookListArr = await bookingPromise;
+
   let listingDisplay = "";
   bookListArr.forEach((x) => {
+    let bookingType = x.where ==="onhome"? 'On Your Location': 'On Customer Location' ;
     listingDisplay += `<div class="listing-tab">
-        <h4 id="serviceName">Booking-Id: <span>${x.bookingId}</span></h4>
+        <h4 id="serviceName">${bookingType}</h4>
         <p>Customer Name:${x.customerfirstName} ${x.customerlastName}</p>
-        <p>Customer Address: ${x.customerAddress}</p>
+        <p>Service Name: ${x.serviceName}</p>
+        <p>Servcie Address: ${x.address}</p>
         ${
           x.accepted
             ? `<button data="${x.bookingId}">RESCHEDULE</button> <button data="${x.bookingId}" class="cancel">CANCEL</button>`
@@ -119,6 +122,8 @@ function displayListing(prosListArr) {
     let obj = {
       listingId: x.listingId,
       country: x.country,
+      onhome: x.onhome,
+      onlocation: x.onlocation,
       servicedescription: x.servicedescription,
       price: x.price,
       service: x.service,
@@ -141,7 +146,7 @@ bookCard.addEventListener('click', async (e) => {
   var button = e.target;
   var bookingId = button.getAttribute("data");
   if (e.target.classList.value === 'confirm') {
-    if (confirm('Are you sure you want to confirm?')) {
+    if (confirm('Are you sure you want to accept this booking?')) {
       try {
         const docRef = doc(colRefBooking, bookingId);
         await updateDoc(docRef, {
@@ -194,6 +199,8 @@ addServiceForm.addEventListener('submit', async (e) => {
     await setDoc(newDocRef, {
       userId: prosId,
       listingId: newDocRef.id,
+      onlocation: addServiceForm.onlocation.value,
+      onhome: addServiceForm.onhome.value,
       servicedescription: addServiceForm.servicedescription.value,
       service: addServiceForm.service.value,
       price: +addServiceForm.price.value,

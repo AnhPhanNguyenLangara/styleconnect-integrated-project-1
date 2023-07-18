@@ -23,7 +23,9 @@ a.active{
         color:$brightness-l;
     }
 }
-
+.breadcrumb .active{
+    background-color: white;
+}
 footer nav a{
     text-align: left;
     padding:0;
