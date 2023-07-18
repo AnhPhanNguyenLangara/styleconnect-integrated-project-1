@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StyleConnect</title>
-    <link rel="stylesheet" href="prosProfile.css">
-    <link rel="icon" type="image/x-icon" href="/img/favicon 1.png">
-    <script src="https://kit.fontawesome.com/c8c6d1441b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="prosProfile.css" />
+    <link rel="icon" type="image/x-icon" href="/img/favicon 1.png" />
+    <script
+      src="https://kit.fontawesome.com/c8c6d1441b.js"
+      crossorigin="anonymous"
+    ></script>
     <style>
-        #suggestions {
-            position: absolute;
-            background: #fff;
-            border: 1px solid #ccc;
-            max-height: 200px;
-            overflow-y: auto;
-        }
+      #suggestions {
+        position: absolute;
+        background: #fff;
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: auto;
+      }
 
-        .suggestion {
-            padding: 5px;
-            cursor: pointer;
-        }
+      .suggestion {
+        padding: 5px;
+        cursor: pointer;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
         <div class="top-bar">
             <div class="logo">
@@ -39,49 +41,98 @@
                 </ul>
             </nav>
         </div>
+        <nav>
+          <ul class="top-menu mobile">
+            <li><a href="./index.html">Services</a></li>
+            <li><a href="./customerDashboard.html">Schedule</a></li>
+            <li><a href="./prosProfile.html">Profile</a></li>
+            <li><a href="./customerRegister.html">Register</a></li>
+            <li class="login visually-hidden">
+              <a href="./login.html">Log in</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
-<main>
-    <h2>Professional Profile</h2>
-    <form class="add">
+    <main>
+      <h2>Professional Profile</h2>
+      <form class="add">
         <label for="fname">First Name</label>
-        <input type="text" name="fname" id="" required>
+        <input type="text" name="fname" id="" required />
         <label for="lname">Last Name</label>
-        <input type="text" name="lname" id="" required>
+        <input type="text" name="lname" id="" required />
         <label for="bio">Bio</label>
-        <input type="text" name="bio" id="" required>
-        <label for="photo">Photo Link</label>
-        <input type="url" name="photo" id="" required>
+        <input type="text" name="bio" id="" required />
+        <label for="profile">Profile Image</label>
+        <div id="profile-wrapper">
+          <button
+            type="button"
+            name="profile"
+            id="profile"
+            onclick="showModal()"
+          >
+            <img id="image-preview" src="../img/abstract-user-flat-4.svg" alt="Upload Image" />
+          </button>
+          <dialog id="image-modal">
+            <label for="upload">Choose from computer</label>
+            <button id="upload" onclick="fromComputer()">
+                <i class="fa-solid fa-upload" title="Upload Image"></i>
+            </button>
+            <label for="camera" onclick="takePicture()">Take a picture</label>
+            <button id="camera">
+                <i class="fa-solid fa-camera" title="Take a picture"></i>
+            </button>
+          </dialog>
+          <dialog id="upload-modal">
+            <img id="myimg">
+            <label id="upprogress"></label>
+            <button id="upbtn">Upload image</button>
+          </dialog>
         </div>
         <div class="checkbox-wrapper category">
-            <label for="available-areas">Category</label>
-            <input type="checkbox" id="category1" name="category1" value="haircut">
-            <label for="category1">Haircut</label><br>
-            <input type="checkbox" id="category2" name="category2" value="eyelash">
-            <label for="category2">Eyelash and Eyebrow</label><br>
-            <input type="checkbox" id="category3" name="category3" value="massage">
-            <label for="category3">Massage</label>
-            <input type="checkbox" id="category4" name="category4" value="nail">
-            <label for="category4">Nail</label>
+          <label for="available-areas">Category</label>
+          <input
+            type="checkbox"
+            id="category1"
+            name="category1"
+            value="haircut"
+          />
+          <label for="category1">Haircut</label><br />
+          <input
+            type="checkbox"
+            id="category2"
+            name="category2"
+            value="eyelash"
+          />
+          <label for="category2">Eyelash and Eyebrow</label><br />
+          <input
+            type="checkbox"
+            id="category3"
+            name="category3"
+            value="massage"
+          />
+          <label for="category3">Massage</label>
+          <input type="checkbox" id="category4" name="category4" value="nail" />
+          <label for="category4">Nail</label>
         </div>
         <div class="address">
-            <label for="address">Address Line</label>
-            <input type="text" name="address1" id="">
-            <div id="suggestions"></div>
+          <label for="address">Address Line</label>
+          <input type="text" name="address1" id="" />
+          <div id="suggestions"></div>
         </div>
 
         <div class="checkbox-wrapper avarea">
-            <label for="available-areas">Available Areas</label>
-            <input type="checkbox" id="area1" name="area1" value="downtown">
-            <label for="area1">Downtown</label><br>
-            <input type="checkbox" id="area2" name="area2" value="burnaby">
-            <label for="area2">Burnaby</label><br>
-            <input type="checkbox" id="area3" name="area3" value="richmond">
-            <label for="area3">Richmond</label>
+          <label for="available-areas">Available Areas</label>
+          <input type="checkbox" id="area1" name="area1" value="downtown" />
+          <label for="area1">Downtown</label><br />
+          <input type="checkbox" id="area2" name="area2" value="burnaby" />
+          <label for="area2">Burnaby</label><br />
+          <input type="checkbox" id="area3" name="area3" value="richmond" />
+          <label for="area3">Richmond</label>
         </div>
         <button>submit</button>
-    </form>
-</main>
-
+      </form>
+    </main>
 
     <footer>
         <div class="footer-wrapper">
@@ -120,9 +171,29 @@
                 </nav>
             </div>
         </div>
+        <div class="footer-menu2">
+          <nav class="about">
+            <h5>About</h5>
+            <ul>
+              <li><a href="">How it Works</a></li>
+              <li><a href="">Best Professional</a></li>
+              <li><a href="">FAQ's</a></li>
+              <li><a href="">About Us</a></li>
+            </ul>
+          </nav>
+          <nav class="pages">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="">Services</a></li>
+              <li><a href="./prosDashboard.html">Professional Dashboard</a></li>
+              <li><a href="">Profile</a></li>
+              <li><a href="./prosListing.html">Your Services</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </footer>
 
     <script src="./proStart.bundle.js" defer></script>
-</body>
-
+  </body>
 </html>

@@ -1,6 +1,21 @@
 import { showMenu } from "./menuStart.js";
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  doc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 
 import { initializeApp } from "firebase/app";
+import {
+  getStorage,
+  ref as sRef,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+
 import {
   getFirestore,
   collection,
@@ -67,7 +82,7 @@ function handleInput() {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      showSuggestions(addressInput, data.results);
+      showSuggestions(data.results);
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -75,7 +90,7 @@ function handleInput() {
 }
 
 // Display autocomplete suggestions
-function showSuggestions(input, suggestions) {
+function showSuggestions(suggestions) {
   suggestionsContainer.innerHTML = "";
 
   suggestions.forEach((suggestion) => {
@@ -88,14 +103,99 @@ function showSuggestions(input, suggestions) {
       const selectedAddress = suggestion.address.freeformAddress;
       addressInput.value = selectedAddress;
       suggestionsContainer.innerHTML = "";
+      showSuggestions(addressInput, data.results);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
     });
 
     suggestionsContainer.appendChild(suggestionElement);
-    input.addEventListener("blur", () => {
-      suggestionsContainer.innerHTML = "";
-    });
   });
 }
+
+function showModal() {
+  const modal = document.getElementById("image-modal");
+  modal.showModal();
+}
+
+window.showModal = showModal; //make function available to be called by onClick through webpack
+
+function fromComputer() {
+  let input = document.createElement("input");
+  input.type = `file`;
+  input.accept = `image/*`;
+  input.addEventListener("change", function showUploadModal() {
+    const file = this.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      document.getElementById("myimg").src = reader.result;
+    };
+    document.getElementById("upbtn").addEventListener("click", () => {
+      uploadImage(file, `img/${currentUserUID}/profile/`);
+    });
+    document.getElementById("image-modal").close();
+    document.getElementById("upload-modal").showModal();
+  });
+  input.click();
+}
+
+window.fromComputer = fromComputer;
+
+async function uploadImage(file, targetDir) {
+  const metaData = {
+    contentType: file.type,
+  };
+  const storage = getStorage();
+  const storageRef = sRef(storage, targetDir + file.name);
+  const uploadTask = uploadBytesResumable(storageRef, file, metaData);
+  uploadTask.on(
+    "state-changed",
+    (snapshot) => {
+      const progress = Math.round(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      );
+      // setProgresspercent(progress);
+      document.getElementById("upprogress").innerHTML = "Upload" + progress + "%";
+    },
+    (error) => {
+      alert(error);
+    },
+    //using a callback function  if upload is successful
+    //using 'then' downloadURL to save the url into the database
+    () => {
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        document.getElementById("image-preview").src=downloadURL;
+        document.getElementById("upload-modal").close();
+      });
+    }
+  );
+}
+
+window.uploadImage = uploadImage;
+
+// Display autocomplete suggestions
+// function showSuggestions(input, suggestions) {
+//   suggestionsContainer.innerHTML = "";
+
+//   suggestions.forEach((suggestion) => {
+//     const suggestionElement = document.createElement("div");
+//     suggestionElement.classList.add("suggestion");
+//     suggestionElement.textContent = suggestion.address.freeformAddress;
+
+//     suggestionElement.addEventListener("click", () => {
+//       // Handle the selected address
+//       const selectedAddress = suggestion.address.freeformAddress;
+//       addressInput.value = selectedAddress;
+//       suggestionsContainer.innerHTML = "";
+//     });
+
+//     suggestionsContainer.appendChild(suggestionElement);
+//     input.addEventListener("blur", () => {
+//       suggestionsContainer.innerHTML = "";
+//     });
+//   });
+// }
 
 addProfileForm.addEventListener("submit", async (e) => {
   e.preventDefault();
