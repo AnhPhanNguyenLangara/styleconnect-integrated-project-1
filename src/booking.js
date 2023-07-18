@@ -59,8 +59,7 @@ let prosId = null;
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUserUID = user.uid
-    prosId = await getProsId(user.uid);
-    let reviews = await getReviews(prosId);
+    let reviews = await getReviews(obj.userId);
     
     // If reviews exist, display them in the modal
     if (reviews.length > 0) {
@@ -85,13 +84,6 @@ onAuthStateChanged(auth, async (user) => {
     showMenu()
   }
 });
-
-// fetch prosId
-async function getProsId(currentUserUID) {
-  const queryProsRef = query(colRefProsProfile, where('customerId', '==', currentUserUID));
-  const prosIdSnap = await getDocs(queryProsRef);
-  return prosIdSnap.docs[0].data().userId;
-}
 
 
 async function fetchListingData() {
@@ -186,7 +178,7 @@ async function getReviews(prosId) {
   const colRefCustomerBooking = collection(db, 'customer_booking');
   const queryRef = query(colRefCustomerBooking, where('prosId', '==', prosId));
   const snapshot = await getDocs(queryRef);
-
+console.log(prosId)
   let reviews = [];
   snapshot.forEach((doc) => {
     let data = doc.data();
