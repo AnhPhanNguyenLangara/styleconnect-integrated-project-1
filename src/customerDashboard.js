@@ -14,6 +14,7 @@ import {
   where,
   updateDoc,
   getDoc,
+  getDocs
 } from 'firebase/firestore';
 import {
   getAuth,
@@ -33,17 +34,11 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
-
-// get UID
 const auth = getAuth();
 let currentUserUID = null;
-
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
-    currentUserUID = user.uid;
-
+    currentUserUID =user.uid
     // Fetch bookings immediately after user logs in
     fetchBookings(currentUserUID);
   } else {
@@ -56,7 +51,7 @@ onAuthStateChanged(auth, (user) => {
 
 // collection ref
 const colRef = collection(db, 'customer_booking');
-const procolRef = collection(db, 'professional_profile_v2');
+const colRefProsProfile = collection(db, 'professional_profile_v2');
 
 const ratingSubmit = document.querySelector('#rating-form');
 const bookingDetail = document.querySelector('#booking-detail');
@@ -84,25 +79,25 @@ function fetchBookings(uid) {
 }
 
 async function createRecord(record) {
-  const div = document.createElement("div");
   const data = record.data();
+  const currentDate = new Date();
+  const bookingDate = record.data().bookingtime.toDate();
+  const div = document.createElement("div");
   const btn = document.createElement("button");
-  let timestamp = await data.bookingtime; // Firestore Timestamp
-  let date = await timestamp.toDate(); // Convert to JavaScript Date object
-  let formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
-    date.getDate().toString().padStart(2, '0') + '/' +
-    date.getFullYear().toString().substr(-2) + ' TIME:' +
-    date.getHours().toString().padStart(2, '0') + ':' +
-    date.getMinutes().toString().padStart(2, '0');
+  const where = data.where === 'onlocation'? 'The professional will service at your location':`You will need to go to the professional's location ${data.address} for the service.`
+  
+  let formattedDate = await convertDate(bookingDate)
   btn.innerText = "Rate this service";
   btn.addEventListener("click", () => {
     starDialog.setAttribute('docId', record.id);
+    starDialog.setAttribute('prosId', record.data().prosId);
     starDialog.showModal();
   })
   const prosData = await prosFectching(data.prosId);
-  const paragraph = document.createElement("paragraph");
-  if (data.accepted && isNaN(data.rating)) {
-    paragraph.textContent = `Available to Rate for ${prosData.firstName} Booking at ${formattedDate} `
+  const paragraph1 = document.createElement("p");
+  const paragraph2 = document.createElement("p");
+  if (data.accepted && isNaN(data.rating) && currentDate >= bookingDate) {
+    paragraph1.textContent = `Available to Rate for ${prosData.firstName} Booking at ${formattedDate} `
   } else if (!isNaN(data.rating)) {
     const starSpan = document.createElement('span');
     const serviceSpan = document.createElement('span');
@@ -111,17 +106,31 @@ async function createRecord(record) {
     starSpan.classList.add('star-span');
     serviceSpan.classList.add('service-span');
     btn.disabled = true;
-    paragraph.textContent = `Booking at ${formattedDate} -- You gave ${prosData.firstName} ${data.rating}`;
-    paragraph.appendChild(starSpan);
-    paragraph.appendChild(serviceSpan);
+    paragraph1.textContent = `Booking at ${formattedDate} -- You gave ${prosData.firstName} ${data.rating}`;
+    paragraph1.appendChild(starSpan);
+    paragraph1.appendChild(serviceSpan);
   } else {
     btn.disabled = true;
-    paragraph.textContent = `Waiting confirm from ${prosData.firstName}`
+    paragraph1.textContent = data.accepted?`You can rate after the service is completed at ${formattedDate} `:`Waiting accept from ${prosData.firstName}`;
+    paragraph2.textContent = where;
   }
-  div.appendChild(paragraph);
+  div.appendChild(paragraph1);
+  div.appendChild(paragraph2);
   div.prepend(btn);
   return div;
 }
+
+
+async function convertDate(date){
+  let formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+    date.getDate().toString().padStart(2, '0') + '/' +
+    date.getFullYear().toString().substr(-2) + ' TIME:' +
+    date.getHours().toString().padStart(2, '0') + ':' +
+    date.getMinutes().toString().padStart(2, '0');
+    return formattedDate
+}
+
+
 async function prosFectching(prosId) {
   const prosTemp = await getDoc(doc(db, 'professional_profile_v2', prosId)).then((prosSnap) => {
     return prosSnap.data()
@@ -142,15 +151,37 @@ starDialog.addEventListener("close", async (e) => {
   });
   if (starDialog.returnValue != 'cancel') {
     const docId = starDialog.getAttribute('docId');
+    const prosId = starDialog.getAttribute('prosId');
     const docRef = doc(colRef, docId);
+    const proRef = doc(colRefProsProfile, prosId);
+    const prosData = await ratingFetching(prosId);
+    const prosRating = isNaN(prosData.rating)? +starDialog.returnValue : ((+starDialog.returnValue + (prosData.rating * +prosData.ratingCount)) / (+prosData.ratingCount + 1)).toFixed(2);
+    const prosRatingCount = isNaN(prosData.ratingCount)? 1: (prosData.ratingCount + 1)
+
+    const reviewText = document.querySelector('#review-text').value;
+    
     await updateDoc(docRef, {
-      rating: starDialog.returnValue
+      rating: starDialog.returnValue,
+      review: reviewText
     })
+    await updateDoc(proRef, {
+      rating: prosRating,
+      ratingCount:+prosRatingCount
+    })
+    document.querySelector('#review-text').value = '';
   }
 });
+
 
 // Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
 confirmBtn.addEventListener("click", (event) => {
   event.preventDefault(); // We don't want to submit this fake form
   starDialog.close(confirmBtn.value); // Have to send the select box value here.
 });
+
+async function ratingFetching(prosId) {
+  const prosData = await getDoc(doc(db, 'professional_profile_v2' , prosId)).then((snapshot) => {
+    return snapshot.data()
+  });
+  return prosData;
+}

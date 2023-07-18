@@ -3,3 +3,8 @@
     @include flex-content(space-between);
     @include border();
 }
+.listing-container{
+    @include flex-display();
+    @include flex-content(space-between);
+    @include border();
+}
