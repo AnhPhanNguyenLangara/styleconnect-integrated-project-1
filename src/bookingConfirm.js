@@ -1,6 +1,8 @@
 import { showMenu } from './menuStart.js';
 const bookingDetail = document.querySelector('#booking-detail');
 const bookingTime = document.querySelector('#booking-time');
+const whereDescription = document.querySelector('#where-description');
+
 const url = window.location.href;
 const arr = url.split('?')
 import {
@@ -36,15 +38,25 @@ const db = getFirestore();
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 // collection ref
 const colRef = collection(db, 'customer_booking');
-
+let addressData = null;
 const auth = getAuth();
 let currentUserUID = null
 onAuthStateChanged(auth, async (user) => {
+  console.log(arr[4], user)
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
      currentUserUID = user.uid;
-
+    
+    if(arr[4] ==="onhome"){
+      addressData = await addressFectching(arr[3], 'professional_profile_v2')
+      whereDescription.innerHTML = `<h4>For this booking, you will need to go and get the service at the professional's location as per below address.</h4>
+      <p>${addressData.address1}</p>`
+    }else{
+      addressData = await addressFectching(arr[2], 'customer_profile')
+      whereDescription.innerHTML = `<h4>For this booking, the professional will come to your location as per below address.</h4>
+      <p>${addressData.address1}</p>`
+    }
     // ...
   } else {
     // User is signed out
@@ -53,9 +65,14 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+async function addressFectching(Id, type) {
+  const customerTemp = await getDoc(doc(db, type , Id)).then((snapshot) => {
+    return snapshot.data()
+  });
+  return customerTemp;
+}
 
 
-//   adding Profile documents
 const confirmBooking = document.querySelector('.add')
 
 confirmBooking.addEventListener('submit', async (e) => {
@@ -73,13 +90,16 @@ confirmBooking.addEventListener('submit', async (e) => {
       bookingtime: firebastTime,
       customerfirstName: customerData.firstName,
       customerlastName: customerData.lastName,
-      customerAddress: customerData.address1,
+      address: addressData.address1,
+      serviceName: arr[5],
+      where: arr[4],
       prosId: arr[3],
       listingId: arr[1],
       accepted: false,
       createdAt: serverTimestamp()
     })
     confirmBooking.reset()
+    window.location.assign("customerDashboard.html");
   } catch (error) {
     console.log(error);
   }

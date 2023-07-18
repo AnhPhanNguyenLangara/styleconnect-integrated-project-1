@@ -68,7 +68,7 @@ function handleInput() {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      showSuggestions(data.results);
+      showSuggestions(addressInput, data.results);
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -76,7 +76,7 @@ function handleInput() {
 }
 
 // Display autocomplete suggestions
-function showSuggestions(suggestions) {
+function showSuggestions(input, suggestions) {
   suggestionsContainer.innerHTML = "";
 
   suggestions.forEach((suggestion) => {
@@ -92,6 +92,9 @@ function showSuggestions(suggestions) {
     });
 
     suggestionsContainer.appendChild(suggestionElement);
+    input.addEventListener("blur", () => {
+      suggestionsContainer.innerHTML = "";
+    });
   });
 }
 

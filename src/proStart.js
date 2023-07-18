@@ -1,5 +1,4 @@
 import { showMenu } from "./menuStart.js";
-
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
@@ -9,12 +8,21 @@ import {
   setDoc,
 } from "firebase/firestore";
 
+import { initializeApp } from "firebase/app";
 import {
   getStorage,
   ref as sRef,
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+
+import {
+  getFirestore,
+  collection,
+  doc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD7wzxQRs4mKcMOB0Vcydzdxl0NRtZbXno",
@@ -95,6 +103,10 @@ function showSuggestions(suggestions) {
       const selectedAddress = suggestion.address.freeformAddress;
       addressInput.value = selectedAddress;
       suggestionsContainer.innerHTML = "";
+      showSuggestions(addressInput, data.results);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
     });
 
     suggestionsContainer.appendChild(suggestionElement);
@@ -161,6 +173,29 @@ async function uploadImage(file, targetDir) {
 }
 
 window.uploadImage = uploadImage;
+
+// Display autocomplete suggestions
+// function showSuggestions(input, suggestions) {
+//   suggestionsContainer.innerHTML = "";
+
+//   suggestions.forEach((suggestion) => {
+//     const suggestionElement = document.createElement("div");
+//     suggestionElement.classList.add("suggestion");
+//     suggestionElement.textContent = suggestion.address.freeformAddress;
+
+//     suggestionElement.addEventListener("click", () => {
+//       // Handle the selected address
+//       const selectedAddress = suggestion.address.freeformAddress;
+//       addressInput.value = selectedAddress;
+//       suggestionsContainer.innerHTML = "";
+//     });
+
+//     suggestionsContainer.appendChild(suggestionElement);
+//     input.addEventListener("blur", () => {
+//       suggestionsContainer.innerHTML = "";
+//     });
+//   });
+// }
 
 addProfileForm.addEventListener("submit", async (e) => {
   e.preventDefault();
