@@ -7,22 +7,12 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
-
-import { initializeApp } from "firebase/app";
 import {
   getStorage,
   ref as sRef,
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-
-import {
-  getFirestore,
-  collection,
-  doc,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD7wzxQRs4mKcMOB0Vcydzdxl0NRtZbXno",
