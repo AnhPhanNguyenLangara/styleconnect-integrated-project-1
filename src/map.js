@@ -167,45 +167,45 @@ async function getCustomerLocation(customerAddress) {
 }
 
 
-// // get Pro's Device location
-// window.addEventListener("load",function getDeviceLocation() {
-//     const optionObj = {
-//         timeout: 5000,
-//         enableHighAccuracy: false,
-//         maximumAge: 0,
-//     }
+// get Pro's Device location
+window.addEventListener("load",function getDeviceLocation() {
+    const optionObj = {
+        timeout: 5000,
+        enableHighAccuracy: false,
+        maximumAge: 0,
+    }
     
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(successCallback, errorCallback, optionObj);
-//     } else {
-//         const displayError = document.getElementById("displayError");
-//         displayError.innerText = "";
-//         displayError.innerText = `Geolocation in not supported by this browser.`;
-//     }
-// })
-// // When open the map page, the map and start point automatically displayed. 
-// const successCallback = (currentLocation) => {
-//     const latitude = currentLocation.coords.latitude;
-//     const longitude = currentLocation.coords.longitude;
-//     let startPoint = [latitude, longitude];
-//     return startPoint;
-// }
-// const errorCallback = (error) => {
-//     const errorArr = [
-//         "An unknown error occurred.",
-//         "User denied the request for Geolocation.",
-//         "Location information is unavailable.",
-//         "The request to get user location timed out."
-//     ];
-//     // console.error(error) -> OK
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(successCallback, errorCallback, optionObj);
+    } else {
+        const displayError = document.getElementById("displayError");
+        displayError.innerText = "";
+        displayError.innerText = `Geolocation in not supported by this browser.`;
+    }
+})
+// When open the map page, the map and start point automatically displayed. 
+const successCallback = (currentLocation) => {
+    const latitude = currentLocation.coords.latitude;
+    const longitude = currentLocation.coords.longitude;
+    let startPoint = [latitude, longitude];
+    return startPoint;
+}
+const errorCallback = (error) => {
+    const errorArr = [
+        "An unknown error occurred.",
+        "User denied the request for Geolocation.",
+        "Location information is unavailable.",
+        "The request to get user location timed out."
+    ];
+    // console.error(error) -> OK
 
-//     displayGeo.innerText = "";
+    displayGeo.innerText = "";
 
-//     const errorMsg = document.createElement("p");
-//     const errorNo = error.code;
-//     errorMsg.innerHTML = `error#${errorNo}: ${errorArr[errorNo]}`;
-//     displayGeo.appendChild(errorMsg);
-// }
+    const errorMsg = document.createElement("p");
+    const errorNo = error.code;
+    errorMsg.innerHTML = `error#${errorNo}: ${errorArr[errorNo]}`;
+    displayGeo.appendChild(errorMsg);
+}
 
 // get Pro’s Device location
 window.addEventListener("load", function getDeviceLocation() {
