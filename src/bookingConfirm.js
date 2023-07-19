@@ -5,6 +5,7 @@ const whereDescription = document.querySelector('#where-description');
 
 const url = window.location.href;
 const arr = url.split('?')
+console.log(arr)
 import {
   initializeApp
 } from 'firebase/app'
@@ -67,6 +68,7 @@ onAuthStateChanged(auth, async (user) => {
 
 async function addressFectching(Id, type) {
   const customerTemp = await getDoc(doc(db, type , Id)).then((snapshot) => {
+    console.log(snapshot.data())
     return snapshot.data()
   });
   return customerTemp;
