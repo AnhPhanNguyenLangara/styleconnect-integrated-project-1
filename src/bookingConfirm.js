@@ -49,11 +49,18 @@ onAuthStateChanged(auth, async (user) => {
      currentUserUID = user.uid;
     
     if(arr[4] ==="onhome"){
-      addressData = await addressFectching(arr[3], 'professional_profile_v2')
+      addressData = await addressFectching(arr[3], 'professional_profile_v2');
+
+      // addressData broken, using fixed address string for demo
+      const geoCodeResponse= await fetch(encodeURI(`https://api.tomtom.com/search/2/geocode/989 Beatty Street.json?key=ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG`));
+      const geoCodeJSON= await geoCodeResponse.json();
+      const coordinates= geoCodeJSON.results[0].position;
+
       whereDescription.innerHTML = `<h4>For this booking, you will need to go and get the service at the professional's location as per below address.</h4>
-      <p>${addressData.address1}</p>`
+      <p>989 Beatty Street</p>
+      <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+ff2600(${coordinates.lon},${coordinates.lat})/${coordinates.lon},${coordinates.lat},10,0/400x400@2x?access_token=pk.eyJ1IjoicG5ndXllbjYzIiwiYSI6ImNsazk1aWlxNTA2djIzZWxueHo4M2NjbWIifQ.Gl4sErrXg13DhcvO_qgDMw" alt="">`
     }else{
-      addressData = await addressFectching(arr[2], 'customer_profile')
+      addressData = await addressFectching(arr[2], 'customer_profile');
       whereDescription.innerHTML = `<h4>For this booking, the professional will come to your location as per below address.</h4>
       <p>${addressData.address1}</p>`
     }
