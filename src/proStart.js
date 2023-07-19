@@ -59,47 +59,40 @@ const addressInput = addProfileForm.address1;
 const suggestionsContainer = document.getElementById("suggestions");
 
 // Event listener for input changes
+// Event listener for input changes
 addressInput.addEventListener("input", handleInput);
-
 // Fetch autocomplete suggestions
 function handleInput() {
   const inputValue = addressInput.value;
   const autocompleteUrl = `https://api.tomtom.com/search/2/search/${encodeURIComponent(
     inputValue
   )}.json?key=${API_KEY}&limit=5&language=en-US`;
-  console.log(autocompleteUrl);
   fetch(autocompleteUrl)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      showSuggestions(data.results);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-
-// Display autocomplete suggestions
-function showSuggestions(suggestions) {
-  suggestionsContainer.innerHTML = "";
-
-  suggestions.forEach((suggestion) => {
-    const suggestionElement = document.createElement("div");
-    suggestionElement.classList.add("suggestion");
-    suggestionElement.textContent = suggestion.address.freeformAddress;
-
-    suggestionElement.addEventListener("click", () => {
-      // Handle the selected address
-      const selectedAddress = suggestion.address.freeformAddress;
-      addressInput.value = selectedAddress;
-      suggestionsContainer.innerHTML = "";
       showSuggestions(addressInput, data.results);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-
+}
+// Display autocomplete suggestions
+function showSuggestions(input, suggestions) {
+  suggestionsContainer.innerHTML = "";
+  suggestions.forEach((suggestion) => {
+    const suggestionElement = document.createElement("div");
+    suggestionElement.classList.add("suggestion");
+    suggestionElement.textContent = suggestion.address.freeformAddress;
+    suggestionElement.addEventListener("click", () => {
+      // Handle the selected address
+      const selectedAddress = suggestion.address.freeformAddress;
+      addressInput.value = selectedAddress;
+      suggestionsContainer.innerHTML = "";
+    });
     suggestionsContainer.appendChild(suggestionElement);
+    // input.addEventListener("blur", () => {
+    //   suggestionsContainer.innerHTML = "";
+    // });
   });
 }
 
@@ -164,29 +157,6 @@ async function uploadImage(file, targetDir) {
 
 window.uploadImage = uploadImage;
 
-// Display autocomplete suggestions
-// function showSuggestions(input, suggestions) {
-//   suggestionsContainer.innerHTML = "";
-
-//   suggestions.forEach((suggestion) => {
-//     const suggestionElement = document.createElement("div");
-//     suggestionElement.classList.add("suggestion");
-//     suggestionElement.textContent = suggestion.address.freeformAddress;
-
-//     suggestionElement.addEventListener("click", () => {
-//       // Handle the selected address
-//       const selectedAddress = suggestion.address.freeformAddress;
-//       addressInput.value = selectedAddress;
-//       suggestionsContainer.innerHTML = "";
-//     });
-
-//     suggestionsContainer.appendChild(suggestionElement);
-//     input.addEventListener("blur", () => {
-//       suggestionsContainer.innerHTML = "";
-//     });
-//   });
-// }
-
 addProfileForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   try {
@@ -209,10 +179,10 @@ addProfileForm.addEventListener("submit", async (e) => {
         burnaby: addProfileForm.area2.checked,
         richmond: addProfileForm.area3.checked,
       },
-      photoURL: [addProfileForm.photo.value],
       createdAt: serverTimestamp(),
     });
     addProfileForm.reset();
+    window.location.assign("prosDashboard.html");
   } catch (error) {
     console.log(error);
   }

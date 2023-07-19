@@ -56,14 +56,12 @@ const suggestionsContainer = document.getElementById("suggestions");
 
 // Event listener for input changes
 addressInput.addEventListener("input", handleInput);
-
 // Fetch autocomplete suggestions
 function handleInput() {
   const inputValue = addressInput.value;
   const autocompleteUrl = `https://api.tomtom.com/search/2/search/${encodeURIComponent(
     inputValue
   )}.json?key=${API_KEY}&limit=5&language=en-US`;
-  console.log(autocompleteUrl);
   fetch(autocompleteUrl)
     .then((response) => response.json())
     .then((data) => {
@@ -74,27 +72,24 @@ function handleInput() {
       console.error("Error:", error);
     });
 }
-
 // Display autocomplete suggestions
 function showSuggestions(input, suggestions) {
   suggestionsContainer.innerHTML = "";
-
   suggestions.forEach((suggestion) => {
     const suggestionElement = document.createElement("div");
     suggestionElement.classList.add("suggestion");
     suggestionElement.textContent = suggestion.address.freeformAddress;
-
     suggestionElement.addEventListener("click", () => {
       // Handle the selected address
       const selectedAddress = suggestion.address.freeformAddress;
+      console.log(selectedAddress);
       addressInput.value = selectedAddress;
       suggestionsContainer.innerHTML = "";
     });
-
     suggestionsContainer.appendChild(suggestionElement);
-    input.addEventListener("blur", () => {
-      suggestionsContainer.innerHTML = "";
-    });
+    // input.addEventListener("blur", () => {
+    //   suggestionsContainer.innerHTML = "";
+    // });
   });
 }
 

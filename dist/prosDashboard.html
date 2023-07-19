@@ -7,9 +7,51 @@
     <title>StyleConnect</title>
     <link rel="stylesheet" href="prosProfile.css">
     <link rel="icon" type="image/x-icon" href="/img/favicon 1.png">
+      <!-- TOMTOM -->
+      <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps.css" />
+      <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps.css'>
+      <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.2.0//SearchBox.css'/>
+      <link rel='stylesheet' type='text/css' href='./assets/ui-library/icons-css/routing.css'/>
+      <link rel='stylesheet' type='text/css' href='./assets/ui-library/index.css'/>
+      <link rel="stylesheet" href="./map.css">
+      <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps-web.min.js"></script>
+      <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps-web.min.js'></script>
+      <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/services/services-web.min.js'></script>
+      <!-- <script type='text/javascript' src='../assets/js/search/searchbox-enter-submit.js'></script> -->
+      <!-- <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.2.0//SearchBox-web.js'></script> -->
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+  
     <script src="https://kit.fontawesome.com/c8c6d1441b.js" crossorigin="anonymous"></script>
 </head>
-
+<style>
+    .icon {
+        background-size: cover;
+        height: 30px;
+        width: 30px;
+    }
+    .route-marker {
+        align-items: center;
+        background-color: #4a90e2;
+        border: solid 3px #2faaff;
+        border-radius: 50%;
+        display: flex;
+        height: 32px;
+        justify-content: center;
+        transition: width .1s, height .1s;
+        width: 32px;
+    }
+    .route-marker-end {
+    align-items: center;
+    background-color: rgb(245, 107, 107);  
+    border: solid 3px #ff0000; 
+    border-radius: 50%;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    transition: width .1s, height .1s;
+    width: 32px;
+}
+</style>
 <body>
     <header>
         <div class="top-bar">
@@ -29,7 +71,14 @@
     </header>
 
     <main>
- 
+        <dialog id="map-dialog">
+            <div id="displayError"></div>
+            <div id="result"></div>
+            <div id="map" class='map'></div>
+            <div id="distance"></div>
+            <p id="address-line"></p>
+            <button id="close-dialog">Close</button>
+        </dialog>
         <h2>Booking Request</h2>
         <section id="booking-request">
 
