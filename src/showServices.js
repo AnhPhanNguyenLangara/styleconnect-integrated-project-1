@@ -149,16 +149,17 @@ const displayListing = async () => {
     nail: "",
   };
 
-  const createCard = (x, queryString, downloadURL) => `
+  const createCard = (x, queryString, downloadURL, ratingShow) => `
       <div class="pros-card">
         <h3>${x.firstName + " " + x.lastName}</h3>
-        <h5 class="rating">${x.rating}<i class="fa-regular fa-star"></i></h5>
+        <h5 class="rating">${ratingShow}<i class="fa-regular fa-star"></i></h5>
         <p class="location">${getObjectKeys(x.area, true)}</p>
         <img src="${downloadURL}" alt="">
         <p class="price">Start from $${x.startPrice}<span>CAD</span></p>
         <a href="booking.html?${queryString}" class="btn btn-show btn-animated">Book Now</a>
       </div>`;
   displayOBJ.forEach((x) => {
+    let ratingShow = x.rating === undefined? '':x.rating
     let obj = {
       userId: x.userId,
       firstName: x.firstName,
@@ -191,16 +192,16 @@ const displayListing = async () => {
 
         console.log(downloadURL);
         if (x.skill.Haircut === true) {
-          listingDisplay.haircut += createCard(x, queryString, downloadURL);
+          listingDisplay.haircut += createCard(x, queryString, downloadURL, ratingShow);
         }
         if (x.skill.Eyelash === true) {
-          listingDisplay.eyelash += createCard(x, queryString, downloadURL);
+          listingDisplay.eyelash += createCard(x, queryString, downloadURL, ratingShow);
         }
         if (x.skill.Massage === true) {
-          listingDisplay.wellness += createCard(x, queryString, downloadURL);
+          listingDisplay.wellness += createCard(x, queryString, downloadURL, ratingShow);
         }
         if (x.skill.Nail === true) {
-          listingDisplay.nail += createCard(x, queryString, downloadURL);
+          listingDisplay.nail += createCard(x, queryString, downloadURL, ratingShow);
         }
       })
       .then(() => {
