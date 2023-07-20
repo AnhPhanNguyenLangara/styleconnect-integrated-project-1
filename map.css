@@ -48,3 +48,17 @@
     height: 50px !important;
     width: 50px !important;
 }
+
+.tt-side-panel {
+    background-color: #f2f2f2;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, .16);
+    display: flex;
+    flex-direction: column;
+    font-family: Gotham, Helvetica, Arial, sans-serif;
+    height: 100vh;
+    justify-content: space-between;
+    overflow: visible;
+    margin: 0;
+    width: 376px;
+    z-index: 0;
+}

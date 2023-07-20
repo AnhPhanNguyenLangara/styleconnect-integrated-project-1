@@ -1,14 +1,16 @@
-import { getCustomerAddress } from './addressPic.js';
+import { getCustomerAddress, app, db, colRefListing, customerIDs } from './addressPic.js';
+
+console.log(getCustomerAddress(customerIDs));
 
 // setting and showing a map
 const APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
 
 // display the distance.
 function displayAddress() {
-    document.getElementById("destination").innerHTML = getCustomerAddress();
+    document.getElementById("address").innerHTML = getCustomerAddress();
 };
 
-
+displayAddress();
 // create map object with SDK to show the map
 let map = tt.map({
     key: APIKEY,
@@ -20,6 +22,29 @@ let map = tt.map({
 map.addControl(new tt.FullscreenControl());
 map.addControl(new tt.NavigationControl());
 
+  // When the map page is opened, the map and start point are automatically displayed.
+  const successCallback = (currentLocation) => {
+    const latitude = currentLocation.coords.latitude;
+    const longitude = currentLocation.coords.longitude;
+    let startPoint = [latitude, longitude];
+    return startPoint;
+    // console.log("Start Point Latitude: " + startPoint[0]);
+    // console.log("Start Point Longitude: " + startPoint[1]);
+  };
+  const errorCallback = (error) => {
+    const errorArr = [
+      "An unknown error occurred.",
+      "User denied the request for Geolocation.",
+      "Location information is unavailable.",
+      "The request to get user location timed out.",
+    ];
+    const displayGeo = document.getElementById("displayGeo");
+    displayGeo.innerText = "";
+    const errorMsg = document.createElement("p");
+    const errorNo = error.code;
+    errorMsg.innerHTML = `error#${errorNo}: ${errorArr[errorNo]}`;
+    displayGeo.appendChild(errorMsg);
+  };
 
 // get a middle position between device location and customer's location
 async function calcMidPoint() {
@@ -110,7 +135,7 @@ function findFirstBuildingLayerId() {
 
 
 // get a route only when user access the page or reload. 
-var resultsManager = new ResultsManager();
+let resultsManager = new ResultsManager();
 
 map.once('load', function () {
     tt.services.calculateRoute({
@@ -153,7 +178,9 @@ const geoBaseURL = "https://api.tomtom.com/search/2/geocode/";
 const ext = "json"
 // console.log(geoBaseURL);
 
-async function getCustomerLocation(customerAddress) {
+async function getCustomerLocation() {
+    let customerAddress = getCustomerAddress()
+    console.log("customerAddress -->"), customerAddress;
     try {
         const address = await getCustomerAddress(customerAddress)
         const url = geoBaseURL + encodeURI(address) + '.' + ext + '?key=' + APIKEY;
@@ -183,32 +210,12 @@ window.addEventListener("load",function getDeviceLocation() {
         displayError.innerText = `Geolocation in not supported by this browser.`;
     }
 })
-// When open the map page, the map and start point automatically displayed. 
-const successCallback = (currentLocation) => {
-    const latitude = currentLocation.coords.latitude;
-    const longitude = currentLocation.coords.longitude;
-    let startPoint = [latitude, longitude];
-    return startPoint;
-}
-const errorCallback = (error) => {
-    const errorArr = [
-        "An unknown error occurred.",
-        "User denied the request for Geolocation.",
-        "Location information is unavailable.",
-        "The request to get user location timed out."
-    ];
-    // console.error(error) -> OK
 
-    displayGeo.innerText = "";
 
-    const errorMsg = document.createElement("p");
-    const errorNo = error.code;
-    errorMsg.innerHTML = `error#${errorNo}: ${errorArr[errorNo]}`;
-    displayGeo.appendChild(errorMsg);
-}
+// When open the map page, get the current loction automatically. 
+window.addEventListener("load", getDeviceLocation());
 
-// get Pro’s Device location
-window.addEventListener("load", function getDeviceLocation() {
+function getDeviceLocation() {
     const optionObj = {
       timeout: 5000,
       enableHighAccuracy: false,
@@ -225,59 +232,37 @@ window.addEventListener("load", function getDeviceLocation() {
       displayError.innerText = "";
       displayError.innerText = "Geolocation is not supported by this browser.";
     }
-  });
-  // When the map page is opened, the map and start point are automatically displayed.
-  const successCallback = (currentLocation) => {
-    const latitude = currentLocation.coords.latitude;
-    const longitude = currentLocation.coords.longitude;
-    let startPoint = [latitude, longitude];
-    return startPoint;
-    // console.log("Start Point Latitude: " + startPoint[0]);
-    // console.log("Start Point Longitude: " + startPoint[1]);
   };
-  const errorCallback = (error) => {
-    const errorArr = [
-      "An unknown error occurred.",
-      "User denied the request for Geolocation.",
-      "Location information is unavailable.",
-      "The request to get user location timed out.",
-    ];
-    const displayGeo = document.getElementById("displayGeo");
-    displayGeo.innerText = "";
-    const errorMsg = document.createElement("p");
-    const errorNo = error.code;
-    errorMsg.innerHTML = `error#${errorNo}: ${errorArr[errorNo]}`;
-    displayGeo.appendChild(errorMsg);
-  };
+
 
 
 // Route summary
 
-let detailsWrapper = document.createElement('div');
-let summaryContent = document.createElement('div');
-let summaryHeader = "";
+// let detailsWrapper = document.createElement('div');
+// let summaryContent = document.createElement('div');
+// let summaryHeader = "";
 
-function createSummaryContent(feature) {
-    if (!summaryHeader) {
-        summaryHeader = DomHelpers.elementFactory('div', 'summary-header', 'Route summary');
-        summaryContent.appendChild(summaryHeader);
-    }
-    let detailsHTML =
-        '<div class="summary-details-bottom">' +
-            '<div class="summary-icon-wrapper">' +
-                '<span class="tt-icon -car -big"></span>' +
-            '</div>' +
-            '<div class="summary-details-text">' +
-                '<span class="summary-details-info">Distance: <b>' +
-                    Formatters.formatAsMetricDistance(feature.lengthInMeters) +
-                '</b></span>' +
-                '<span class="summary-details-info -second">Arrive: <b>' +
-                    Formatters.formatToExpandedDateTimeString(feature.arrivalTime) +
-                '</b></span>' +
-            '</div>' +
-        '</div>';
+// function createSummaryContent(feature) {
+//     if (!summaryHeader) {
+//         summaryHeader = DomHelpers.elementFactory('div', 'summary-header', 'Route summary');
+//         summaryContent.appendChild(summaryHeader);
+//     }
+//     let detailsHTML =
+//         '<div class="summary-details-bottom">' +
+//             '<div class="summary-icon-wrapper">' +
+//                 '<span class="tt-icon -car -big"></span>' +
+//             '</div>' +
+//             '<div class="summary-details-text">' +
+//                 '<span class="summary-details-info">Distance: <b>' +
+//                     Formatters.formatAsMetricDistance(feature.lengthInMeters) +
+//                 '</b></span>' +
+//                 '<span class="summary-details-info -second">Arrive: <b>' +
+//                     Formatters.formatToExpandedDateTimeString(feature.arrivalTime) +
+//                 '</b></span>' +
+//             '</div>' +
+//         '</div>';
 
-    detailsWrapper.innerHTML = detailsHTML;
-    summaryContent.appendChild(detailsWrapper);
-    return summaryContent;
-}
+//     detailsWrapper.innerHTML = detailsHTML;
+//     summaryContent.appendChild(detailsWrapper);
+//     return summaryContent;
+// }

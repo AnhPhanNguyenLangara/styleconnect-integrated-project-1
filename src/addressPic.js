@@ -20,15 +20,15 @@ const firebaseConfig = {
 // Get the address data from firebase
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 // Access to the customer_booking collection.
-const db = getFirestore(app);
-const colRefListing = collection(db, 'customer_booking')
-const customerIDs = query(colRefListing, where("address", "==", true));
+export const db = getFirestore(app);
+export const colRefListing = collection(db, 'customer_booking')
+export const customerIDs = query(colRefListing, where("address", "==", true));
 
 
 //Pick customer's address from booking collection in firebase.
-export async function getCustomerAddress() {
+async function getCustomerAddress() {
   try {
     // get documents from the collection which I want to access.
 
@@ -62,3 +62,5 @@ export async function getCustomerAddress() {
 //     console.error("Error. Your infomation has already existed.", error);
 //   };
 // }
+
+export { getCustomerAddress, db, colRefListing, customerIDs };
