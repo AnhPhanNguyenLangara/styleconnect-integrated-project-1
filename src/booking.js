@@ -9,10 +9,11 @@ const entries = new URLSearchParams(searchParams).values();
 const array = Array.from(entries);
 const obj = JSON.parse(array[0])
 const fetchId = obj.userId
+let ratingShow = obj.rating === undefined? '-':obj.rating
 document.getElementById('fullname').textContent = `${obj.firstName} ${obj.lastName}`;
 document.getElementById('address').textContent = `${obj.address}`;
 document.getElementById('bio').textContent = obj.bio;
-document.getElementById('rating').textContent = `Rating:${obj.rating}`;
+document.getElementById('rating').textContent = `Rating:${ratingShow}`;
 document.getElementById('ratingCount').textContent = obj.ratingCount;
 
 
@@ -182,7 +183,7 @@ console.log(prosId)
   let reviews = [];
   snapshot.forEach((doc) => {
     let data = doc.data();
-    console.log(data.customerFirstName)
+    if(data.rating >0){
     reviews.push({
       serviceName: data.serviceName,
       rating: data.rating,
@@ -190,6 +191,7 @@ console.log(prosId)
       customerLastName: data.customerlastName,
       review: data.review
     });
+  }
   });
   console.log(reviews)
   return reviews;
