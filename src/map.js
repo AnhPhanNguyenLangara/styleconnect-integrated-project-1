@@ -1,4 +1,4 @@
-import { getCustomerAddress, app, db, colRefListing, customerIDs } from './addressPic.js';
+import { getCustomerAddress, app, colRefListing, customerIDs } from './addressPic.js';
 
 console.log(getCustomerAddress(customerIDs));
 
@@ -24,14 +24,17 @@ map.addControl(new tt.NavigationControl());
 
   // When the map page is opened, the map and start point are automatically displayed.
   const successCallback = (currentLocation) => {
+    console.log("Successful callback", currentLocation);
     const latitude = currentLocation.coords.latitude;
     const longitude = currentLocation.coords.longitude;
+    console.log("show lat & long", latitude, longitude);
     let startPoint = [latitude, longitude];
     return startPoint;
     // console.log("Start Point Latitude: " + startPoint[0]);
     // console.log("Start Point Longitude: " + startPoint[1]);
   };
   const errorCallback = (error) => {
+    console.log("errocall back");
     const errorArr = [
       "An unknown error occurred.",
       "User denied the request for Geolocation.",
@@ -84,16 +87,20 @@ function createMarkerElement(markerType) {
 
 // add markers at the start point and end point in the map.
 async function addMarkers(feature) {
+    console.log("addMarkers called.");
     try {
         let startPoint, endPoint;
         if (feature.geometry.type === 'MultiLineString') {
             //get only latitude of first point from line array
             let deviceLocation = getDeviceLocation();
+
             startPoint = deviceLocation.latitude;
 
             // get only latitude of last point from line array using slice
             let customerLocation = getCustomerLocation();
             endPoint = customerLocation.latitude;
+            console.log("this is endPoint", endPoint);
+            
 
             // endPoint = feature.geometry.coordinates.slice(-1)[0].slice(-1)[0];
         } else {
@@ -101,6 +108,7 @@ async function addMarkers(feature) {
             // startPoint = feature.geometry.coordinates[0];
             startPoint = getDeviceLocation();
             endPoint = getCustomerLocation();
+            console.log("this is endPoint", endPoint);
             // endPoint = feature.geometry.coordinates.slice(-1)[0];
         }
         // console.log(geojson);
@@ -138,13 +146,17 @@ function findFirstBuildingLayerId() {
 let resultsManager = new ResultsManager();
 
 map.once('load', function () {
+    console.log("loading the map");
+    let location = getDeviceLocation();
+    console.log("this is line 151", location);
     tt.services.calculateRoute({
         key: APIKEY,
         traffic: false,
-        locations: `${getDeviceLocation()},${getCustomerLocation()}`
+        locations: `${location},${getCustomerLocation()}`
     })
     //response is the route info and convert it to JSON.
         .then(function (response) {
+            console.log("this is line 148", response);
             let geojson = response.toGeoJson();
             map.addLayer({
                 'id': 'route',
@@ -179,14 +191,20 @@ const ext = "json"
 // console.log(geoBaseURL);
 
 async function getCustomerLocation() {
-    let customerAddress = getCustomerAddress()
-    console.log("customerAddress -->"), customerAddress;
+    // const snapShot = await getDocs(customerIDs);
+    let address = await getCustomerAddress()
+    console.log("customerAddress -->", address);
     try {
-        const address = await getCustomerAddress(customerAddress)
-        const url = geoBaseURL + encodeURI(address) + '.' + ext + '?key=' + APIKEY;
+        // const address = await getCustomerAddress(customerAddress)
+        const url = geoBaseURL + address + '.json?key=' + APIKEY;
+        console.log(url);
+        // https://{baseURL}/search/{versionNumber}/geocode/{query}.{ext}?key={Your_API_Key}&storeResult={storeResult}&typeahead={typeahead}&limit={limit}&ofs={ofs}&lat={lat}&lon={lon}&countrySet={countrySet}&radius={radius}&topLeft={topLeft}&btmRight={btmRight}&language={language}&extendedPostalCodesFor={extendedPostalCodesFor}&view={view}&mapcodes={mapcodes}&entityTypeSet={entityTypeSet}
+        // https://api.tomtom.com/search/2/geocode/De Ruijterkade 154, 1011 AC, Amsterdam.json?key={Your_API_Key}
         const res = await fetch(url);
         const data = await res.json();
+        console.log("this is Json", data);
         const position = data.results[0].position; //get latitude & logititude;
+        console.log("this is position", position);
         return position;
     } catch (error) {
         console.error("Error", error);
@@ -195,39 +213,43 @@ async function getCustomerLocation() {
 
 
 // get Pro's Device location
-window.addEventListener("load",function getDeviceLocation() {
-    const optionObj = {
-        timeout: 5000,
-        enableHighAccuracy: false,
-        maximumAge: 0,
-    }
+// window.addEventListener("load",function getDeviceLocation() {
+//     const optionObj = {
+//         timeout: 5000,
+//         enableHighAccuracy: false,
+//         maximumAge: 0,
+//     }
     
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(successCallback, errorCallback, optionObj);
-    } else {
-        const displayError = document.getElementById("displayError");
-        displayError.innerText = "";
-        displayError.innerText = `Geolocation in not supported by this browser.`;
-    }
-})
+//     if (navigator.geolocation) {
+//         navigator.geolocation.getCurrentPosition(successCallback, errorCallback, optionObj);
+//     } else {
+//         const displayError = document.getElementById("displayError");
+//         displayError.innerText = "";
+//         displayError.innerText = `Geolocation in not supported by this browser.`;
+//     }
+// })
 
 
 // When open the map page, get the current loction automatically. 
 window.addEventListener("load", getDeviceLocation());
 
 function getDeviceLocation() {
+    console.log("inside getDeviceLocation");
     const optionObj = {
       timeout: 5000,
       enableHighAccuracy: false,
       maximumAge: 0,
     };
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
+        console.log("has geolocation.");
+        navigator.geolocation.getCurrentPosition(
         successCallback,
         errorCallback,
         optionObj
       );
+    // return successCallback();
     } else {
+        console.log("no geolocation");
       const displayError = document.getElementById("displayError");
       displayError.innerText = "";
       displayError.innerText = "Geolocation is not supported by this browser.";

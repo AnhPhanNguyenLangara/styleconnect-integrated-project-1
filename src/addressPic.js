@@ -24,29 +24,34 @@ export const app = initializeApp(firebaseConfig);
 // Access to the customer_booking collection.
 export const db = getFirestore(app);
 export const colRefListing = collection(db, 'customer_booking')
-export const customerIDs = query(colRefListing, where("address", "==", true));
-
+export const customerIDs = localStorage.getItem("customerIDs")
+export const q = query(colRefListing, where("customerId", "==", customerIDs));
 
 //Pick customer's address from booking collection in firebase.
 async function getCustomerAddress() {
+  console.log("starting getCustomerAddress function")
+  let addressList = [];
   try {
     // get documents from the collection which I want to access.
-
-    const snapShot = await getDocs(customerIDs);
-
-    snapShot.forEach((doc) => {
+    console.log("customerIDs",customerIDs);
+    const snapShot = await getDocs(q);
+    snapShot.forEach( (doc) => {
       //get a document from firebase
+      // console.log("doc", doc);
       const customerData = doc.data();
+      // console.log("customerData", customerData);
       const customerAddress = customerData.address;
-      return customerAddress;
-      // console.log(customerAddress);
+      console.log("customerAddress:", customerAddress);
+      addressList.push(customerAddress);
     });
   }
   catch (error) {
-    console.error("Error", error);
+    console.error("Error_address pic 2", error);
   }
+  return addressList[0];
 }
 
+export { getCustomerAddress};
 
 // input & store user address.
 // async function addAddress() {
@@ -63,4 +68,3 @@ async function getCustomerAddress() {
 //   };
 // }
 
-export { getCustomerAddress, db, colRefListing, customerIDs };
