@@ -1,15 +1,24 @@
-import { showMenu } from "./menuStart.js";
+import {
+  showMenu
+} from "./menuStart.js";
 
-import { initializeApp } from "firebase/app";
+import {
+  initializeApp
+} from "firebase/app";
 import {
   getFirestore,
   collection,
   doc,
   serverTimestamp,
   setDoc,
+  getDoc,
+  updateDoc
 } from "firebase/firestore";
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD7wzxQRs4mKcMOB0Vcydzdxl0NRtZbXno",
@@ -28,16 +37,48 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 let currentUserUID = null;
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
     currentUserUID = user.uid;
-    console.log(currentUserUID);
+    const docRef = doc(db, 'customer_profile', currentUserUID);
+    getDoc(docRef).then((docSnap) => {
+      if (docSnap.exists()) {
+        // User profile data exists, populate the form fields
+        const userData = docSnap.data();
+        addProfileForm.fname.value = userData.firstName || '';
+        addProfileForm.lname.value = userData.lastName || '';
+        addProfileForm.phone.value = userData.phone || '';
+        addProfileForm.address1.value = userData.address1 || '';
+
+        // Disable all form fields
+        addProfileForm.fname.disabled = true;
+        addProfileForm.lname.disabled = true;
+        addProfileForm.phone.disabled = true;
+        addProfileForm.address1.disabled = true;
+
+        // Create and append the "Edit Profile" button
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit Profile';
+        editButton.id = 'edit-profile';
+        document.querySelector('#button-container').appendChild(editButton);
+
+        // Add event listener to the button to enable form fields
+        editButton.addEventListener('click', () => {
+          // Enable all form fields
+          addProfileForm.fname.disabled = false;
+          addProfileForm.lname.disabled = false;
+          addProfileForm.phone.disabled = false;
+          addProfileForm.address1.disabled = false;
+        });
+      } else {
+        console.log('No such document!');
+      }
+    });
   } else {
     // User is signed out
-    showMenu();
     currentUserUID = null;
+    showMenu();
   }
 });
 
@@ -97,21 +138,36 @@ addProfileForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   try {
     if (currentUserUID) {
-      const newDocRef = doc(colRef, currentUserUID);
-      await setDoc(newDocRef, {
-        userId: currentUserUID,
-        firstName: addProfileForm.fname.value,
-        lastName: addProfileForm.lname.value,
-        phone: addProfileForm.phone.value,
-        address1: addProfileForm.address1.value,
-        photoURL: [addProfileForm.photo.value],
-        createdAt: serverTimestamp(),
-      });
+      const docRef = doc(colRef, currentUserUID);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        // Document exists, so update it
+        await updateDoc(docRef, {
+          firstName: addProfileForm.fname.value,
+          lastName: addProfileForm.lname.value,
+          phone: addProfileForm.phone.value,
+          address1: addProfileForm.address1.value
+        });
+        console.log('Profile updated successfully!');
+      } else {
+        // Document doesn't exist, so create it
+        await setDoc(docRef, {
+          userId: currentUserUID,
+          firstName: addProfileForm.fname.value,
+          lastName: addProfileForm.lname.value,
+          phone: addProfileForm.phone.value,
+          address1: addProfileForm.address1.value,
+          createdAt: serverTimestamp(),
+        });
+        console.log('Profile created successfully!');
+      }
       addProfileForm.reset();
+      window.location.assign("index.html");
     } else {
       console.log("User not signed in");
     }
   } catch (error) {
-    console.log(error);
+    console.error('Error updating or creating profile:', error);
   }
 });

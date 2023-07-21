@@ -83,6 +83,12 @@ async function fetchBookingData(prosId) {
 const bookCard = document.getElementById('booking-request')
 const displayBooking = async (bookingPromise) => {
   let bookListArr = await bookingPromise;
+  
+  // If no booking requests
+  if (bookListArr.length === 0) {
+    bookCard.innerHTML = "<p>No booking requests found.</p>";
+    return;
+  }
 
   let listingDisplay = "";
   bookListArr.forEach((x) => {
@@ -126,6 +132,11 @@ function fetchListingData(prosId) {
 const listCard = document.getElementById('listing-display')
 
 function displayListing(prosListArr) {
+  // If no listings
+  if (prosListArr.length === 0) {
+    listCard.innerHTML = "<p>No listings found.</p>";
+    return;
+  }
   let listingDisplay = "";
   prosListArr.forEach((x) => {
     let obj = {

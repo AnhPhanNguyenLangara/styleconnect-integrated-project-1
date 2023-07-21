@@ -71,12 +71,18 @@ function fetchBookings(uid) {
   const data = query(colRef, where('customerId', '==', uid));
   onSnapshot(data, async (snapshot) => {
     bookingDetail.innerHTML = "";
-    for (let doc of snapshot.docs) {
-      let record = await createRecord(doc);
-      bookingDetail.appendChild(record);
+    if (snapshot.empty) {
+      // No bookings found
+      bookingDetail.innerHTML = "<p>No bookings found</p>";
+    } else {
+      for (let doc of snapshot.docs) {
+        let record = await createRecord(doc);
+        bookingDetail.appendChild(record);
+      }
     }
   });
 }
+
 
 async function createRecord(record) {
   const data = record.data();

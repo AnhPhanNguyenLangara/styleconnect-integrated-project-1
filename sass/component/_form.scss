@@ -52,3 +52,17 @@ button:hover {
     margin-bottom: 0.5rem;
 
 }
+
+
+input:disabled, select:disabled, textarea:disabled, button:disabled {
+    background: #d6d6d6;  /* change this color as per your preference */
+    color: $contrast-d
+}
+
+.filter{
+    @include flex-display(1rem, row, nowrap);
+    align-items: end;
+    button{
+        margin:0;
+    }
+}

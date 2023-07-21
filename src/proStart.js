@@ -6,6 +6,11 @@ import {
   doc,
   serverTimestamp,
   setDoc,
+  query,
+  where,
+  getDocs,
+  getDoc,
+  updateDoc
 } from "firebase/firestore";
 import {
   getStorage,
@@ -32,17 +37,68 @@ const db = getFirestore();
 
 // collection ref
 const colRef = collection(db, "professional_profile_v2");
+
 // get UID
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const auth = getAuth();
 let currentUserUID = null;
-
-onAuthStateChanged(auth, (user) => {
+let prosId = null;
+onAuthStateChanged(auth, async (user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
     currentUserUID = user.uid;
+    prosId = await getProsId(currentUserUID);
+    const docRef = doc(db, 'professional_profile_v2', prosId);
+    getDoc(docRef).then((docSnap) => {
+      if (docSnap.exists()) {
+        // User profile data exists, populate the form fields
+        const userData = docSnap.data();
+        addProfileForm.fname.value = userData.firstName || '';
+        addProfileForm.lname.value = userData.lastName || '';
+        addProfileForm.bio.value = userData.bio || '';
+        addProfileForm.category1.checked = userData.skill?.Haircut || false;
+        addProfileForm.category2.checked = userData.skill?.Eyelash || false;
+        addProfileForm.category3.checked = userData.skill?.Massage || false;
+        addProfileForm.category4.checked = userData.skill?.Nail || false;
+        addProfileForm.address1.value = userData.address1 || '';
+        addProfileForm.area1.checked = userData.area?.downtown || false;
+        addProfileForm.area2.checked = userData.area?.burnaby || false;
+        addProfileForm.area3.checked = userData.area?.richmond || false;
+        addProfileForm.fname.disabled = true;
+        addProfileForm.lname.disabled = true;
+        addProfileForm.bio.disabled = true;
+        addProfileForm.category1.disabled = true;
+        addProfileForm.category2.disabled = true;
+        addProfileForm.category3.disabled = true;
+        addProfileForm.category4.disabled = true;
+        addProfileForm.address1.disabled = true;
+        addProfileForm.area1.disabled = true;
+        addProfileForm.area2.disabled = true;
+        addProfileForm.area3.disabled = true;
+
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit Profile';
+        editButton.id = 'edit-profile';
+        document.querySelector('#button-container').appendChild(editButton);
+
+        // Add event listener to the button to enable form fields
+        editButton.addEventListener('click', () => {
+          addProfileForm.fname.disabled = false;
+          addProfileForm.lname.disabled = false;
+          addProfileForm.bio.disabled = false;
+          addProfileForm.category1.disabled = false;
+          addProfileForm.category2.disabled = false;
+          addProfileForm.category3.disabled = false;
+          addProfileForm.category4.disabled = false;
+          addProfileForm.address1.disabled = false;
+          addProfileForm.area1.disabled = false;
+          addProfileForm.area2.disabled = false;
+          addProfileForm.area3.disabled = false;
+        });
+      } else {
+        console.log('No such document!');
+      }
+    });
     // ...
   } else {
     // User is signed out
@@ -160,30 +216,65 @@ window.uploadImage = uploadImage;
 addProfileForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   try {
-    const newDocRef = doc(colRef);
-    await setDoc(newDocRef, {
-      customerId: currentUserUID,
-      userId: newDocRef.id,
-      firstName: addProfileForm.fname.value,
-      lastName: addProfileForm.lname.value,
-      bio: addProfileForm.bio.value,
-      skill: {
-        Haircut: addProfileForm.category1.checked,
-        Eyelash: addProfileForm.category2.checked,
-        Massage: addProfileForm.category3.checked,
-        Nail: addProfileForm.category4.checked,
-      },
-      address1: addProfileForm.address1.value,
-      area: {
-        downtown: addProfileForm.area1.checked,
-        burnaby: addProfileForm.area2.checked,
-        richmond: addProfileForm.area3.checked,
-      },
-      createdAt: serverTimestamp(),
-    });
+    prosId = await getProsId(currentUserUID);
+    const docRef = doc(db, 'professional_profile_v2', prosId);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      // Document exists, so update it
+      await updateDoc(docRef, {
+        firstName: addProfileForm.fname.value,
+        lastName: addProfileForm.lname.value,
+        bio: addProfileForm.bio.value,
+        skill: {
+          Haircut: addProfileForm.category1.checked,
+          Eyelash: addProfileForm.category2.checked,
+          Massage: addProfileForm.category3.checked,
+          Nail: addProfileForm.category4.checked,
+        },
+        address1: addProfileForm.address1.value,
+        area: {
+          downtown: addProfileForm.area1.checked,
+          burnaby: addProfileForm.area2.checked,
+          richmond: addProfileForm.area3.checked,
+        },
+      });
+      console.log('Profile updated successfully!');
+    } else {
+      // Document doesn't exist, so create it
+      await setDoc(docRef, {
+        customerId: currentUserUID,
+        userId: prosId,
+        firstName: addProfileForm.fname.value,
+        lastName: addProfileForm.lname.value,
+        bio: addProfileForm.bio.value,
+        skill: {
+          Haircut: addProfileForm.category1.checked,
+          Eyelash: addProfileForm.category2.checked,
+          Massage: addProfileForm.category3.checked,
+          Nail: addProfileForm.category4.checked,
+        },
+        address1: addProfileForm.address1.value,
+        area: {
+          downtown: addProfileForm.area1.checked,
+          burnaby: addProfileForm.area2.checked,
+          richmond: addProfileForm.area3.checked,
+        },
+        createdAt: serverTimestamp(),
+      });
+      console.log('Profile created successfully!');
+    }
+
     addProfileForm.reset();
     window.location.assign("prosDashboard.html");
+
   } catch (error) {
-    console.log(error);
+    console.error('Error updating or creating profile:', error);
   }
 });
+
+async function getProsId(currentUserUID) {
+  const queryProsRef = query(colRef, where('customerId', '==', currentUserUID));
+  const prosIdSnap = await getDocs(queryProsRef);
+  return prosIdSnap.docs[0].data().userId;
+}
