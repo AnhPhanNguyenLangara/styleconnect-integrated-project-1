@@ -14,11 +14,11 @@
     <header>
         <div class="top-bar">
             <div class="logo">
-                <img src="../img/main_logo 1.png" alt="">
+                <a href="./index.html"><img src="../img/main_logo 1.png" alt=""></a>
             </div>
             <nav>
                 <ul class="top-menu mobile">
-                    <li><a href="./index.html">Services</a></li>
+                    <li><a href="./services.html">Services</a></li>
                     <li><a href="./customerDashboard.html">Schedule</a></li>
                     <li><a href="./customerRegister.html">Profile</a></li>
                     <li class="login visually-hidden"><a href="./login.html">Log in</a></li>
@@ -29,24 +29,45 @@
     <main>
         <section class="product-review">
             <h3>Our services</h3>
-            <ul>
-                <li><a class="active" href="#listHair" id="listHairLI"><i class="fa-solid fa-scissors"></i><span>Hair
-                            care</span></a></li>
-                <li><a href="#listEye" id="listEyeLI"><i class="fa-solid fa-eye"></i><span>Eyelash & Eyebrow</span></a>
-                </li>
-                <li><a href="#listMassage" id="listMassageLI"><i
-                            class="fa-solid fa-hot-tub-person"></i><span>Massage</span></a></li>
-                <li><a href="#listNail" id="listNailLI"><i class="fa-solid fa-hand-sparkles"></i><span>Nail</span></a>
-                </li>
-            </ul>
-            <div class="services" id="listHair">
+            <p>Discover a World of Beauty and Wellness Experiences Tailored Just for You.</p>
+            <form class="filter">
+                <div class="filter-item-container">
+                    <label for="location">Location:</label>
+                    <select name="location" id="location">
+                        <option value="downtown">Down Town</option>
+                        <option value="burnaby">Burnaby</option>
+                        <option value="richmond">Richmond</option>
+                    </select>
+                </div>
+
+                <div class="filter-item-container">
+                    <label for="categories">Categories:</label>
+                    <select name="categories" id="categories">
+                        <option value="Haircut">Hair Care</option>
+                        <option value="Eyelash">Eyelash Eyebrown</option>
+                        <option value="Massage">Massage</option>
+                        <option value="Nail">Nail</option>
+                    </select>
+                </div>
+
+                <div class="filter-item-container">
+                    <label for="rating">Rating:</label>
+                    <select name="rating" id="rating">
+                        <option value="0">No rating</option>
+                        <option value="1">1 and above</option>
+                        <option value="2">2 and above</option>
+                        <option value="3">3 and above</option>
+                        <option value="4">4 and above</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+
+                <button id="search-btn">Search</button>
+            </form>
+            <h2 id="search-header"></h2>
+            <div class="services" id="search-result">
             </div>
-            <div class="services" id="listEye">
-            </div>
-            <div class="services" id="listMassage">
-            </div>
-            <div class="services" id="listNail">
-            </div>
+
         </section>
 
 
@@ -91,7 +112,7 @@
     </footer>
 
 
-    <script src="./showServices.bundle.js" defer></script>
+    <script src="./filterServices.bundle.js" defer></script>
 </body>
 
 </html>

@@ -332,6 +332,21 @@ button:hover {
   margin: 0 0.25rem 0 0;
 }
 
+input:disabled, select:disabled, textarea:disabled, button:disabled {
+  background: #d6d6d6; /* change this color as per your preference */
+  color: #000;
+}
+
+.filter {
+  display: flex;
+  gap: 1rem;
+  flex-flow: row nowrap;
+  align-items: end;
+}
+.filter button {
+  margin: 0;
+}
+
 /* BUTTON ============= */
 .btn {
   font-size: 13px;
@@ -409,7 +424,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #8949E1;
+  border: 2px solid #FBB549;
 }
 
 .listing-container {
@@ -419,7 +434,17 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #8949E1;
+  border: 2px solid #FBB549;
+}
+
+.booking-history-customer {
+  display: flex;
+  gap: 1rem;
+  flex-flow: row nowrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #FBB549;
 }
 
 /* The snackbar - position it at the bottom and in the middle of the screen */

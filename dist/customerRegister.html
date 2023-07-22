@@ -28,11 +28,11 @@
     <header>
         <div class="top-bar">
             <div class="logo">
-                <img src="../img/main_logo 1.png" alt="">
+                <a href="./index.html"><img src="../img/main_logo 1.png" alt=""></a>
             </div>
             <nav>
                 <ul class="top-menu mobile">
-                    <li><a href="./index.html">Services</a></li>
+                    <li><a href="./services.html">Services</a></li>
                     <li><a href="./customerDashboard.html">Schedule</a></li>
                     <li><a href="./customerRegister.html">Profile</a></li>
                     <li class="login visually-hidden"><a href="./login.html">Log in</a></li>
@@ -42,6 +42,7 @@
     </header>
     <main>
         <h2>Account Setting</h2>
+        <div id="button-container"></div>
         <form class="add">
             <label for="fname">First Name</label>
             <input type="text" name="fname" id="" required>
@@ -49,8 +50,6 @@
             <input type="text" name="lname" id="" required>
             <label for="phone">Phone number</label>
             <input type="text" name="phone" id="" required>
-            <label for="photo">Photo Link</label>
-            <input type="url" name="photo" id="" required>  
             <label for="address">Address Line</label>
             <input type="text" name="address1" id="">
             <div id="suggestions"></div>

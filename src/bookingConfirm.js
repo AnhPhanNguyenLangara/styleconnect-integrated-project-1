@@ -41,6 +41,11 @@ const colRef = collection(db, 'customer_booking');
 let addressData = null;
 const auth = getAuth();
 let currentUserUID = null
+const geoBaseURL = "https://api.tomtom.com/search/2/geocode/";
+const APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
+const ext = "json";
+
+
 onAuthStateChanged(auth, async (user) => {
   console.log(arr[4], user)
   if (user) {
@@ -50,14 +55,13 @@ onAuthStateChanged(auth, async (user) => {
     
     if(arr[4] ==="onhome"){
       addressData = await addressFectching(arr[3], 'professional_profile_v2');
-
-      // addressData broken, using fixed address string for demo
-      const geoCodeResponse= await fetch(encodeURI(`https://api.tomtom.com/search/2/geocode/989 Beatty Street.json?key=ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG`));
+      const mapURL = geoBaseURL + encodeURI(addressData.address1) + "." + ext + "?key=" + APIKEY;
+      const geoCodeResponse= await fetch(mapURL);
       const geoCodeJSON= await geoCodeResponse.json();
       const coordinates= geoCodeJSON.results[0].position;
 
       whereDescription.innerHTML = `<h4>For this booking, you will need to go and get the service at the professional's location as per below address.</h4>
-      <p>989 Beatty Street</p>
+      <p>${addressData.address1}</p>
       <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+ff2600(${coordinates.lon},${coordinates.lat})/${coordinates.lon},${coordinates.lat},10,0/400x400@2x?access_token=pk.eyJ1IjoicG5ndXllbjYzIiwiYSI6ImNsazk1aWlxNTA2djIzZWxueHo4M2NjbWIifQ.Gl4sErrXg13DhcvO_qgDMw" alt="">`
     }else{
       addressData = await addressFectching(arr[2], 'customer_profile');
@@ -98,7 +102,7 @@ confirmBooking.addEventListener('submit', async (e) => {
       customerfirstName: customerData.firstName,
       customerlastName: customerData.lastName,
       address: addressData.address1,
-      serviceName: arr[5],
+      serviceName: decodeURIComponent(arr[5]),
       where: arr[4],
       prosId: arr[3],
       listingId: arr[1],
@@ -113,3 +117,5 @@ confirmBooking.addEventListener('submit', async (e) => {
   alert('Booking Confirm')
   /* window.location.href = '/dist/'; */
 })
+
+
