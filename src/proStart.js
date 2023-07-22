@@ -48,9 +48,11 @@ onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUserUID = user.uid;
     prosId = await getProsId(currentUserUID);
+    if(prosId !== null){
     const docRef = doc(db, 'professional_profile_v2', prosId);
     getDoc(docRef).then((docSnap) => {
       if (docSnap.exists()) {
+        
         // User profile data exists, populate the form fields
         const userData = docSnap.data();
         addProfileForm.fname.value = userData.firstName || '';
@@ -98,7 +100,7 @@ onAuthStateChanged(auth, async (user) => {
       } else {
         console.log('No such document!');
       }
-    });
+    });}
     // ...
   } else {
     // User is signed out
@@ -217,11 +219,8 @@ addProfileForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   try {
     prosId = await getProsId(currentUserUID);
-    const docRef = doc(db, 'professional_profile_v2', prosId);
-    const docSnap = await getDoc(docRef);
-    
-    if (docSnap.exists()) {
-      // Document exists, so update it
+    if(prosId !== null){
+    let docRef = doc(db, 'professional_profile_v2', prosId);
       await updateDoc(docRef, {
         firstName: addProfileForm.fname.value,
         lastName: addProfileForm.lname.value,
@@ -239,12 +238,14 @@ addProfileForm.addEventListener("submit", async (e) => {
           richmond: addProfileForm.area3.checked,
         },
       });
-      console.log('Profile updated successfully!');
-    } else {
+    }
+     else {
       // Document doesn't exist, so create it
-      await setDoc(docRef, {
+       let docRef2 = doc(colRef)
+       console.log(docRef2)
+      await setDoc(docRef2, {
         customerId: currentUserUID,
-        userId: prosId,
+        userId: docRef2.id,
         firstName: addProfileForm.fname.value,
         lastName: addProfileForm.lname.value,
         bio: addProfileForm.bio.value,
@@ -264,7 +265,6 @@ addProfileForm.addEventListener("submit", async (e) => {
       });
       console.log('Profile created successfully!');
     }
-
     addProfileForm.reset();
     window.location.assign("prosDashboard.html");
 
@@ -276,5 +276,11 @@ addProfileForm.addEventListener("submit", async (e) => {
 async function getProsId(currentUserUID) {
   const queryProsRef = query(colRef, where('customerId', '==', currentUserUID));
   const prosIdSnap = await getDocs(queryProsRef);
-  return prosIdSnap.docs[0].data().userId;
+  if (!prosIdSnap.empty) {
+    // If there are documents, return the userId from the first document
+    return prosIdSnap.docs[0].data().userId;
+  } else {
+
+    return null;
+  }
 }
