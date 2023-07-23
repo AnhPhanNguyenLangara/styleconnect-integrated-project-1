@@ -1,16 +1,48 @@
 import { getCustomerAddress, app, colRefListing, customerIDs } from './addressPic.js';
-
-console.log(getCustomerAddress(customerIDs));
-
+// console.log('>>>>', getCustomerAddress(customerIDs))
+getCustomerAddress().then((response) => {
+    console.log('>>>>', response)
+})
 // setting and showing a map
 const APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
 
-// display the distance.
+let deviceLatLon;
+// When open the map page, get the current loction automatically. 
+// window.addEventListener("load", getDeviceLocation());
+
+function getDeviceLocation() {
+    console.log("inside getDeviceLocation");
+    const optionObj = {
+      timeout: 5000,
+      enableHighAccuracy: false,
+      maximumAge: 0,
+    };
+    console.log('>>>>', successCallback)
+    if (navigator.geolocation) {
+        console.log("has geolocation.");
+        console.log('>>>>', deviceLatLon)
+        navigator.geolocation.getCurrentPosition(
+        successCallback,
+        errorCallback,
+        optionObj
+      );
+    return successCallback();
+    } else {
+        console.log("no geolocation");
+      const displayError = document.getElementById("displayError");
+      displayError.innerText = "";
+      displayError.innerText = "Geolocation is not supported by this browser.";
+    }
+  };
+
+
+// display customer address in U/I.
 function displayAddress() {
     document.getElementById("address").innerHTML = getCustomerAddress();
 };
-
 displayAddress();
+
+
 // create map object with SDK to show the map
 let map = tt.map({
     key: APIKEY,
@@ -27,9 +59,12 @@ map.addControl(new tt.NavigationControl());
     console.log("Successful callback", currentLocation);
     const latitude = currentLocation.coords.latitude;
     const longitude = currentLocation.coords.longitude;
+    console.log('>>>>', latitude, longitude)
     console.log("show lat & long", latitude, longitude);
     let startPoint = [latitude, longitude];
-    return startPoint;
+    deviceLatLon = startPoint;
+    console.log("deviceLatLin", deviceLatLon);
+    return deviceLatLon;
     // console.log("Start Point Latitude: " + startPoint[0]);
     // console.log("Start Point Longitude: " + startPoint[1]);
   };
@@ -41,7 +76,7 @@ map.addControl(new tt.NavigationControl());
       "Location information is unavailable.",
       "The request to get user location timed out.",
     ];
-    const displayGeo = document.getElementById("displayGeo");
+    const displayGeo = document.getElementById("address");
     displayGeo.innerText = "";
     const errorMsg = document.createElement("p");
     const errorNo = error.code;
@@ -52,9 +87,11 @@ map.addControl(new tt.NavigationControl());
 // get a middle position between device location and customer's location
 async function calcMidPoint() {
     try {
-        let deviceLocation =  getDeviceLocation();
+        let deviceLocation = await getDeviceLocation();
         let customerLocation = await getCustomerLocation();
-
+        console.log("line 58 devicelocation:", deviceLocation);
+        console.log("line 59 customerlocation:", customerLocation);
+    
         let lat1 = deviceLocation.latitude;
         let lon1 = deviceLocation.longitude;
         let lat2 = customerLocation.latitude;
@@ -62,7 +99,8 @@ async function calcMidPoint() {
 
         let midLat = (lat1 + lat2) / 2;
         let midLon = (lon1 + lon2) / 2;
-
+        console.log("midLat", midLat);
+        console.log("mitLon",mitLon);
         return [midLat, midLon];
     }
     catch {
@@ -108,6 +146,7 @@ async function addMarkers(feature) {
             // startPoint = feature.geometry.coordinates[0];
             startPoint = getDeviceLocation();
             endPoint = getCustomerLocation();
+            console.log("this is startPoint", startPoint);
             console.log("this is endPoint", endPoint);
             // endPoint = feature.geometry.coordinates.slice(-1)[0];
         }
@@ -141,22 +180,38 @@ function findFirstBuildingLayerId() {
     throw new Error('Map style does not contain any layer with fill-extrusion type.');
 }
 
-
 // get a route only when user access the page or reload. 
 let resultsManager = new ResultsManager();
 
 map.once('load', function () {
+    console.log("getcustomerAddress", getCustomerAddress(customerIDs));
     console.log("loading the map");
-    let location = getDeviceLocation();
-    console.log("this is line 151", location);
+    let customerLocation
+    let currentLocation
+    getDeviceLocation().then((response) => {
+        currentLocation = response
+        console.log('>>>> current', currentLocation)
+        return currentLocation
+    })
+
+
+    getCustomerLocation().then((response) => {
+        customerLocation = response
+        console.log('>>>> customer', customerLocation)
+        return customerLocation
+    })
+
+
+    // let location = getDeviceLocation(); not good because of the asyncness?
+    console.log("this is line 182", deviceLatLon);
     tt.services.calculateRoute({
         key: APIKEY,
         traffic: false,
-        locations: `${location},${getCustomerLocation()}`
+        locations: `${deviceLatLon}:${getCustomerLocation()}`
     })
     //response is the route info and convert it to JSON.
         .then(function (response) {
-            console.log("this is line 148", response);
+            console.log("response line165", response);
             let geojson = response.toGeoJson();
             map.addLayer({
                 'id': 'route',
@@ -192,7 +247,7 @@ const ext = "json"
 
 async function getCustomerLocation() {
     // const snapShot = await getDocs(customerIDs);
-    let address = await getCustomerAddress()
+    let address = await getCustomerAddress();
     console.log("customerAddress -->", address);
     try {
         // const address = await getCustomerAddress(customerAddress)
@@ -204,7 +259,7 @@ async function getCustomerLocation() {
         const data = await res.json();
         console.log("this is Json", data);
         const position = data.results[0].position; //get latitude & logititude;
-        console.log("this is position", position);
+        console.log(">>>> this is position", position);
         return position;
     } catch (error) {
         console.error("Error", error);
@@ -212,49 +267,6 @@ async function getCustomerLocation() {
 }
 
 
-// get Pro's Device location
-// window.addEventListener("load",function getDeviceLocation() {
-//     const optionObj = {
-//         timeout: 5000,
-//         enableHighAccuracy: false,
-//         maximumAge: 0,
-//     }
-    
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(successCallback, errorCallback, optionObj);
-//     } else {
-//         const displayError = document.getElementById("displayError");
-//         displayError.innerText = "";
-//         displayError.innerText = `Geolocation in not supported by this browser.`;
-//     }
-// })
-
-
-// When open the map page, get the current loction automatically. 
-window.addEventListener("load", getDeviceLocation());
-
-function getDeviceLocation() {
-    console.log("inside getDeviceLocation");
-    const optionObj = {
-      timeout: 5000,
-      enableHighAccuracy: false,
-      maximumAge: 0,
-    };
-    if (navigator.geolocation) {
-        console.log("has geolocation.");
-        navigator.geolocation.getCurrentPosition(
-        successCallback,
-        errorCallback,
-        optionObj
-      );
-    // return successCallback();
-    } else {
-        console.log("no geolocation");
-      const displayError = document.getElementById("displayError");
-      displayError.innerText = "";
-      displayError.innerText = "Geolocation is not supported by this browser.";
-    }
-  };
 
 
 
