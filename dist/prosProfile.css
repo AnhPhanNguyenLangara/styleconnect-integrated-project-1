@@ -10,7 +10,7 @@ Version: .1
 The second mixin is flex-display becasue we will use flex to style many element in this way it is really useful*/
 /* RESET ============= */
 /* Box sizing rules */
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap");
 *,
 *::before,
 *::after {
@@ -88,8 +88,8 @@ select {
   }
 }
 /* TYPOGRAPHY ========== */
-body {
-  font-family: "Plus Jakarta Sans", georgia, serif;
+html {
+  font-family: "Plus Jakarta Sans", arial, sans-serif;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -99,6 +99,10 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   margin: 0;
   letter-spacing: 0.1rem;
   line-height: 1.1;
+}
+
+p, a {
+  font-family: "Plus Jakarta Sans", arial, sans-serif;
 }
 
 h1, .h1 {
