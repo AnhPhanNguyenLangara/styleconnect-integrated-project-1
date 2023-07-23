@@ -18,3 +18,10 @@ $primary: #8949E1;
 @import "layouts/main-content.scss";
 @import "layouts/header.scss";
 @import "layouts/footer.scss";
+
+
+// Include any default variable overrides here (though functions won't be available)
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// Then add additional custom code here

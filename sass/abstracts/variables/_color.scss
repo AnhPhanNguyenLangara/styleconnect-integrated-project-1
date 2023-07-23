@@ -1,3 +1,25 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+
+$custom-colors:(
+    "gold": #FBB549,
+    "brightness-l": #FFFFFF,
+    "brightness-m": #F6F6F8,
+    "brightness-d": #EEEEF1,
+    "contrast-l": #C7C8D1,
+    "contrast-m": #6E6E74,
+    "contrast-d": #0E0E17,
+    "accent-l": #EBE4F8,
+    "accent-m": #B971FF,
+    "accent-md": #8949E1,
+    "accent-d": #5B24C6,
+    "text-main": #5B24C6,
+    "text-sub": #8949E1,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+
 $base-l: #FCE289;
 $base-m: #FADC73 ;
 $base-d: #FBB549;
@@ -16,3 +38,6 @@ $accent-d: #5B24C6;
 
 $text-main: #5B24C6;
 $text-sub: #8949E1;
+
+
+
