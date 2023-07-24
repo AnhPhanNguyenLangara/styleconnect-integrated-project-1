@@ -161,15 +161,15 @@ const displayListing = async () => {
     </div>
     <div class="card-body">
       <div class="row align-items-center">
-        <div class="col-8">
+        <div class="col-7 col-lg-8">
           <h3 class="card-title fs-6 fw-semibold">${x.firstName + " " + x.lastName}</h3>
           <div class="col d-flex align-items-center" style="width: 100%;">
             <img src="../img/fi-rs-marker.svg" alt="" class="text-color-contrast-d pe-2 img18">
             <p class="card-text location mb-0 fs-6 display-5 text-wrap">${getObjectKeys(x.area, true)}</p>
           </div>
         </div>
-        <div class="col-4 text-center">
-          <a href="booking.html?${queryString}" class="pe-3 ps-3 pt-2 pb-2 mt-5 text-decoration-none bg-light-purple text-accent-d rounded-1">View</a>
+        <div class="col-5 col-lg-4 text-center">
+          <a href="booking.html?${queryString}" class="pe-3 ps-3 pt-2 pb-2 mt-5 text-decoration-none  text-nowrap  bg-light-purple text-accent-d rounded-1">View</a>
         </div>
       </div>
     </div>

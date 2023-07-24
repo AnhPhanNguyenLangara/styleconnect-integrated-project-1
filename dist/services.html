@@ -23,10 +23,10 @@
             <div class="collapse navbar-collapse justify-content-end" id="nav">
                 <ul class="navbar-nav justify-content-between align-items-center pt-3 pt-sm-0">
                     <li class="nav-item flex-xl-grow-1 text-center"><a href="./prosDashboard.html"
-                            class="nav-link p-0 fw-semibold active text-accent-d text-nowrap" aria-current="page">List
+                            class="nav-link p-0 fw-semibold text-accent-d text-nowrap" aria-current="page">List
                             Services</a></li>
                     <li class="nav-item flex-xl-grow-1 text-center"><a href="./services.html"
-                            class="nav-link p-0 fw-semibold">Services</a></li>
+                            class="nav-link p-0 fw-semibold active">Services</a></li>
                     <li class="nav-item flex-xl-grow-1 text-center"><a href="./customerDashboard.html"
                             class="nav-link p-0 fw-semibold">Schedule</a></li>
                     <div
@@ -57,32 +57,39 @@
         <div id="snackbar"></div>
     </header>
     <main>
-        <section class="product-review">
-            <h3>Our services</h3>
+        <section class="product-review container-xl  p-5 pt-0">
+            <h2 class="display-3 fw-semibold">Our services</h2>
             <p>Discover a World of Beauty and Wellness Experiences Tailored Just for You.</p>
-            <form class="filter">
+
+
+        </section>
+        <div class="full-width-with-margin-right p-5 bg-contrast-d me-5 form-wrapper mb-5">
+            <form class="filter container-xl ms-5 ps-5">
                 <div class="filter-item-container">
-                    <label for="location">Location:</label>
-                    <select name="location" id="location">
+                    <label class="form-label text-brightness-l" for="location">Location:</label>
+                    <select class="form-select" name="location" id="location" required>
+                        <option value="" disabled selected>Select location</option>
                         <option value="downtown">Down Town</option>
                         <option value="burnaby">Burnaby</option>
                         <option value="richmond">Richmond</option>
                     </select>
                 </div>
-
+                
                 <div class="filter-item-container">
-                    <label for="categories">Categories:</label>
-                    <select name="categories" id="categories">
+                    <label class="form-label text-brightness-l" for="categories">Categories:</label>
+                    <select class="form-select" name="categories" id="categories" required>
+                        <option value="" disabled selected>Select category</option>
                         <option value="Haircut">Hair Care</option>
-                        <option value="Eyelash">Eyelash Eyebrown</option>
+                        <option value="Eyelash">Eyelash Eyebrow</option>
                         <option value="Massage">Massage</option>
                         <option value="Nail">Nail</option>
                     </select>
                 </div>
-
+                
                 <div class="filter-item-container">
-                    <label for="rating">Rating:</label>
-                    <select name="rating" id="rating">
+                    <label class="form-label text-brightness-l" for="rating">Rating:</label>
+                    <select class="form-select" name="rating" id="rating" required>
+                        <option value="" disabled selected>Select rating</option>
                         <option value="0">No rating</option>
                         <option value="1">1 and above</option>
                         <option value="2">2 and above</option>
@@ -91,14 +98,37 @@
                         <option value="5">5</option>
                     </select>
                 </div>
-
-                <button id="search-btn">Search</button>
+                
+                <button class="rounded-2 bg-accent-d text-brightness-l pe-3 ps-3" id="search-btn">Search</button>
             </form>
+        </div>
+        <div class="container-xl p-5">
             <h2 id="search-header"></h2>
             <div class="services" id="search-result">
             </div>
-
-        </section>
+        </div>
+        <div class="container-fluid p-5 mt-5 mb-5 bg-light-purple">
+            <section class="become-pro container-xl">
+                <div class="row justify-content-between align-items-center p-0 p-md-5">
+                    <div class="col-lg-6 pe-5">
+                        <img class="rounded-topright w-100 d-none d-lg-block" src="../img/becomepro.png"
+                            alt="https://unsplash.com/photos/CsMcfJjCjog">
+                    </div>
+                    <div class="pro-detail col-lg-6 p-0">
+                        <h4 class="fw-bold mb-4">Are you a professional looking to provide your services ?</h4>
+                        <p class="w-100 mb-4">Are you a beauty and wellness expert? Join StyleConnect! We connect you to
+                            a
+                            wide range of customers, giving you the freedom to manage your schedule and bookings. Sign
+                            up
+                            today and let's transform beauty and wellness services together.</p>
+                        <a href="./prosProfile.html"
+                            class="pe-3 ps-3 pt-2 pb-2 text-decoration-none bg-accent-d text-brightness-l rounded-1">List
+                            a
+                            service</a>
+                    </div>
+                </div>
+            </section>
+        </div>
 
 
     </main>

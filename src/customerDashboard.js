@@ -37,6 +37,7 @@ const db = getFirestore();
 const auth = getAuth();
 let currentUserUID = null;
 onAuthStateChanged(auth, async (user) => {
+  showMenu(user);
   if (user) {
     currentUserUID =user.uid
     // Fetch bookings immediately after user logs in
@@ -45,7 +46,6 @@ onAuthStateChanged(auth, async (user) => {
     // User is signed out
     // Clear out existing bookings
     bookingDetail.innerHTML = "";
-    showMenu()
   }
 });
 

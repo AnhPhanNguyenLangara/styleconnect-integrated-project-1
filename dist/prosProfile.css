@@ -107,7 +107,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   line-height: 1.618;
 }
 
-p, a {
+p, a, label {
   font-family: "Plus Jakarta Sans", arial, sans-serif;
   font-size: 1rem;
 }
@@ -221,10 +221,6 @@ footer nav a {
   width: 1px;
 }
 
-form {
-  padding: 1.5rem;
-}
-
 label {
   display: block;
   margin-bottom: 0.5em;
@@ -242,16 +238,6 @@ input {
 
 input[type=checkbox], select {
   width: auto;
-}
-
-button {
-  background-color: #B971FF;
-  color: rgb(255, 255, 255);
-  border: none;
-  border-radius: 3px;
-  padding: 0.5em 1em;
-  cursor: pointer;
-  font-size: 0.8em;
 }
 
 button:hover {
@@ -278,6 +264,26 @@ input:disabled, select:disabled, textarea:disabled, button:disabled {
   gap: 1rem;
   flex-flow: row nowrap;
   align-items: end;
+  gap: 3rem;
+}
+
+.full-width-with-margin-right {
+  width: calc(100% - 11rem);
+  max-width: 1550px;
+  margin-right: 11rem;
+}
+
+.form-wrapper {
+  border-top-right-radius: 3rem;
+}
+
+#search-btn {
+  border: none;
+  cursor: pointer;
+  font-size: 0.8em;
+  padding: 0.5rem 1em;
+  flex-basis: 15%;
+  margin: 0 auto;
 }
 
 /* BUTTON ============= */

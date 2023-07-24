@@ -38,6 +38,7 @@ const auth = getAuth();
 let currentUserUID = null;
 
 onAuthStateChanged(auth, async (user) => {
+  showMenu(user);
   if (user) {
     // User is signed in, see docs for a list of available properties
     currentUserUID = user.uid;
@@ -78,7 +79,7 @@ onAuthStateChanged(auth, async (user) => {
   } else {
     // User is signed out
     currentUserUID = null;
-    showMenu();
+
   }
 });
 

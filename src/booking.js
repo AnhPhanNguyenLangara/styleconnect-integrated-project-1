@@ -58,6 +58,7 @@ const auth = getAuth();
 let currentUserUID = null;
 let prosId = null;
 onAuthStateChanged(auth, async (user) => {
+  showMenu(user);
   if (user) {
     currentUserUID = user.uid
     let reviews = await getReviews(obj.userId);
@@ -82,7 +83,7 @@ onAuthStateChanged(auth, async (user) => {
   } else {
     // User is signed out
     // ...
-    showMenu()
+
   }
 });
 

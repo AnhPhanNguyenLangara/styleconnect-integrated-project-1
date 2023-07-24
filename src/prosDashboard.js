@@ -36,6 +36,7 @@ import {
 let prosId = null;
 const auth = getAuth();
 onAuthStateChanged(auth, async (user) => {
+  showMenu(user);
   if (user) {
     prosId = await getProsId(user.uid);
     let bookingData = await fetchBookingData(prosId);
@@ -44,7 +45,7 @@ onAuthStateChanged(auth, async (user) => {
   } else {
     // User is signed out
     // ...
-    showMenu()
+
   }
 });
 
