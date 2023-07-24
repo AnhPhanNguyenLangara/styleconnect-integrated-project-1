@@ -38,19 +38,9 @@ button:hover {
 .checkbox-wrapper {
     :first-child{
         flex-basis:100%;
-        margin-bottom: 0.5rem;
-    }
-    label{
-        margin-right: 0.5rem;
-        margin-bottom: 0;
-    }
-    input{
-        margin: 0 0.25rem 0 0;
     }
     @include flex-display(0, row, wrap);
     align-items: center;
-    margin-bottom: 0.5rem;
-
 }
 
 
@@ -62,7 +52,4 @@ input:disabled, select:disabled, textarea:disabled, button:disabled {
 .filter{
     @include flex-display(1rem, row, nowrap);
     align-items: end;
-    button{
-        margin:0;
-    }
 }

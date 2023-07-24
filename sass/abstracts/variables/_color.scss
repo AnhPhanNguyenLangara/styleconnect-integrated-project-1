@@ -15,6 +15,7 @@ $custom-colors:(
     "accent-d": #5B24C6,
     "text-main": #5B24C6,
     "text-sub": #8949E1,
+    "light-purple": #F9F6FD
 );
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
@@ -32,6 +33,8 @@ $contrast-l: #444;
 $contrast-m: #222;
 $contrast-d: #000;
 
+
+$light-purple: #F9F6FD;
 $accent-l: #B971FF;
 $accent-m: #8949E1;
 $accent-d: #5B24C6;

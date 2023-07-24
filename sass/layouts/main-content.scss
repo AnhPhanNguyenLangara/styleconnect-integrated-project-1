@@ -1,107 +1,15 @@
 @import "navigation";
-/* CONTENT =============== */
-main{
+
+.become-pro{
+  gap:3rem;
+}
+
+.services{
   display: grid;
   gap:2rem;
-  @media screen and (min-width: 1000px) {
-    max-width: 1200px;
-    margin:auto;
-  }
+  @media screen and (min-width: 768px){
  
-}
-.main-content{
-    display: grid;
-    gap: 1rem;
-}
-.product-review{
-  .services{
-  display: grid;
-  gap: 1rem;
-  @media screen and (min-width: 1000px) {
-    grid-template-columns: repeat(4,1fr);
-  }
-
-}
+    grid-template-columns: repeat(3, 1fr);
   
-    ul{
-      letter-spacing: normal;
-      margin: 0;
-      padding:0;
-      border-bottom: solid 2px $text-main;
-      @include flex-display(0, row, nowrap);
-      
-      li{
-          list-style: none;
-          @include flex-display();
-          justify-content: center;
-          flex-grow:1;
-
-          a{
-            @include flex-display(0, column, nowrap);
-            align-items: center;
-            flex-basis: 100%;
-          }
-          @media screen and (min-width: 1000px) {
-          display: flex;
-           flex-grow: 1;
-           a{
-   
-           flex-grow: 1;
-          }
-          }
-      }
-    }
-}
-
-/* CARDS ================= */
-.pros-card{
-  display: grid;
-  grid-template-rows: 2rem 2rem repeat(9,1fr) 4rem;
-  grid-template-columns: repeat(10,1fr);
-  h3{
-    @include flex-content(start,center);
-    grid-row: 1/2;
-    grid-column: 1/-1;
-    z-index: 1;
   }
-  p.location{
-    @include flex-content(start,start);
-    grid-row: 2/3;
-    grid-column: 1/-1;
-    z-index: 1;
-  }
-  h5.rating{
-    @include flex-content(center,center);
-    grid-row: 1/2;
-    grid-column: 8/11;
-    z-index: 1;
-    font-size: 1rem;
-    color: $accent-d;
-  }
-  img{
-    grid-row: 1/12;
-    grid-column: 1/11;
-  }
-  p.price{
-    font-size: 1.5rem;
-    @media screen and (min-width: 1000px) {
-      font-size: 1rem;
-    }
-    grid-row:12/13;
-    grid-column: 1/-1;
-    border-radius: 0 0 16px 16px;
-    @include flex-content(start,center);
-  }
-  a{
-    grid-row: 12/13;
-    grid-column: 7/11;
-  }
-
-}
-
-/* Pro listing */
-.pro-start{
-  @include flex-display(2rem, row, nowrap);
-  margin: 3rem 0;
-
 }

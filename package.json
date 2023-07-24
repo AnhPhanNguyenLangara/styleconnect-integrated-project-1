@@ -19,6 +19,8 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@tomtom-international/web-sdk-maps": "^6.23.0",
+    "@tomtom-international/web-sdk-services": "^6.23.0",
     "bootstrap": "^5.3.0",
     "firebase": "^9.22.2"
   }

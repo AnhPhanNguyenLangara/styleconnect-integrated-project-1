@@ -1,44 +1,21 @@
-/* IMG ========== */
-
-
-img.rounded{
-    @include rounded;
+.img-profile{
+  max-width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
-
-.product-review 
-{
-    ul i{
-    font-size: 1.5rem;
+.rounded-topright {
+  border-top-right-radius: 56px; /* adjust radius as necessary */
 }
-    .pros-card img{
-        border-radius: 16px 16px 0 0;
-    }
-
-}
-.social {
-    ul {
-    margin-top:1rem;
-    i{
-        font-size: 1.5rem;
-    }
-}
+.rounded-topleft {
+  border-top-left-radius: 56px; /* adjust radius as necessary */
 }
 
-.pro-start{
-    img{
-      max-width: 40%;
-      flex-basis: 40%;
-    }
-  }
-  .header-main {
-    img{
-      max-width: 50%;
-      flex-basis: 50%;
-    }
-  }
-
-  .footer-menu1 .logo img{
-    margin: 1rem 0;
-  }
-  
+.img48 {
+  width: 106px;
+  height: 106px;
+}
+.img18{
+  width: 26px;
+  height:18px;
+}

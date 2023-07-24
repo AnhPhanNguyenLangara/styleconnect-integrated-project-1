@@ -16,18 +16,21 @@ const allpages = [listHair, listEye, listMassage, listNail];
 function navigateToPage() {
   const pageId = location.hash ? location.hash : "#listHair";
   for (let i = 0; i < allpages.length; i++) {
-    const page = allpages[i];
-    const li = allLI[i];
+      const page = allpages[i];
+      const li = allLI[i];
+      const parentDiv = li.parentElement;
 
-    if (pageId === "#" + page.id) {
-      page.style.display = "grid";
-      page.classList.add("first-service");
-      li.classList.add("active");
-    } else {
-      page.style.display = "none";
-      page.classList.remove("first-service");
-      li.classList.remove("active");
-    }
+      if (pageId === "#" + page.id) {
+          page.style.display = "grid";
+          page.classList.add("first-service");
+          li.classList.add("service-active");
+          parentDiv.classList.add("service-active-border");  
+      } else {
+          page.style.display = "none";
+          page.classList.remove("first-service");
+          li.classList.remove("service-active");
+          parentDiv.classList.remove("service-active-border"); 
+      }
   }
 }
 navigateToPage();
@@ -78,6 +81,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
+  showMenu(user);
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
@@ -85,7 +89,7 @@ onAuthStateChanged(auth, (user) => {
 console.log(uid)
     // ...
   } else {
-    showMenu();
+  
   }
 });
 
@@ -149,15 +153,30 @@ const displayListing = async () => {
     nail: "",
   };
 
-  const createCard = (x, queryString, downloadURL, ratingShow) => `
-      <div class="pros-card">
-        <h3>${x.firstName + " " + x.lastName}</h3>
-        <h5 class="rating">${ratingShow}<i class="fa-regular fa-star"></i></h5>
-        <p class="location">${getObjectKeys(x.area, true)}</p>
-        <img src="${downloadURL}" alt="">
-        <p class="price">Start from $${x.startPrice}<span>CAD</span></p>
-        <a href="booking.html?${queryString}" class="btn btn-show btn-animated">Book Now</a>
-      </div>`;
+  const createCard = (x, queryString, downloadURL) => `
+  <div class="card pros-card col-12 p-0  rounded-top-4">
+    <div class="image-container position-relative">
+        <img class="card-img-top rounded-top-4" src="${downloadURL}" alt="Image" style="height: 280px; width: 100%; object-fit: cover;">
+        <p class="card-text price fs-6 position-absolute bottom-0 end-0 p-2 bg-light text-dark me-2 mb-2 rounded-2">Start from $${x.startPrice}</p>
+    </div>
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-8">
+          <h3 class="card-title fs-6 fw-semibold">${x.firstName + " " + x.lastName}</h3>
+          <div class="col d-flex align-items-center" style="width: 100%;">
+            <img src="../img/fi-rs-marker.svg" alt="" class="text-color-contrast-d pe-2 img18">
+            <p class="card-text location mb-0 fs-6 display-5 text-wrap">${getObjectKeys(x.area, true)}</p>
+          </div>
+        </div>
+        <div class="col-4 text-center">
+          <a href="booking.html?${queryString}" class="pe-3 ps-3 pt-2 pb-2 mt-5 text-decoration-none bg-light-purple text-accent-d rounded-1">View</a>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+
+  
   displayOBJ.forEach((x) => {
     let ratingShow = x.rating === undefined? '':x.rating
     let obj = {
