@@ -2,180 +2,37 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="app.js" type="module" defer></script>
+
+    
 </head>
-<style>
-  img {
-    height: 200px;
-    width: 200px;
-    border: 2px solid white;
-  }
-</style>
 
 <body>
-  <label">Image name</label>
-    <input type="text" id="namebox">
-    <label id="extlab"></label><br><br>
+   
 
-    <img id="myimg">
-    <label id="upprogress"></label><br><br>
+    <div class="page" id="picture" >
+        
 
-    <button id="selbtn">Select image</button>
-    <button id="upbtn">Upload image</button>
-    <button id="downbtn">Retrieve image</button>
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
+        <div>
+            <button id="start" class="item">Press Start Camera twice</button>
+            <!-- <button id="snap" class="item">Snap Photo</button> -->
+            <!-- This button is comment out, so that i will use start Camera 
+            button, and i will add a toggle to cahnge the button on click to
+             run both functions -->
+            <button id="stop" class="item">Stop Camera</button>
+            <img id="image"/>
+            <img id="test"/>
+            <button id="button" class="item">upload image</button>
+          </div>
+          <br />
+          <video id="video" width="320" height="240" autoplay></video>
+          <br />
+          <canvas id="canvas" width="320" height="240"></canvas>
 
-      // Your web app's Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyCFC2okFyDTiP_dRwubXFFK7efZULCYFNQ",
-        authDomain: "upload2-25d7c.firebaseapp.com",
-        projectId: "upload2-25d7c",
-        storageBucket: "upload2-25d7c.appspot.com",
-        messagingSenderId: "169491321843",
-        appId: "1:169491321843:web:63f8814aafabf2726bb886"
-      };
-
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      //import library to access firebase storage with getStorage, ref and other functions 
-      import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL }
-        from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js"
-
-      import { getFirestore, doc, getDoc, setDoc, collection }
-        from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"
-      const clouddb = getFirestore();
-
-          //==========variables  and references=====================
-      let files = []; //empty array
-
-      //object of Filereader class, used to read files when image is selected
-      let reader = new FileReader(); // 
-
-      //=============other references
-      let namebox = document.getElementById('namebox');
-      let extlab = document.getElementById('extlab');
-      let myimg = document.getElementById('myimg');
-      let Selbtn = document.getElementById('selbtn');
-      let UpBtn = document.getElementById('upbtn');
-      let Downbtn = document.getElementById('downbtn');
-      let proglab = document.getElementById('upprogress');
-
-      //input element to work in the background, when select button is preesed
-      // it will open file diaog to allow a user to selct an image for processing later
-      let input = document.createElement('input');
-      input.type = `file`;
-
-      //adding an 'onchange' event to the input above
-      // so that when the file is selected  by a user it passes it into files array
-      //using an arrow function to target the file array
-      input.onchange = e => {
-        files = e.target.files;
-
-        // passing the file using the GetFileExtension GetFileName functions
-        //using 0 index because we will be able to get only 1file
-        //e.target.files returns an array so we have to use files[0] to be able to access it
-        let extention = GetFileExtention(files[0]);
-        let name = GetFileName(files[0]);
-
-        //re-assigning variables for the values gotten above
-        namebox.value = name;
-        extlab.innerHTML = extention;
-
-
-        //using readAsDataURL function to read the data created above
-        reader.readAsDataURL(files[0]);
-
-      }
-
-      reader.onload = function () {
-        myimg.src = reader.result;
-      }
-//====================== image selection==========================
-      Selbtn.onclick = function () {
-        input.click();
-      }
-      function GetFileExtention(file) {
-         // using split to split any point there is a dot
-        let temp = file.name.split('.');
-        //then we use slice to return the last element of the string
-        let ext = temp.slice(temp.length - 1, temp.length);
-        console.log(ext);
-        return '.' + ext[0];
-      }
-      function GetFileName(file) {
-        let temp = file.name.split('.');
-        let fname = temp.slice(0, -1).join('.');
-        console.log(fname);
-        return fname;
-
-      }
-      //============================= upload===================
-      async function UploadProcess() {
-        let ImgToUpload = files[0];
-        //console.log(ImgToUpload);
-        let ImgName = namebox.value + extlab.innerHTML; //+ extlab.innerHTML;
-        //console.log(ImgName);
-        const metaData = {
-          contentType: ImgToUpload.type
-        }
-
-        const storage = getStorage();
-
-        const storageRef = sRef(storage, "images/" + ImgName);
-        console.log(storageRef);
-        const uploadTask = uploadBytesResumable(storageRef, ImgToUpload, metaData);
-        // console.log(uploadTask)
-        uploadTask.on("state-changed",(snapshot) => {
-            const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-            // setProgresspercent(progress);
-            proglab.innerHTML = "Upload" + progress + "%";
-          },
-          (error) => {
-            alert(error);
-          },
-          //using a callback function  if upload is successful
-          //using 'then' downloadURL to save the url into the database
-          () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-             // console.log(downloadURL)
-              SaveURLtoFirestore(downloadURL);
-            });
-          }
-        );
-      }
-      //==================to upload to firestore===================
-      async function SaveURLtoFirestore(Url) {
-        let name = namebox.value;
-        let ext = extlab.innerHTML;
-
-        let ref = doc(clouddb, "ImageLinks/" + name);
-
-        await setDoc(ref, {
-          ImageName: (name + ext),
-          ImageURL: Url
-        })
-      }
-
-      //==================to get image from firestore===================
-      async function GetImagefromFirestore() {
-        let name = namebox.value;
-        let ref = doc(clouddb, "ImageLinks/" + name);
-        const docSnap = await getDoc(ref);
-
-        if (docSnap.exists()) {
-          myimg.src = docSnap.data().ImageURL;
-        }
-      }
-
-      UpBtn.onclick = UploadProcess;
-      Downbtn.onclick = GetImagefromFirestore;
-    </script>
+    </div>
 </body>
 
 </html>
