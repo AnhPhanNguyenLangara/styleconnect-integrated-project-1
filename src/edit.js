@@ -68,7 +68,9 @@ addServiceForm.addEventListener('submit', async (e) =>{
         price: +addServiceForm.price.value,
         createdAt: serverTimestamp()
     })
-    addServiceForm.reset()}
+    addServiceForm.reset();
+    window.location.assign("prosDashboard.html");}
+    
     catch(error){
         console.log(error);
     }

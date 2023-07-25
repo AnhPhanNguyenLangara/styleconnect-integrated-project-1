@@ -74,126 +74,138 @@
       <div id="snackbar"></div>
   </header>
     <main>
-      <h2>Professional Profile</h2>
-      <div id="button-container"></div>
-      <form class="add">
-        <label for="fname">First Name</label>
-        <input type="text" name="fname" id="" required />
-        <label for="lname">Last Name</label>
-        <input type="text" name="lname" id="" required />
-        <label for="bio">Bio</label>
-        <input type="text" name="bio" id="" required />
-        <label for="profile">Profile Image</label>
-        <div id="profile-wrapper">
-          <button
-            type="button"
-            name="profile"
-            id="profile"
-            onclick="showModal()"
-          >
-            <img id="image-preview" src="../img/abstract-user-flat-4.svg" alt="Upload Image" />
-          </button>
-          <dialog id="image-modal">
-            <label for="upload">Choose from computer</label>
-            <button type="button" id="upload" onclick="fromComputer()">
-                <i class="fa-solid fa-upload" title="Upload Image"></i>
-            </button>
-            <label for="camera" onclick="takePicture()">Take a picture</label>
-            <button type="button" id="camera">
-                <i class="fa-solid fa-camera" title="Take a picture"></i>
-            </button>
-          </dialog>
-          <dialog id="upload-modal">
-            <img id="myimg">
-            <label id="upprogress"></label>
-            <button  type="button" id="upbtn">Upload image</button>
-          </dialog>
-        </div>
-        <div class="checkbox-wrapper category">
-          <label for="available-areas">Category</label>
-          <input
-            type="checkbox"
-            id="category1"
-            name="category1"
-            value="haircut"
-          />
-          <label for="category1">Haircut</label><br />
-          <input
-            type="checkbox"
-            id="category2"
-            name="category2"
-            value="eyelash"
-          />
-          <label for="category2">Eyelash and Eyebrow</label><br />
-          <input
-            type="checkbox"
-            id="category3"
-            name="category3"
-            value="massage"
-          />
-          <label for="category3">Massage</label>
-          <input type="checkbox" id="category4" name="category4" value="nail" />
-          <label for="category4">Nail</label>
-        </div>
-        <div class="address">
-          <label for="address">Address Line</label>
-          <input type="text" name="address1" id="" />
-          <div id="suggestions"></div>
-        </div>
-
-        <div class="checkbox-wrapper avarea">
-          <label for="available-areas">Available Areas</label>
-          <input type="checkbox" id="area1" name="area1" value="downtown" />
-          <label for="area1">Downtown</label><br />
-          <input type="checkbox" id="area2" name="area2" value="burnaby" />
-          <label for="area2">Burnaby</label><br />
-          <input type="checkbox" id="area3" name="area3" value="richmond" />
-          <label for="area3">Richmond</label>
-        </div>
-        <button>submit</button>
-      </form>
-
-
-
-
-      <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Accordion Item #1
-            </button>
-          </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      <section class="product-review container-xl  p-5 pb-3 pt-0">
+        <h2 class="display-3 fw-semibold spacing-header">Professional Profile</h2>
+        <p class="mt-3">Join our team of talented professionals</p>
+    </section>
+    <section class="container-xl pe-5 ps-5 mb-5">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="col-12 col-md-11 col-lg-9  mb-3">
+                    <a href="./prosProfile.html" class="text-decoration-none text-contrast-d">
+                        <div
+                            class="container d-flex justify-content-between align-items-center p-5 border border-contrast-l rounded-2  bg-contrast-d text-contrast-l">
+                            <p class="m-0">Profile Information</p>
+                            <img src="../img/01 align center.svg" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-md-11  col-lg-9  mb-3">
+                    <a href="#" class="text-decoration-none text-contrast-d">
+                        <div
+                            class="container d-flex justify-content-between align-items-center p-5 border border-contrast-l rounded-2">
+                            <p class="m-0">Profile Gallery</p>
+                            <img src="../img/01 align center.svg" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-md-11  col-lg-9  mb-3">
+                    <a href="./prosDashboard.html" class="text-decoration-none text-contrast-d">
+                        <div
+                            class="container d-flex justify-content-between align-items-center p-5 border border-contrast-l rounded-2">
+                            <p class="m-0">Profile Services</p>
+                            <img src="../img/01 align center.svg" alt="">
+                        </div>
+                    </a>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Accordion Item #2
-            </button>
-          </h2>
-          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            <div class="col-12 col-md-6 p-0">
+                <div class="col-12 col-lg-9 p-0">
+                    <div class="progress-wrapper mb-5">
+                        <p class="text-contrast-d fs-6 fw-semibold">Step 1 <span class="text-contrast-l fs-6">of
+                                3</span></p>
+                        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="33"
+                            aria-valuemin="0" aria-valuemax="100" style="height:12px">
+                            <div class="progress-bar" style="width: 33%; height:12px"></div>
+                        </div>
+                    </div>
+                    <div id="button-container"></div>
+                    <form class="add">
+                      <div class="form-floating mb-3">
+                        <input type="text" name="fname" id="fname" class="form-control text-contrast-m fw-light" placeholder="First Name" required />
+                        <label for="fname" class="text-contrast-m fw-light">First Name</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" name="lname" id="lname" class="form-control text-contrast-m fw-light" placeholder="Last Name" required />
+                        <label for="lname" class="text-contrast-m fw-light">Last Name</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" name="bio" id="bio" class="form-control text-contrast-m fw-light" placeholder="Bio" required />
+                        <label for="bio" class="text-contrast-m fw-light">Bio</label>
+                      </div>
+                      <label for="profile">Profile Image</label>
+                      <div id="profile-wrapper">
+                          <button type="button" name="profile" id="profile" onclick="showModal()" class="btn bg-accent-d rounded-2 text-brightness-l">
+                              <img id="image-preview" src="../img/abstract-user-flat-4.svg" alt="Upload Image" />
+                          </button>
+                          <input type="file" id="hiddenFileInput" accept="image/*" style="display: none;">
+                          <dialog id="image-modal">
+                              <label for="upload">Choose from computer</label>
+                              <button class="btn bg-accent-d rounded-2 text-brightness-l" type="button" id="upload" onclick="document.getElementById('hiddenFileInput').click()">
+                                  <i class="fa-solid fa-upload" title="Upload Image"></i>
+                              </button>
+                              <label for="camera">Take a picture</label>
+                              <button class="btn bg-accent-d rounded-2 text-brightness-l" type="button" id="camera" onclick="document.getElementById('hiddenFileInput').setAttribute('capture', 'camera'); document.getElementById('hiddenFileInput').click()">
+                                  <i class="fa-solid fa-camera" title="Take a picture"></i>
+                              </button>
+                          </dialog>
+                          <dialog id="upload-modal">
+                              <img id="myimg">
+                              <label id="upprogress"></label>
+                              <button class="btn bg-accent-d rounded-2 text-brightness-l" type="button" id="upbtn">Upload image</button>
+                          </dialog>
+                      </div>
+                      
+                    
+                      <div class="mb-3">
+                        <label for="available-category" class="form-label">Category</label>
+                        <div class="form-check">
+                            <input class="form-check-input me-2" type="checkbox" id="category1" name="category1" value="haircut">
+                            <label class="form-check-label" for="category1">Haircut</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input me-2" type="checkbox" id="category2" name="category2" value="eyelash">
+                            <label class="form-check-label" for="category2">Eyelash and Eyebrow</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input me-2" type="checkbox" id="category3" name="category3" value="massage">
+                            <label class="form-check-label" for="category3">Massage</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input me-2" type="checkbox" id="category4" name="category4" value="nail">
+                            <label class="form-check-label" for="category4">Nail</label>
+                        </div>
+                    </div>
+                    
+                      <div class="form-floating mb-3">
+                        <input type="text" name="address1" id="address1" class="form-control text-contrast-m fw-light" placeholder="Address Line" />
+                        <label for="address1" class="text-contrast-m fw-light ">Address Line</label>
+                      </div>
+                    
+                      <div class="mb-3">
+                        <label for="available-areas" class="form-label">Available Areas</label>
+                        <div class="form-check">
+                            <input class="form-check-input me-2" type="checkbox" id="area1" name="area1" value="downtown">
+                            <label class="form-check-label" for="area1">Downtown</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input me-2" type="checkbox" id="area2" name="area2" value="burnaby">
+                            <label class="form-check-label" for="area2">Burnaby</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input me-2" type="checkbox" id="area3" name="area3" value="richmond">
+                            <label class="form-check-label" for="area3">Richmond</label>
+                        </div>
+                    </div>
+                    
+                      <button class="btn bg-accent-d rounded-2 text-brightness-l mt-3">submit</button>
+                    </form>
+                    
             </div>
-          </div>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              Accordion Item #3
-            </button>
-          </h2>
-          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-            </div>
-          </div>
-        </div>
-      </div>
+    </section>
+     
+
     </main>
 
     <footer class=" p-5">

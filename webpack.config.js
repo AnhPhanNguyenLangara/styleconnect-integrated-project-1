@@ -19,7 +19,8 @@ module.exports = {
     prosDashboard: "./src/prosDashboard.js",
     customerDashboard: "./src/customerDashboard.js",
     customerRegister: "./src/customerRegister.js",
-    filterServices: "./src/filterServices.js"
+    filterServices: "./src/filterServices.js",
+    prosBooking: "./src/prosBooking.js"
   },
   output: {
     path: path.resolve(__dirname, "dist"),

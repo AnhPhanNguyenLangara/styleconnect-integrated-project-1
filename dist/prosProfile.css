@@ -160,6 +160,10 @@ span {
   font-size: 0.618rem;
 }
 
+.smalltext {
+  font-size: 14px !important;
+}
+
 p.location {
   text-transform: capitalize;
 }
@@ -208,6 +212,11 @@ footer nav a {
 .img18 {
   width: 26px;
   height: 18px;
+}
+
+.img72 {
+  height: 56px;
+  width: 56px;
 }
 
 /* TEST ACCESSIBILITY ============ */
@@ -577,6 +586,18 @@ button {
 .stars {
   color: orange;
   font-size: 1.5em;
+}
+
+.progress-bar {
+  background: linear-gradient(135deg, #5B24C6, #8949E1, #B971FF);
+}
+
+.price-tag {
+  min-width: 90px;
+}
+
+#add-service {
+  cursor: pointer;
 }
 
 .navbar-nav {

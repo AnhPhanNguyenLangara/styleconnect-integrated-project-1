@@ -82,6 +82,8 @@ onAuthStateChanged(auth, async (user) => {
         const editButton = document.createElement('button');
         editButton.textContent = 'Edit Profile';
         editButton.id = 'edit-profile';
+        editButton.classList.add("btn", "bg-accent-d", "rounded-2", "text-brightness-l", "mb-3");
+
         document.querySelector('#button-container').appendChild(editButton);
 
         // Add event listener to the button to enable form fields

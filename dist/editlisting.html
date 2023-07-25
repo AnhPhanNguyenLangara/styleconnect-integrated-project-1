@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <header class="pe-5 ps-5 pt-4 pb-4 mb-5">
+    <header class="pe-5 ps-5 pt-4 pb-4">
         <nav class="navbar navbar-expand-sm flex-row flex-md-nowrap flex-wrap p-0 mt-3 mb-3">
             <a href="./index.html" class="navbar-brand d-none d-lg-block p-0"><img
                     src="../img/main_logo transparent_bg nav bar.png" alt=""></a>
@@ -57,32 +57,35 @@
         <div id="snackbar"></div>
     </header>
 
-    <main>
-        <form class="list">
-            <div class="onlocationtype">
-                <label for="onlocation">On Location</label>
-                <select name="onlocation">
+    <main class="mb-5">
+        <form class="list container-xl">
+            <div class="form-floating mb-3 onlocationtype">
+                <select name="onlocation" class="form-control" id="floatingSelectOnLocation">
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                 </select>
+                <label for="floatingSelectOnLocation">On Location</label>
             </div>
-            <div class="onhometype">
-                <label for="onhome">On home</label>
-                <select name="onhome">
+            <div class="form-floating mb-3 onhometype">
+                <select name="onhome" class="form-control" id="floatingSelectOnHome">
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                 </select>
+                <label for="floatingSelectOnHome">On Home</label>
             </div>
-            <label for="servicedescription">Service Description</label>
-            <input type="text" name="servicedescription" id="">
-
-            <div class="avservices">
-                <label for="service">Service Name</label>
-                <input type="text" name="service" id="">
-                <label for="price">Service Price</label>
-                <input type="text" name="price" id="">
+            <div class="form-floating mb-3">
+                <input type="text" name="servicedescription" class="form-control" id="floatingInputServiceDesc">
+                <label for="floatingInputServiceDesc">Service Description</label>
             </div>
-            <button>submit</button>
+            <div class="form-floating mb-3 avservices">
+                <input type="text" name="service" class="form-control" id="floatingInputServiceName">
+                <label for="floatingInputServiceName">Service Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="price" class="form-control" id="floatingInputPrice">
+                <label for="floatingInputPrice">Service Price</label>
+            </div>
+            <button class="btn bg-accent-d rounded-2 text-brightness-l">Submit</button>
         </form>
     </main>
 

@@ -4,3 +4,13 @@
 @import 'toast';
 @import 'rating';
 @import 'reviewmodal';
+
+.progress-bar{
+    background: linear-gradient(135deg, #5B24C6, #8949E1, #B971FF);
+}
+.price-tag {
+    min-width: 90px;
+}
+#add-service{
+    cursor: pointer;
+}
