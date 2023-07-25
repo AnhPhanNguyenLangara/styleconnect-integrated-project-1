@@ -1,7 +1,66 @@
 import { getCustomerAddress, app, colRefListing, customerIDs } from './addressPic.js';
 // console.log('>>>>', getCustomerAddress(customerIDs))
 getCustomerAddress().then((response) => {
+    let cusAddress = response
+    console.log("customerAddress",cusAddress)
     console.log('>>>>', response)
+    // get a route only when user access the page or reload.
+    let resultsManager = new ResultsManager();
+
+
+    getDeviceLocation().then((response) => {
+        let currentLocation = response
+        console.log('>>>> current', currentLocation)
+        // return currentLocation
+
+        map.once('load', function () {
+            console.log("getcustomerAddress", getCustomerAddress(customerIDs));
+            console.log("loading the map");
+            let customerLocation
+            // let currentLocation
+            console.log(currentLocation);
+
+            // let location = getDeviceLocation(); not good because of the asyncness?
+            console.log("this is line 182", deviceLatLon);
+            tt.services.calculateRoute({
+                key: APIKEY,
+                traffic: false,
+                // locations: '4.8786,52.3679:4.8798,52.3679'
+                locations: `${deviceLatLon}:${getCustomerLocation()}`
+            })
+                //response is the route info and convert it to JSON.
+                .then(function (response) {
+                    console.log("response line165", response);
+                    let geojson = response.toGeoJson();
+                    map.addLayer({
+                        'id': 'route',
+                        'type': 'line',
+                        'source': {
+                            'type': 'geojson',
+                            'data': geojson
+                        },
+                        'paint': {
+                            'line-color': '#4a90e2',
+                            'line-width': 8
+                        }
+                    }, findFirstBuildingLayerId());
+                    addMarkers(geojson.features[0]);
+
+                    resultsManager.success();
+                    resultsManager.append(createSummaryContent(geojson.features[0].properties.summary));
+
+                    let bounds = new tt.LngLatBounds();
+                    geojson.features[0].geometry.coordinates.forEach(function (point) {
+                        bounds.extend(tt.LngLat.convert(point));
+                    });
+                    map.fitBounds(bounds, { duration: 0, padding: 50 });
+                });
+        });
+    })
+
+
+
+
 })
 // setting and showing a map
 const APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
@@ -13,27 +72,27 @@ let deviceLatLon;
 function getDeviceLocation() {
     console.log("inside getDeviceLocation");
     const optionObj = {
-      timeout: 5000,
-      enableHighAccuracy: false,
-      maximumAge: 0,
+        timeout: 5000,
+        enableHighAccuracy: false,
+        maximumAge: 0,
     };
     console.log('>>>>', successCallback)
     if (navigator.geolocation) {
         console.log("has geolocation.");
         console.log('>>>>', deviceLatLon)
         navigator.geolocation.getCurrentPosition(
-        successCallback,
-        errorCallback,
-        optionObj
-      );
-    return successCallback();
+            successCallback,
+            errorCallback,
+            optionObj
+        );
+        return successCallback();
     } else {
         console.log("no geolocation");
-      const displayError = document.getElementById("displayError");
-      displayError.innerText = "";
-      displayError.innerText = "Geolocation is not supported by this browser.";
+        const displayError = document.getElementById("displayError");
+        displayError.innerText = "";
+        displayError.innerText = "Geolocation is not supported by this browser.";
     }
-  };
+};
 
 
 // display customer address in U/I.
@@ -48,14 +107,15 @@ let map = tt.map({
     key: APIKEY,
     container: 'map',
     dragPan: !isMobileOrTablet(),
-    // center: calcMidPoint()
+    // zoom: 14,
+    center: calcMidPoint()
 });
 
 map.addControl(new tt.FullscreenControl());
 map.addControl(new tt.NavigationControl());
 
-  // When the map page is opened, the map and start point are automatically displayed.
-  const successCallback = (currentLocation) => {
+// When the map page is opened, the map and start point are automatically displayed.
+const successCallback = (currentLocation) => {
     console.log("Successful callback", currentLocation);
     const latitude = currentLocation.coords.latitude;
     const longitude = currentLocation.coords.longitude;
@@ -67,14 +127,14 @@ map.addControl(new tt.NavigationControl());
     return deviceLatLon;
     // console.log("Start Point Latitude: " + startPoint[0]);
     // console.log("Start Point Longitude: " + startPoint[1]);
-  };
-  const errorCallback = (error) => {
+};
+const errorCallback = (error) => {
     console.log("errocall back");
     const errorArr = [
-      "An unknown error occurred.",
-      "User denied the request for Geolocation.",
-      "Location information is unavailable.",
-      "The request to get user location timed out.",
+        "An unknown error occurred.",
+        "User denied the request for Geolocation.",
+        "Location information is unavailable.",
+        "The request to get user location timed out.",
     ];
     const displayGeo = document.getElementById("address");
     displayGeo.innerText = "";
@@ -82,7 +142,7 @@ map.addControl(new tt.NavigationControl());
     const errorNo = error.code;
     errorMsg.innerHTML = `error#${errorNo}: ${errorArr[errorNo]}`;
     displayGeo.appendChild(errorMsg);
-  };
+};
 
 // get a middle position between device location and customer's location
 async function calcMidPoint() {
@@ -91,7 +151,7 @@ async function calcMidPoint() {
         let customerLocation = await getCustomerLocation();
         console.log("line 58 devicelocation:", deviceLocation);
         console.log("line 59 customerlocation:", customerLocation);
-    
+
         let lat1 = deviceLocation.latitude;
         let lon1 = deviceLocation.longitude;
         let lat2 = customerLocation.latitude;
@@ -100,7 +160,7 @@ async function calcMidPoint() {
         let midLat = (lat1 + lat2) / 2;
         let midLon = (lon1 + lon2) / 2;
         console.log("midLat", midLat);
-        console.log("mitLon",mitLon);
+        console.log("mitLon", mitLon);
         return [midLat, midLon];
     }
     catch {
@@ -138,7 +198,7 @@ async function addMarkers(feature) {
             let customerLocation = getCustomerLocation();
             endPoint = customerLocation.latitude;
             console.log("this is endPoint", endPoint);
-            
+
 
             // endPoint = feature.geometry.coordinates.slice(-1)[0].slice(-1)[0];
         } else {
@@ -180,63 +240,7 @@ function findFirstBuildingLayerId() {
     throw new Error('Map style does not contain any layer with fill-extrusion type.');
 }
 
-// get a route only when user access the page or reload. 
-let resultsManager = new ResultsManager();
 
-map.once('load', function () {
-    console.log("getcustomerAddress", getCustomerAddress(customerIDs));
-    console.log("loading the map");
-    let customerLocation
-    let currentLocation
-    getDeviceLocation().then((response) => {
-        currentLocation = response
-        console.log('>>>> current', currentLocation)
-        return currentLocation
-    })
-
-
-    getCustomerLocation().then((response) => {
-        customerLocation = response
-        console.log('>>>> customer', customerLocation)
-        return customerLocation
-    })
-
-
-    // let location = getDeviceLocation(); not good because of the asyncness?
-    console.log("this is line 182", deviceLatLon);
-    tt.services.calculateRoute({
-        key: APIKEY,
-        traffic: false,
-        locations: `${deviceLatLon}:${getCustomerLocation()}`
-    })
-    //response is the route info and convert it to JSON.
-        .then(function (response) {
-            console.log("response line165", response);
-            let geojson = response.toGeoJson();
-            map.addLayer({
-                'id': 'route',
-                'type': 'line',
-                'source': {
-                    'type': 'geojson',
-                    'data': geojson
-                },
-                'paint': {
-                    'line-color': '#4a90e2',
-                    'line-width': 8
-                }
-            }, findFirstBuildingLayerId());
-            addMarkers(geojson.features[0]);
-
-            resultsManager.success();
-            resultsManager.append(createSummaryContent(geojson.features[0].properties.summary));
-
-            let bounds = new tt.LngLatBounds();
-            geojson.features[0].geometry.coordinates.forEach(function (point) {
-                bounds.extend(tt.LngLat.convert(point));
-            });
-            map.fitBounds(bounds, { duration: 0, padding: 50 });
-        });
-});
 
 
 // Convert user's address into a latitude and longitude using user's booking information
