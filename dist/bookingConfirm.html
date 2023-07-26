@@ -60,27 +60,30 @@
             </div>
 
         </nav>
-        <div id="snackbar"></div>
     </header>
 
     <main>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="./index.html">Service</a></li>
-              <li class="breadcrumb-item"><a href="./booking.html">Booking</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Confirm Booking</li>
-            </ol>
-          </nav>
-        
-        <h2>Confirm Booking</h2>
-        <section id="where-description">
-        </section>
 
-        <section id="booking-detail">
+        
+          <section class="container-xl p-5 pb-3 pt-0">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="./index.html">Service</a></li>
+                  <li class="breadcrumb-item"><a href="./booking.html">Booking</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Confirm Booking</li>
+                </ol>
+              </nav>
+            <h2 class="display-3 fw-semibold spacing-header">Schedule</h2>
+            <section id="where-description" class="">
+            </section>
+        </section>
+ 
+
+        <section id="booking-detail" class="container-xl p-5 pb-3 pt-0">
             <form class="add" action="submit">
                 <label for="booking-time">Choose a time for your appointment:</label>
                 <input type="datetime-local" id="booking-time" name="bookingTime" value="20123-06-24T8:30">
-                <button>Book</button>
+                <button class="pe-3 ps-3 pt-2 pb-2 mt-3 mb-5 text-decoration-none bg-accent-d text-brightness-l rounded-1">Book</button>
             </form>
         </section>
         <section id="booking-listing">

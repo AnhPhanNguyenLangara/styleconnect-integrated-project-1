@@ -616,6 +616,12 @@ button {
   }
 }
 
+.img-booking {
+  width: auto;
+  max-height: 400px;
+  object-fit: cover;
+}
+
 .navbar-nav {
   flex-basis: 100%;
 }
