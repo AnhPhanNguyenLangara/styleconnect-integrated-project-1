@@ -4,28 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-    <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps.css" />
     <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps.css'>
     <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.2.0//SearchBox.css'/>
     <link rel='stylesheet' type='text/css' href='../assets/ui-library/icons-css/routing.css'/>
     <link rel='stylesheet' type='text/css' href='../assets/ui-library/index.css'/>
-    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps-web.min.js"></script>;
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps-web.min.js'></script>
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/services/services-web.min.js'></script>
     <script data-showable type='text/javascript' src='../assets/js/mobile-or-tablet.js'></script>
-    <script type='text/javascript' src='../assets/js/mobile-or-tablet.js'></script>
     <script type='text/javascript' src='../assets/js/foldable.js'></script>
     <script type='text/javascript' src='../assets/js/formatters.js'></script>
     <script type='text/javascript' src='../assets/js/info-hint.js'></script>
     <script type='text/javascript' src='../assets/js/search/dom-helpers.js'></script>
     <script type='text/javascript' src='../assets/js/search/results-manager.js'></script>
-    <!-- <script type='text/javascript' src='../assets/js/search/searchbox-enter-submit.js'></script> -->
-    <!-- <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.2.0//SearchBox-web.js'></script> -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/2.15.0/mapbox-gl.js" integrity="sha512-GPA+Da72PFFDoGphWw8KnqAFq/v/qsizJqomP82+tVCLgWlSgc5atMllkFaSAJF931RUCCl0ZDJF5J3yqsQVCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <link rel="stylesheet" href="./map.css">
     <script src="./dist/map.bundle.js" defer></script>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY2xlbWFwYm94IiwiYSI6ImNqOHVsbjdpdDBxM2wyd3JwcnVjZGtsZmsifQ.cv3w8BmCJAy0f0YF1ZFSTA';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/clemapbox/cjml1byyjq6jt2rni6wbjn3lt',
+            });
+    </script>
 
 
     <title>Map</title>
