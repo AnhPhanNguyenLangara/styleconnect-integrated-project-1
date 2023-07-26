@@ -106,6 +106,7 @@ confirmBooking.addEventListener('submit', async (e) => {
       prosId: arr[3],
       listingId: arr[1],
       accepted: false,
+      cancelled:false,
       createdAt: serverTimestamp()
     })
     confirmBooking.reset()

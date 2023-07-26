@@ -14,3 +14,28 @@
 #add-service{
     cursor: pointer;
 }
+
+
+.tabContent > .booking-history-customer {
+    display: none;
+}
+.active > .booking-history-customer {
+    display: block;
+}
+.tab-active{
+    background-color: $accent-d;
+    color: $brightness-l;
+}
+.date-wrapper{
+    height:100%;
+}
+
+.tab-cursor{
+    cursor: pointer;
+}
+.date-wrapper{
+    width:100%;
+    @media screen and (min-width: 996px) {
+        width:initial;
+    }
+}

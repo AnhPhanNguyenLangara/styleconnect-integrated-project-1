@@ -63,45 +63,47 @@
 
 
         </section>
-        <div class="full-width-with-margin-right p-5 bg-contrast-d me-5 form-wrapper mb-5">
-            <form class="filter container-xl ms-5 ps-5">
-                <div class="filter-item-container">
-                    <label class="form-label text-brightness-l" for="location">Location:</label>
-                    <select class="form-select" name="location" id="location" required>
-                        <option value="" disabled selected>Select location</option>
-                        <option value="downtown">Down Town</option>
-                        <option value="burnaby">Burnaby</option>
-                        <option value="richmond">Richmond</option>
-                    </select>
+      
+
+        <div class="full-width-with-margin-right mt-5 p-5 bg-contrast-d mb-5">
+            <form class="search-form ps-lg-5 ms-lg-5">
+                <div class="row g-3 align-items-lg-end">
+                    <div class="col-12 col-lg-3 col-xxl-2">
+                        <label for="location" class="form-label text-brightness-l">Location:</label>
+                        <select class="form-select" name="location" id="location" required>
+                            <option value="" disabled selected>Select location</option>
+                            <option value="downtown">Down Town</option>
+                            <option value="burnaby">Burnaby</option>
+                            <option value="richmond">Richmond</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-3 col-xxl-2">
+                        <label for="categories" class="form-label text-brightness-l">Categories:</label>
+                        <select class="form-select" name="categories" id="categories" required>
+                            <option value="" disabled selected>Select category</option>
+                            <option value="Haircut">Hair Care</option>
+                            <option value="Eyelash">Eyelash Eyebrow</option>
+                            <option value="Massage">Massage</option>
+                            <option value="Nail">Nail</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-3 col-xxl-2">
+                        <label for="rating" class="form-label text-brightness-l">Rating:</label>
+                        <select class="form-select" name="rating" id="rating" required>
+                            <option value="" disabled selected>Select rating</option>
+                            <option value="0">No rating</option>
+                            <option value="1">1 and above</option>
+                            <option value="2">2 and above</option>
+                            <option value="3">3 and above</option>
+                            <option value="4">4 and above</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                        <button class="rounded-2 bg-accent-d text-brightness-l pe-3 ps-3 mt-3 ms-auto me-0" id="search-btn">Search</button>
                 </div>
-                
-                <div class="filter-item-container">
-                    <label class="form-label text-brightness-l" for="categories">Categories:</label>
-                    <select class="form-select" name="categories" id="categories" required>
-                        <option value="" disabled selected>Select category</option>
-                        <option value="Haircut">Hair Care</option>
-                        <option value="Eyelash">Eyelash Eyebrow</option>
-                        <option value="Massage">Massage</option>
-                        <option value="Nail">Nail</option>
-                    </select>
-                </div>
-                
-                <div class="filter-item-container">
-                    <label class="form-label text-brightness-l" for="rating">Rating:</label>
-                    <select class="form-select" name="rating" id="rating" required>
-                        <option value="" disabled selected>Select rating</option>
-                        <option value="0">No rating</option>
-                        <option value="1">1 and above</option>
-                        <option value="2">2 and above</option>
-                        <option value="3">3 and above</option>
-                        <option value="4">4 and above</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-                
-                <button class="rounded-2 bg-accent-d text-brightness-l pe-3 ps-3" id="search-btn">Search</button>
             </form>
         </div>
+        
         <div class="container-xl p-5">
             <h2 id="search-header"></h2>
             <div class="services" id="search-result">
@@ -166,6 +168,7 @@
                     <ul class="p-0">
                         <li><a href="./prosProfile.html">Profile</a></li>
                         <li><a href="./prosDashboard.html">Dashboard</a></li>
+                        <li><a href="./prosBooking.html">Manage Booking</a></li>
                     </ul>
                 </nav>
             </div>

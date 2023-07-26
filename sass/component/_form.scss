@@ -43,14 +43,15 @@ input:disabled, select:disabled, textarea:disabled, button:disabled {
     gap:3rem;
 }
 .full-width-with-margin-right{
-    width: calc(100% - 11rem);
-    max-width: 1550px;
-    margin-right: 11rem;
+    @media screen and (min-width: 996px) {
+        width: calc(100% - 11rem);
+        margin-right: 11rem;
+        border-top-right-radius: 4rem;
+    }
+
 }
 
-.form-wrapper{
-    border-top-right-radius: 3rem;
-}
+
 #search-btn{
     border: none;
     cursor: pointer;
