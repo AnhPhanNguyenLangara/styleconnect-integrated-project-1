@@ -622,6 +622,10 @@ button {
   object-fit: cover;
 }
 
+.textarea {
+  height: 10rem;
+}
+
 .navbar-nav {
   flex-basis: 100%;
 }
