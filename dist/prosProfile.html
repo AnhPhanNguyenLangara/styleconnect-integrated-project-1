@@ -170,26 +170,44 @@
                       </div>
                       <label for="profile">Profile Image</label>
                       <div id="profile-wrapper">
-                          <button type="button" name="profile" id="profile" onclick="showModal()" class="btn bg-accent-d rounded-2 text-brightness-l">
-                              <img id="image-preview" src="../img/abstract-user-flat-4.svg" alt="Upload Image" />
+                        <button
+                          type="button"
+                          name="profile"
+                          id="profile"
+                          onclick="showModal()"
+                          class="w-25 btn bg-accent-d rounded-2 text-brightness-l"
+                        >
+                          <img
+                            id="image-preview"
+                            src="../img/user-solid.svg"
+                            alt="Upload Image"
+                            class="img-fluid img-thumbnail"
+                          />
+                        </button>
+                        <dialog id="image-modal">
+                          <label for="upload">Choose from computer</label>
+                          <button type="button" id="upload" onclick="fromComputer()" class="btn bg-accent-d rounded-2 text-brightness-l">
+                            <i class="fa-solid fa-upload" title="Upload Image"></i>
                           </button>
-                          <input type="file" id="hiddenFileInput" accept="image/*" style="display: none;">
-                          <dialog id="image-modal">
-                              <label for="upload">Choose from computer</label>
-                              <button class="btn bg-accent-d rounded-2 text-brightness-l" type="button" id="upload" onclick="document.getElementById('hiddenFileInput').click()">
-                                  <i class="fa-solid fa-upload" title="Upload Image"></i>
-                              </button>
-                              <label for="camera">Take a picture</label>
-                              <button class="btn bg-accent-d rounded-2 text-brightness-l" type="button" id="camera" onclick="document.getElementById('hiddenFileInput').setAttribute('capture', 'camera'); document.getElementById('hiddenFileInput').click()">
-                                  <i class="fa-solid fa-camera" title="Take a picture"></i>
-                              </button>
-                          </dialog>
-                          <dialog id="upload-modal">
-                              <img id="myimg">
-                              <label id="upprogress"></label>
-                              <button class="btn bg-accent-d rounded-2 text-brightness-l" type="button" id="upbtn">Upload image</button>
-                          </dialog>
+                          <label for="camera">Take a picture</label>
+                          <button type="button" id="camera" onclick="takePicture()" class="btn bg-accent-d rounded-2 text-brightness-l">
+                            <i class="fa-solid fa-camera" title="Take a picture"></i>
+                          </button>
+                        </dialog>
+                        <dialog id="cam-modal">
+                          <video id="cam-feed" autoplay></video>
+                          <button type="button" id="take-pic" disabled class="btn bg-accent-d rounded-2 text-brightness-l">
+                            Take Profile Pic!
+                          </button>
+                        </dialog>
+              
+                        <dialog id="upload-modal">
+                          <img id="myimg" />
+                          <label id="upprogress"></label>
+                          <button type="button" id="upbtn" class="btn bg-accent-d rounded-2 text-brightness-l">Upload image</button>
+                        </dialog>
                       </div>
+
                       
                     
                       <div class="mb-3">
