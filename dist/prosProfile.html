@@ -29,83 +29,65 @@
 
   <body>
     <header class="pe-5 ps-5 pt-4 pb-4 mb-5">
-      <nav
-        class="navbar navbar-expand-sm flex-row flex-md-nowrap flex-wrap p-0 mt-3 mb-3"
-      >
-        <a href="./index.html" class="navbar-brand d-none d-lg-block p-0"
-          ><img src="../img/main_logo transparent_bg nav bar.png" alt=""
-        /></a>
-        <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"
-          ><img src="../img/logo_mobile.png" alt=""
-        /></a>
-        <button
-          class="navbar-toggler border-0"
-          data-bs-toggle="collapse"
-          data-bs-target="#nav"
-          aria-controls="nav"
-          aria-label="Expand Navigation"
-        >
-          <div class="navbar-toggler-icon"></div>
+      <nav class="navbar navbar-expand-sm flex-row flex-md-nowrap flex-wrap p-0 mt-3 mb-3">
+        <a href="./index.html" class="navbar-brand d-none d-lg-block p-0"><img
+                src="../img/main_logo transparent_bg nav bar.png" alt=""></a>
+        <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"><img src="../img/logo_mobile.png"
+                alt=""></a>
+        <button class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav"
+            aria-label="Expand Navigation">
+            <div class="navbar-toggler-icon"></div>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="nav">
-          <ul
-            class="navbar-nav justify-content-between align-items-center pt-3 pt-sm-0"
-          >
-            <li class="nav-item flex-xl-grow-1 text-center">
-              <a
-                href="./prosDashboard.html"
-                class="nav-link p-0 fw-semibold active text-accent-d text-nowrap"
-                aria-current="page"
-                >List Services</a
-              >
-            </li>
-            <li class="nav-item flex-xl-grow-1 text-center">
-              <a href="./services.html" class="nav-link p-0 fw-semibold"
-                >Services</a
-              >
-            </li>
-            <li class="nav-item flex-xl-grow-1 text-center">
-              <a
-                href="./customerDashboard.html"
-                class="nav-link p-0 fw-semibold"
-                >Schedule</a
-              >
-            </li>
-            <div
-              class="profile-nav-bar d-flex flex-column-reverse align-items-center flex-sm-row flex-xl-grow-1 ps-sm-3 pe-sm-3"
-            >
-              <li id="login1" class="nav-item visually-hidden">
-                <a
-                  href="./customerRegister.html"
-                  class="nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2"
-                  >Profile</a
-                >
-              </li>
-              <li id="login2" class="nav-item visually-hidden">
-                <a href="./customerRegister.html" class="nav-link m-0 p-0">
-                  <img
-                    src="../img/dummy_profile.jpg"
-                    class="img-profile m-auto"
-                    alt=""
-                  />
-                </a>
-              </li>
-              <li id="login3" class="nav-item login">
-                <a
-                  href="./login.html"
-                  class="nav-link nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2"
-                  >Log in</a
-                >
-              </li>
-              <li id="login4" class="nav-item flex-xl text-center">
-                <a href="./login.html" class="nav-link p-0 fw-semibold"
-                  >Register</a
-                >
-              </li>
-            </div>
-          </ul>
+            <ul class="navbar-nav fw-semibold justify-content-between align-items-center pt-3 pt-sm-0">
+
+                <li class="nav-item flex-xl-grow-1 text-center dropdown">
+                    <a class="nav-link dropdown-toggle p-0 text-accent-d" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Pros Menu
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosBooking.html"
+                              class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Manage Booking</a>
+                      </li>
+                      <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosProfile.html"
+                              class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Profile</a></li>
+                              <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosGallery.html"
+                                  class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Gallery</a></li>
+                      <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosDashboard.html"
+                              class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">List
+                              Services</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item flex-xl-grow-1 text-center"><a href="./services.html"
+                        class="nav-link p-0 fw-semibold">Services</a></li>
+                <li class="nav-item flex-xl-grow-1 text-center"><a href="./customerDashboard.html"
+                        class="nav-link p-0 fw-semibold">Schedule</a></li>
+                <div
+                    class="profile-nav-bar d-flex flex-column-reverse align-items-center flex-sm-row flex-xl-grow-1 ps-sm-3 pe-sm-3 ">
+                    <li id="login1" class="nav-item visually-hidden">
+                        <a href="./customerRegister.html"
+                            class="nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2">Profile</a>
+                    </li>
+                    <li id="login2" class="nav-item visually-hidden">
+                        <a href="./customerRegister.html" class="nav-link m-0 p-0 ">
+                            <img src="../img/dummy_profile.jpg" class="img-profile m-auto" alt="">
+                        </a>
+                    </li>
+                    <li id="login3" class="nav-item login">
+                        <a href="./login.html"
+                            class="nav-link nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2">Log
+                            in</a>
+                    </li>
+                    <li id="login4" class="nav-item flex-xl text-center">
+                        <a href="./login.html" class="nav-link p-0 fw-semibold">Register</a>
+                    </li>
+                </div>
+
+            </ul>
         </div>
-      </nav>
+
+    </nav>
       <div id="snackbar"></div>
     </header>
     <main>
@@ -157,16 +139,16 @@
                     <div id="button-container"></div>
                     <form class="add">
                       <div class="form-floating mb-3">
-                        <input type="text" name="fname" id="fname" class="form-control text-contrast-m fw-light" placeholder="First Name" required />
-                        <label for="fname" class="text-contrast-m fw-light">First Name</label>
+                        <input type="text" name="fname" id="fname" class="form-control  text-contrast-d border-contrast-m " placeholder="First Name" required />
+                        <label for="fname" class="text-contrast-d fw-light">First Name</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input type="text" name="lname" id="lname" class="form-control text-contrast-m fw-light" placeholder="Last Name" required />
-                        <label for="lname" class="text-contrast-m fw-light">Last Name</label>
+                        <input type="text" name="lname" id="lname" class="form-control  text-contrast-d border-contrast-m " placeholder="Last Name" required />
+                        <label for="lname" class="text-contrast-d fw-light">Last Name</label>
                       </div>
-                      <div class="form-floating mb-3">
-                        <textarea name="bio" id="bio" cols="30" rows="10" class="form-control text-contrast-m fw-light" placeholder="Bio" required ></textarea>
-                        <label for="bio" class="text-contrast-m fw-light">Introduce yourself</label>
+                      <div class="form-floating mb-3 textarea">
+                        <textarea name="bio" id="bio" cols="30" rows="10" class="form-control h-100 text-contrast-d border-contrast-m " placeholder="Bio" required ></textarea>
+                        <label for="bio" class="text-contrast-d fw-light">Introduce yourself</label>
                       </div>
                       <label for="profile">Profile Image</label>
                       <div id="profile-wrapper">
@@ -176,7 +158,7 @@
                           id="profile"
                           onclick="showModal()"
                           class="w-25 btn bg-accent-d rounded-2 text-brightness-l"
-                          disabled
+                          
                         >
                           <img
                             id="image-preview"
@@ -210,10 +192,12 @@
                           </div>
                         </dialog>
               
-                        <dialog id="upload-modal">
-                          <img id="myimg" />
-                          <label id="upprogress"></label>
-                          <button type="button" id="upbtn" class="btn bg-accent-d rounded-2 text-brightness-l">Upload image</button>
+                        <dialog id="upload-modal" class="rounded-4 border-0">
+                          <div class="vstack align-items-center">
+                            <img id="myimg" class="w-75" />
+                            <label id="upprogress"></label>
+                            <button type="button" id="upbtn" class="btn bg-accent-d rounded-2 text-brightness-l">Upload image</button>
+                          </div>
                         </dialog>
                       </div>
 
@@ -222,41 +206,41 @@
                       <div class="mb-3">
                         <label for="available-category" class="form-label">Category</label>
                         <div class="form-check">
-                            <input class="form-check-input me-2" type="checkbox" id="category1" name="category1" value="haircut">
-                            <label class="form-check-label" for="category1">Haircut</label>
+                            <input class="form-check-input me-2  text-contrast-d border-contrast-m" type="checkbox" id="category1" name="category1" value="haircut">
+                            <label class="form-check-label text-contrast-d" for="category1">Haircut</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input me-2" type="checkbox" id="category2" name="category2" value="eyelash">
-                            <label class="form-check-label" for="category2">Eyelash and Eyebrow</label>
+                            <input class="form-check-input me-2  text-contrast-d border-contrast-m" type="checkbox" id="category2" name="category2" value="eyelash">
+                            <label class="form-check-label text-contrast-d" for="category2">Eyelash and Eyebrow</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input me-2" type="checkbox" id="category3" name="category3" value="massage">
-                            <label class="form-check-label" for="category3">Massage</label>
+                            <input class="form-check-input me-2  text-contrast-d border-contrast-m" type="checkbox" id="category3" name="category3" value="massage">
+                            <label class="form-check-label text-contrast-d" for="category3">Massage</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input me-2" type="checkbox" id="category4" name="category4" value="nail">
-                            <label class="form-check-label" for="category4">Nail</label>
+                            <input class="form-check-input me-2  text-contrast-d border-contrast-m" type="checkbox" id="category4" name="category4" value="nail">
+                            <label class="form-check-label text-contrast-d" for="category4">Nail</label>
                         </div>
                     </div>
                     
                       <div class="form-floating mb-3">
-                        <input type="text" name="address1" id="address1" class="form-control text-contrast-m fw-light" placeholder="Address Line" />
-                        <label for="address1" class="text-contrast-m fw-light ">Address Line</label>
+                        <input type="text" name="address1" id="address1" class="form-control text-contrast-d border-contrast-m" placeholder="Address Line" />
+                        <label for="address1" class="text-contrast-d">Address Line</label>
                       </div>
                     
                       <div class="mb-3">
                         <label for="available-areas" class="form-label">Available Areas</label>
                         <div class="form-check">
-                            <input class="form-check-input me-2" type="checkbox" id="area1" name="area1" value="downtown">
-                            <label class="form-check-label" for="area1">Downtown</label>
+                            <input class="form-check-input me-2  text-contrast-d border-contrast-m" type="checkbox" id="area1" name="area1" value="downtown">
+                            <label class="form-check-label text-contrast-d" for="area1">Downtown</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input me-2" type="checkbox" id="area2" name="area2" value="burnaby">
-                            <label class="form-check-label" for="area2">Burnaby</label>
+                            <input class="form-check-input me-2  text-contrast-d border-contrast-m" type="checkbox" id="area2" name="area2" value="burnaby">
+                            <label class="form-check-label text-contrast-d" for="area2">Burnaby</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input me-2" type="checkbox" id="area3" name="area3" value="richmond">
-                            <label class="form-check-label" for="area3">Richmond</label>
+                            <input class="form-check-input me-2  text-contrast-d border-contrast-m" type="checkbox" id="area3" name="area3" value="richmond">
+                            <label class="form-check-label text-contrast-d" for="area3">Richmond</label>
                         </div>
                     </div>
                     
@@ -321,6 +305,7 @@
             <ul class="p-0">
               <li><a href="./prosProfile.html">Profile</a></li>
               <li><a href="./prosDashboard.html">Dashboard</a></li>
+              <li><a href="./prosBooking.html">Manage Booking</a></li>
             </ul>
           </nav>
         </div>

@@ -17,8 +17,9 @@ import {
 
 import {
   getAuth,
-  onAuthStateChanged
-} from "firebase/auth";
+  onAuthStateChanged,
+  signOut
+} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD7wzxQRs4mKcMOB0Vcydzdxl0NRtZbXno",
@@ -62,6 +63,7 @@ onAuthStateChanged(auth, async (user) => {
         const editButton = document.createElement('button');
         editButton.textContent = 'Edit Profile';
         editButton.id = 'edit-profile';
+        editButton.classList.add('btn', 'bg-accent-d', 'rounded-2', 'text-brightness-l', 'mt-3', 'mb-3')
         document.querySelector('#button-container').appendChild(editButton);
 
         // Add event listener to the button to enable form fields
@@ -82,6 +84,9 @@ onAuthStateChanged(auth, async (user) => {
 
   }
 });
+
+
+
 
 // init services
 const db = getFirestore();
@@ -135,6 +140,17 @@ function showSuggestions(input, suggestions) {
   });
 }
 
+
+
+const logOut = document.getElementById('log-out');
+
+logOut.addEventListener('click', (e) => {
+  signOut(auth).then(() => {
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+  });
+})
 addProfileForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   try {

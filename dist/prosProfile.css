@@ -276,14 +276,12 @@ input:disabled, select:disabled, textarea:disabled, button:disabled {
   gap: 3rem;
 }
 
-.full-width-with-margin-right {
-  width: calc(100% - 11rem);
-  max-width: 1550px;
-  margin-right: 11rem;
-}
-
-.form-wrapper {
-  border-top-right-radius: 3rem;
+@media screen and (min-width: 996px) {
+  .full-width-with-margin-right {
+    width: calc(100% - 11rem);
+    margin-right: 11rem;
+    border-top-right-radius: 4rem;
+  }
 }
 
 #search-btn {
@@ -382,16 +380,6 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.booking-history-customer {
-  display: flex;
-  gap: 1rem;
-  flex-flow: row nowrap;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 2px solid #FBB549;
 }
 
 /* The snackbar - position it at the bottom and in the middle of the screen */
@@ -596,6 +584,46 @@ button {
 
 #add-service {
   cursor: pointer;
+}
+
+.tabContent > .booking-history-customer {
+  display: none;
+}
+
+.active > .booking-history-customer {
+  display: block;
+}
+
+.tab-active {
+  background-color: #5B24C6;
+  color: rgb(255, 255, 255);
+}
+
+.date-wrapper {
+  height: 100%;
+}
+
+.tab-cursor {
+  cursor: pointer;
+}
+
+.date-wrapper {
+  width: 100%;
+}
+@media screen and (min-width: 996px) {
+  .date-wrapper {
+    width: initial;
+  }
+}
+
+.img-booking {
+  width: auto;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.textarea {
+  height: 10rem;
 }
 
 .navbar-nav {

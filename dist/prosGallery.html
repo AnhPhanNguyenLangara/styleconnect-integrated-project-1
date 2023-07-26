@@ -14,83 +14,65 @@
 
   <body>
     <header class="pe-5 ps-5 pt-4 pb-4">
-      <nav
-        class="navbar navbar-expand-sm flex-row flex-md-nowrap flex-wrap p-0 mt-3 mb-3"
-      >
-        <a href="./index.html" class="navbar-brand d-none d-lg-block p-0"
-          ><img src="../img/main_logo transparent_bg nav bar.png" alt=""
-        /></a>
-        <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"
-          ><img src="../img/logo_mobile.png" alt=""
-        /></a>
-        <button
-          class="navbar-toggler border-0"
-          data-bs-toggle="collapse"
-          data-bs-target="#nav"
-          aria-controls="nav"
-          aria-label="Expand Navigation"
-        >
-          <div class="navbar-toggler-icon"></div>
+      <nav class="navbar navbar-expand-sm flex-row flex-md-nowrap flex-wrap p-0 mt-3 mb-3">
+        <a href="./index.html" class="navbar-brand d-none d-lg-block p-0"><img
+                src="../img/main_logo transparent_bg nav bar.png" alt=""></a>
+        <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"><img src="../img/logo_mobile.png"
+                alt=""></a>
+        <button class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav"
+            aria-label="Expand Navigation">
+            <div class="navbar-toggler-icon"></div>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="nav">
-          <ul
-            class="navbar-nav justify-content-between align-items-center pt-3 pt-sm-0"
-          >
-            <li class="nav-item flex-xl-grow-1 text-center">
-              <a
-                href="./prosDashboard.html"
-                class="nav-link p-0 fw-semibold active text-accent-d text-nowrap"
-                aria-current="page"
-                >List Services</a
-              >
-            </li>
-            <li class="nav-item flex-xl-grow-1 text-center">
-              <a href="./services.html" class="nav-link p-0 fw-semibold"
-                >Services</a
-              >
-            </li>
-            <li class="nav-item flex-xl-grow-1 text-center">
-              <a
-                href="./customerDashboard.html"
-                class="nav-link p-0 fw-semibold"
-                >Schedule</a
-              >
-            </li>
-            <div
-              class="profile-nav-bar d-flex flex-column-reverse align-items-center flex-sm-row flex-xl-grow-1 ps-sm-3 pe-sm-3"
-            >
-              <li id="login1" class="nav-item visually-hidden">
-                <a
-                  href="./customerRegister.html"
-                  class="nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2"
-                  >Profile</a
-                >
-              </li>
-              <li id="login2" class="nav-item visually-hidden">
-                <a href="./customerRegister.html" class="nav-link m-0 p-0">
-                  <img
-                    src="../img/dummy_profile.jpg"
-                    class="img-profile m-auto"
-                    alt=""
-                  />
-                </a>
-              </li>
-              <li id="login3" class="nav-item login">
-                <a
-                  href="./login.html"
-                  class="nav-link nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2"
-                  >Log in</a
-                >
-              </li>
-              <li id="login4" class="nav-item flex-xl text-center">
-                <a href="./login.html" class="nav-link p-0 fw-semibold"
-                  >Register</a
-                >
-              </li>
-            </div>
-          </ul>
+            <ul class="navbar-nav fw-semibold justify-content-between align-items-center pt-3 pt-sm-0">
+
+                <li class="nav-item flex-xl-grow-1 text-center dropdown">
+                    <a class="nav-link dropdown-toggle p-0 text-accent-d" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Pros Menu
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosBooking.html"
+                              class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Manage Booking</a>
+                      </li>
+                      <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosProfile.html"
+                              class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Profile</a></li>
+                              <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosGallery.html"
+                                  class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Gallery</a></li>
+                      <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosDashboard.html"
+                              class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">List
+                              Services</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item flex-xl-grow-1 text-center"><a href="./services.html"
+                        class="nav-link p-0 fw-semibold">Services</a></li>
+                <li class="nav-item flex-xl-grow-1 text-center"><a href="./customerDashboard.html"
+                        class="nav-link p-0 fw-semibold">Schedule</a></li>
+                <div
+                    class="profile-nav-bar d-flex flex-column-reverse align-items-center flex-sm-row flex-xl-grow-1 ps-sm-3 pe-sm-3 ">
+                    <li id="login1" class="nav-item visually-hidden">
+                        <a href="./customerRegister.html"
+                            class="nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2">Profile</a>
+                    </li>
+                    <li id="login2" class="nav-item visually-hidden">
+                        <a href="./customerRegister.html" class="nav-link m-0 p-0 ">
+                            <img src="../img/dummy_profile.jpg" class="img-profile m-auto" alt="">
+                        </a>
+                    </li>
+                    <li id="login3" class="nav-item login">
+                        <a href="./login.html"
+                            class="nav-link nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2">Log
+                            in</a>
+                    </li>
+                    <li id="login4" class="nav-item flex-xl text-center">
+                        <a href="./login.html" class="nav-link p-0 fw-semibold">Register</a>
+                    </li>
+                </div>
+
+            </ul>
         </div>
-      </nav>
+
+    </nav>
       <div id="snackbar"></div>
     </header>
 
@@ -161,7 +143,7 @@
                 >
                   <div
                     class="progress-bar"
-                    style="width: 100%; height: 12px"
+                    style="width: 66%; height: 12px"
                   ></div>
                 </div>
               </div>
@@ -183,7 +165,7 @@
                     />
                   </button>
                 </div>
-                <dialog id="upload-gallery-modal" class="container">
+                <dialog id="upload-gallery-modal" class="container rounded-4 border-0">
                   <div class="vstack gap-3 align-items-center">
                       <div class="row row-cols-3 g-3" id="gallery-row"></div>
                       <button type="button" id="upgallerybtn" class="btn bg-accent-d rounded-2 text-brightness-l">

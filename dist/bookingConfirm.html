@@ -28,12 +28,28 @@
                 <div class="navbar-toggler-icon"></div>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="nav">
-                <ul class="navbar-nav justify-content-between align-items-center pt-3 pt-sm-0">
-                    <li class="nav-item flex-xl-grow-1 text-center"><a href="./prosDashboard.html"
-                            class="nav-link p-0 fw-semibold active text-accent-d text-nowrap" aria-current="page">List
-                            Services</a></li>
+                <ul class="navbar-nav fw-semibold justify-content-between align-items-center pt-3 pt-sm-0">
+
+                    <li class="nav-item flex-xl-grow-1 text-center dropdown">
+                        <a class="nav-link dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Pros Menu
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosBooking.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Manage Booking</a>
+                            </li>
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosProfile.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Profile</a></li>
+                                    <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosGallery.html"
+                                        class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Gallery</a></li>
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosDashboard.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">List
+                                    Services</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item flex-xl-grow-1 text-center"><a href="./services.html"
-                            class="nav-link p-0 fw-semibold">Services</a></li>
+                            class="nav-link p-0 fw-semibold text-accent-d">Services</a></li>
                     <li class="nav-item flex-xl-grow-1 text-center"><a href="./customerDashboard.html"
                             class="nav-link p-0 fw-semibold">Schedule</a></li>
                     <div
@@ -67,25 +83,23 @@
     </div>
 
     <main>
-        <nav class="container d-none d-md-block" aria-label="breadcrumb">
+        <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./index.html">Service</a></li>
               <li class="breadcrumb-item"><a href="./booking.html">Booking</a></li>
               <li class="breadcrumb-item active" aria-current="page">Confirm Booking</li>
             </ol>
-        </nav>
+          </nav>
         
-        <!-- heading -->
-        <section class="container mt-5" id="where-description">
-            <h2>Confirm Booking</h2>
+        <h2>Confirm Booking</h2>
+        <section id="where-description">
         </section>
 
-        <!--  -->
-        <section class="container mt-5 mb-5" id="booking-detail">
-            <form class="add container" action="submit">
+        <section id="booking-detail">
+            <form class="add" action="submit">
                 <label for="booking-time">Choose a time for your appointment:</label>
                 <input type="datetime-local" id="booking-time" name="bookingTime" value="20123-06-24T8:30">
-                <button class="btn mt-5　t">Book</button>
+                <button>Book</button>
             </form>
         </section>
         <section id="booking-listing">
@@ -127,6 +141,7 @@
                     <ul class="p-0">
                         <li><a href="./prosProfile.html">Profile</a></li>
                         <li><a href="./prosDashboard.html">Dashboard</a></li>
+                        <li><a href="./prosBooking.html">Manage Booking</a></li>
                     </ul>
                 </nav>
             </div>

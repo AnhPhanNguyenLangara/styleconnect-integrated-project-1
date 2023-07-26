@@ -15,18 +15,35 @@
         <nav class="navbar navbar-expand-sm flex-row flex-md-nowrap flex-wrap p-0 mt-3 mb-3">
             <a href="./index.html" class="navbar-brand d-none d-lg-block p-0"><img
                     src="../img/main_logo transparent_bg nav bar.png" alt=""></a>
-            <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"><img src="../img/logo_mobile.png" alt=""></a>
+            <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"><img src="../img/logo_mobile.png"
+                    alt=""></a>
             <button class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav"
                 aria-label="Expand Navigation">
                 <div class="navbar-toggler-icon"></div>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="nav">
-                <ul class="navbar-nav justify-content-between align-items-center pt-3 pt-sm-0">
-                    <li class="nav-item flex-xl-grow-1 text-center"><a href="./prosDashboard.html"
-                            class="nav-link p-0 fw-semibold text-accent-d text-nowrap" aria-current="page">List
-                            Services</a></li>
+                <ul class="navbar-nav fw-semibold justify-content-between align-items-center pt-3 pt-sm-0">
+
+                    <li class="nav-item flex-xl-grow-1 text-center dropdown">
+                        <a class="nav-link dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Pros Menu
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosBooking.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Manage Booking</a>
+                            </li>
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosProfile.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Profile</a></li>
+                                    <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosGallery.html"
+                                        class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Gallery</a></li>
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosDashboard.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">List
+                                    Services</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item flex-xl-grow-1 text-center"><a href="./services.html"
-                            class="nav-link p-0 fw-semibold active">Services</a></li>
+                            class="nav-link p-0 fw-semibold text-accent-d">Services</a></li>
                     <li class="nav-item flex-xl-grow-1 text-center"><a href="./customerDashboard.html"
                             class="nav-link p-0 fw-semibold">Schedule</a></li>
                     <div
@@ -63,45 +80,48 @@
 
 
         </section>
-        <div class="full-width-with-margin-right p-5 bg-contrast-d me-5 form-wrapper mb-5">
-            <form class="filter container-xl ms-5 ps-5">
-                <div class="filter-item-container">
-                    <label class="form-label text-brightness-l" for="location">Location:</label>
-                    <select class="form-select" name="location" id="location" required>
-                        <option value="" disabled selected>Select location</option>
-                        <option value="downtown">Down Town</option>
-                        <option value="burnaby">Burnaby</option>
-                        <option value="richmond">Richmond</option>
-                    </select>
+      
+
+        <div class="full-width-with-margin-right mt-5 p-5 bg-contrast-d mb-5">
+            <form class="filter search-form ps-lg-5 ms-lg-5 flex-column flex-lg-row align-items-stretch">
+                <div class="search-wrapper2 row g-3 align-items-lg-end">
+                    <div class="col-12 col-lg-4">
+                        <label for="location" class="form-label text-brightness-l">Location:</label>
+                        <select class="form-select" name="location" id="location" required>
+                            <option value="" disabled selected>Select location</option>
+                            <option value="downtown">Down Town</option>
+                            <option value="burnaby">Burnaby</option>
+                            <option value="richmond">Richmond</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <label for="categories" class="form-label text-brightness-l">Categories:</label>
+                        <select class="form-select" name="categories" id="categories" required>
+                            <option value="" disabled selected>Select category</option>
+                            <option value="Haircut">Hair Care</option>
+                            <option value="Eyelash">Eyelash Eyebrow</option>
+                            <option value="Massage">Massage</option>
+                            <option value="Nail">Nail</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <label for="rating" class="form-label text-brightness-l">Rating:</label>
+                        <select class="form-select" name="rating" id="rating" required>
+                            <option value="" disabled selected>Select rating</option>
+                            <option value="0">No rating</option>
+                            <option value="1">1 and above</option>
+                            <option value="2">2 and above</option>
+                            <option value="3">3 and above</option>
+                            <option value="4">4 and above</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                       
                 </div>
-                
-                <div class="filter-item-container">
-                    <label class="form-label text-brightness-l" for="categories">Categories:</label>
-                    <select class="form-select" name="categories" id="categories" required>
-                        <option value="" disabled selected>Select category</option>
-                        <option value="Haircut">Hair Care</option>
-                        <option value="Eyelash">Eyelash Eyebrow</option>
-                        <option value="Massage">Massage</option>
-                        <option value="Nail">Nail</option>
-                    </select>
-                </div>
-                
-                <div class="filter-item-container">
-                    <label class="form-label text-brightness-l" for="rating">Rating:</label>
-                    <select class="form-select" name="rating" id="rating" required>
-                        <option value="" disabled selected>Select rating</option>
-                        <option value="0">No rating</option>
-                        <option value="1">1 and above</option>
-                        <option value="2">2 and above</option>
-                        <option value="3">3 and above</option>
-                        <option value="4">4 and above</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-                
-                <button class="rounded-2 bg-accent-d text-brightness-l pe-3 ps-3" id="search-btn">Search</button>
+                <button class="rounded-2 bg-accent-d text-brightness-l pe-3 ps-3 mt-3 ms-0 ms-lg-auto me-0" id="search-btn">Search</button>
             </form>
         </div>
+        
         <div class="container-xl p-5">
             <h2 id="search-header"></h2>
             <div class="services" id="search-result">
@@ -166,6 +186,7 @@
                     <ul class="p-0">
                         <li><a href="./prosProfile.html">Profile</a></li>
                         <li><a href="./prosDashboard.html">Dashboard</a></li>
+                        <li><a href="./prosBooking.html">Manage Booking</a></li>
                     </ul>
                 </nav>
             </div>

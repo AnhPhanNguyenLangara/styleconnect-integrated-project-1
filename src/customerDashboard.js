@@ -39,7 +39,7 @@ let currentUserUID = null;
 onAuthStateChanged(auth, async (user) => {
   showMenu(user);
   if (user) {
-    currentUserUID =user.uid
+    currentUserUID = user.uid
     // Fetch bookings immediately after user logs in
     fetchBookings(currentUserUID);
   } else {
@@ -57,85 +57,247 @@ const ratingSubmit = document.querySelector('#rating-form');
 const bookingDetail = document.querySelector('#booking-detail');
 const starDialog = document.getElementById("star-dialog");
 const confirmBtn = starDialog.querySelector("#confirmBtn");
-const logOut = document.getElementById('log-out');
 
-logOut.addEventListener('click', (e) => {
-  signOut(auth).then(() => {
-    // Sign-out successful.
-  }).catch((error) => {
-    // An error happened.
-  });
-})
+
+
+waitingConfirmationTab.classList.add("active");
 
 function fetchBookings(uid) {
   const data = query(colRef, where('customerId', '==', uid));
+
   onSnapshot(data, async (snapshot) => {
-    bookingDetail.innerHTML = "";
     if (snapshot.empty) {
-      // No bookings found
-      bookingDetail.innerHTML = "<p>No bookings found</p>";
-    } else {
-      for (let doc of snapshot.docs) {
-        let record = await createRecord(doc);
-        bookingDetail.appendChild(record);
+      document.getElementById("waitingConfirmationTab").innerHTML = "<div class='booking-history-customer me-5 ms-5'><p>No bookings found</p></div>";
+      document.getElementById("waitingReviewTab").innerHTML = "<div class='booking-history-customer me-5 ms-5'><p>No bookings found</p></div>";
+      document.getElementById("completedTab").innerHTML = "<div class='booking-history-customer me-5 ms-5'><p>No bookings found</p></div>";
+      return;
+    }
+
+    const waitingConfirmationTab = document.getElementById("waitingConfirmationTab");
+    const waitingReviewTab = document.getElementById("waitingReviewTab");
+    const completedTab = document.getElementById("completedTab");
+
+
+
+    waitingConfirmationTab.classList.add("active");
+
+    waitingConfirmationTab.innerHTML = "";
+    waitingReviewTab.innerHTML = "";
+    completedTab.innerHTML = "";
+
+
+    let waitingConfirmationBookings = [];
+    let waitingReviewBookings = [];
+    let completedBookings = [];
+
+    for (let doc of snapshot.docs) {
+      let record = await createRecord(doc);
+
+      if (doc.data().accepted === false) {
+        waitingConfirmationBookings.push(record);
+      } else if (doc.data().accepted === true && doc.data().rating === undefined) {
+        waitingReviewBookings.push(record);
+      } else if (doc.data().accepted === true && doc.data().rating !== undefined) {
+        completedBookings.push(record);
       }
     }
+
+    if (waitingConfirmationBookings.length === 0) {
+      waitingConfirmationTab.innerHTML = "<div class='booking-history-customer me-5 ms-5'><p>No bookings found</p></div>";
+    } else {
+      waitingConfirmationBookings.forEach(booking => waitingConfirmationTab.appendChild(booking));
+    }
+
+    if (waitingReviewBookings.length === 0) {
+      waitingReviewTab.innerHTML = "<div class='booking-history-customer me-5 ms-5'><p>No bookings found</p></div>";
+    } else {
+      waitingReviewBookings.forEach(booking => waitingReviewTab.appendChild(booking));
+    }
+
+    if (completedBookings.length === 0) {
+      completedTab.innerHTML = "<div class='booking-history-customer me-5 ms-5'><p>No bookings found</p></div>";
+    } else {
+      completedBookings.forEach(booking => completedTab.appendChild(booking));
+    }
+
   });
 }
+
+
+document.getElementById('waitingConfirmationTabButton').addEventListener('click', function () {
+  setActiveTab('waitingConfirmationTab', 'waitingConfirmationTabButton');
+});
+
+document.getElementById('waitingReviewTabButton').addEventListener('click', function () {
+  setActiveTab('waitingReviewTab', 'waitingReviewTabButton');
+});
+
+document.getElementById('completedTabButton').addEventListener('click', function () {
+  setActiveTab('completedTab', 'completedTabButton');
+});
+
+function setActiveTab(tabId, buttonId) {
+  const tabs = document.querySelectorAll('.tabContent');
+  tabs.forEach(tab => {
+    tab.classList.remove('active');
+    tab.classList.add('d-none');
+  });
+
+  const buttons = document.querySelectorAll('.tab-button');
+  buttons.forEach(button => {
+    button.classList.remove('tab-active');
+  });
+
+  const activeTab = document.getElementById(tabId);
+  activeTab.classList.add('active');
+  activeTab.classList.remove('d-none');
+
+  document.getElementById(buttonId).classList.add('tab-active');
+}
+
+
+setActiveTab('waitingConfirmationTab', 'waitingConfirmationTabButton');
+
 
 
 async function createRecord(record) {
   const data = record.data();
   const currentDate = new Date();
   const bookingDate = record.data().bookingtime.toDate();
-  const div = document.createElement("div");
-  div.classList.add('booking-history-customer');
-  const btn = document.createElement("button");
-  const where = data.where === 'onlocation'? 'The professional will service at your location':  `<p>You need to visit the professional address for the service</p><button class="serviceAddressButton" data="${data.address}">Click to see the address</button>`
 
-  
-  let formattedDate = await convertDate(bookingDate)
-  btn.innerText = "Rate this service";
+
+  const div = document.createElement("div");
+  div.classList.add('booking-history-customer', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3', 'border', 'me-5', 'ms-5', 'rounded-2');
+
+
+  const dateDiv = document.createElement("div");
+  dateDiv.classList.add('text-white', 'bg-dark', 'p-4', 'ps-3', 'ps-lg-5', 'pe-3', 'pe-lg-5', 'rounded-start-2');
+  const formattedDate = bookingDate.toLocaleDateString('en-US', {
+    month: 'short',
+    day: '2-digit'
+  });
+  dateDiv.textContent = formattedDate;
+
+
+  const nameTimeDiv = document.createElement("div");
+  nameTimeDiv.classList.add('me-auto', 'ps-3')
+
+
+  const btn = document.createElement("button");
+  btn.innerText = "Review";
+  btn.classList.add('btn', 'btn-primary', 'me-2', 'me-lg-5');
   btn.addEventListener("click", () => {
     starDialog.setAttribute('docId', record.id);
     starDialog.setAttribute('prosId', record.data().prosId);
     starDialog.showModal();
-  })
+  });
+
   const prosData = await prosFectching(data.prosId);
-  const paragraph1 = document.createElement("p");
+
+
+  const paragraph1 = document.createElement("div");
   const paragraph2 = document.createElement("div");
-  if (data.accepted && isNaN(data.rating) && currentDate >= bookingDate) {
-    paragraph1.textContent = `Available to Rate for ${prosData.firstName} Booking at ${formattedDate} `
+  const formattedTime = bookingDate.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
+
+  const timeDiv = document.createElement('div');
+  timeDiv.classList.add('d-flex', 'flex-column', 'align-items-start');
+  const nameElement = document.createElement('p');
+  nameElement.textContent = prosData.firstName;
+  nameElement.classList.add('fw-bold', 'm-0');
+
+  const youGaveText = document.createElement('p');
+  youGaveText.classList.add('fs-6', 'me-2', 'mb-1');
+
+
+  const nameStarContainer = document.createElement('div');
+  nameStarContainer.classList.add('name-star-container', 'd-flex', 'flex-column', 'flex-lg-row');
+
+
+  nameStarContainer.appendChild(youGaveText);
+  nameStarContainer.appendChild(nameElement);
+
+
+  timeDiv.appendChild(nameStarContainer);
+
+
+  const timeImgDiv = document.createElement('div');
+  timeImgDiv.classList.add('d-flex', 'align-items-center');
+
+
+  const imgElement = document.createElement('img');
+  imgElement.src = '../img/fi-rs-time-quarter-past.svg';
+  imgElement.alt = `${formattedTime}`;
+  timeImgDiv.appendChild(imgElement);
+
+
+  const timeElement = document.createElement('p');
+  timeElement.textContent = formattedTime;
+  timeElement.classList.add('m-0', 'ms-2')
+  timeImgDiv.appendChild(timeElement);
+
+  timeDiv.appendChild(timeImgDiv);
+
+  paragraph1.appendChild(timeDiv);
+  if (data.accepted && currentDate >= bookingDate && isNaN(data.rating)) {
+    const waitingReviewText = document.createElement('p');
+    waitingReviewText.textContent = `Waiting review for ${prosData.firstName}`;
+    waitingReviewText.classList.add('fs-6', 'me-2', 'mb-1');
+    nameStarContainer.classList.add('d-none')
+    paragraph1.innerHTML = '';
+    paragraph1.appendChild(waitingReviewText);
+    paragraph1.appendChild(timeDiv);
   } else if (!isNaN(data.rating)) {
-    const starSpan = document.createElement('span');
-    const serviceSpan = document.createElement('span');
-    starSpan.textContent = "★"
-    serviceSpan.textContent = "for their service"
-    starSpan.classList.add('star-span');
-    serviceSpan.classList.add('service-span');
+    const youGaveText = document.createElement('p');
+    youGaveText.textContent = 'You gave ';
+    youGaveText.classList.add('fs-6', 'me-2', 'mb-1');
+    
+    const nameStarContainer = document.createElement('div');
+    nameStarContainer.classList.add('name-star-container', 'd-flex', 'flex-column', 'flex-lg-row');
+    nameStarContainer.appendChild(youGaveText);
+    nameStarContainer.appendChild(nameElement);
+
+    timeDiv.prepend(nameStarContainer);
+
+    for (let i = 0; i < data.rating; i++) {
+      const starSpan = document.createElement('span');
+      starSpan.textContent = "★";
+      starSpan.classList.add('text-gold', 'fs-6');
+      nameElement.appendChild(starSpan);
+    }
     btn.disabled = true;
-    paragraph1.textContent = `Booking at ${formattedDate} -- You gave ${prosData.firstName} ${data.rating}`;
-    paragraph1.appendChild(starSpan);
-    paragraph1.appendChild(serviceSpan);
-  } else {
-    btn.disabled = true;
-    paragraph1.textContent = data.accepted?`You can rate after the service is completed at ${formattedDate} `:`Waiting accept from ${prosData.firstName}`;
-    paragraph2.innerHTML = where;
-  }
-  div.appendChild(paragraph1);
-  div.appendChild(paragraph2);
-  div.appendChild(btn);
-  return div;
+}  else {
+  nameStarContainer.classList.add('d-none');
+  
+const locationNote = document.createElement("i");
+locationNote.classList.add("fas", "fa-info-circle", "tooltiptext");
+locationNote.setAttribute("data-bs-toggle", "tooltip");
+locationNote.setAttribute("data-bs-placement", "top");
+locationNote.setAttribute("title", data.where === 'onlocation' ? 'The professional will service at your location' : 'You need to visit the professional address for the service');
+locationNote.classList.add('ms-1', 'text-accent-d')
+// ... rest of the code
+
+  const locationButton = data.where === 'onlocation' ? '' : `<a href="#" class="serviceAddressButton text-decoration-none text-primary" data="${data.address}">Address</a>`;
+
+
+  paragraph1.textContent = data.accepted ? `You can rate after the service is completed` : `Waiting accept from ${prosData.firstName}`;
+  paragraph1.appendChild(locationNote);
+  new bootstrap.Tooltip(locationNote);
+  paragraph1.appendChild(timeDiv);
+  paragraph2.innerHTML = locationButton;
+  btn.disabled = true;
 }
 
+  div.appendChild(dateDiv);
+  nameTimeDiv.appendChild(paragraph1);
+  nameTimeDiv.appendChild(paragraph2);
+  div.appendChild(nameTimeDiv);
+  div.appendChild(btn);
 
-async function convertDate(date){
-  let formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
-    date.getDate().toString().padStart(2, '0') + '/' +
-    date.getFullYear().toString().substr(-2) + ' TIME:' +
-    date.getHours().toString().padStart(2, '0') + ':' +
-    date.getMinutes().toString().padStart(2, '0');
-    return formattedDate
+  return div;
 }
 
 
@@ -145,13 +307,13 @@ async function prosFectching(prosId) {
   });
   return prosTemp;
 }
-// Get rating data
+
 ratingSubmit.addEventListener("change", (e) => {
   e.preventDefault();
   confirmBtn.value = document.querySelector('input[name="star"]:checked').value;
 });
 
-// "Cancel" button closes the dialog without submitting because of [formmethod="dialog"], triggering a close event.
+
 starDialog.addEventListener("close", async (e) => {
   const starRadios = document.querySelectorAll('input[name="star"]');
   starRadios.forEach(radio => {
@@ -163,32 +325,31 @@ starDialog.addEventListener("close", async (e) => {
     const docRef = doc(colRef, docId);
     const proRef = doc(colRefProsProfile, prosId);
     const prosData = await ratingFetching(prosId);
-    const prosRating = isNaN(prosData.rating)? +starDialog.returnValue : ((+starDialog.returnValue + (prosData.rating * +prosData.ratingCount)) / (+prosData.ratingCount + 1)).toFixed(2);
-    const prosRatingCount = isNaN(prosData.ratingCount)? 1: (prosData.ratingCount + 1)
+    const prosRating = isNaN(prosData.rating) ? +starDialog.returnValue : ((+starDialog.returnValue + (prosData.rating * +prosData.ratingCount)) / (+prosData.ratingCount + 1)).toFixed(2);
+    const prosRatingCount = isNaN(prosData.ratingCount) ? 1 : (prosData.ratingCount + 1)
 
     const reviewText = document.querySelector('#review-text').value;
-    
+
     await updateDoc(docRef, {
       rating: starDialog.returnValue,
       review: reviewText
     })
     await updateDoc(proRef, {
       rating: prosRating,
-      ratingCount:+prosRatingCount
+      ratingCount: +prosRatingCount
     })
     document.querySelector('#review-text').value = '';
   }
 });
 
 
-// Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
 confirmBtn.addEventListener("click", (event) => {
-  event.preventDefault(); // We don't want to submit this fake form
-  starDialog.close(confirmBtn.value); // Have to send the select box value here.
+  event.preventDefault();
+  starDialog.close(confirmBtn.value);
 });
 
 async function ratingFetching(prosId) {
-  const prosData = await getDoc(doc(db, 'professional_profile_v2' , prosId)).then((snapshot) => {
+  const prosData = await getDoc(doc(db, 'professional_profile_v2', prosId)).then((snapshot) => {
     return snapshot.data()
   });
   return prosData;
@@ -201,20 +362,22 @@ async function ratingFetching(prosId) {
 
 
 // TOMTOM
-
-bookingDetail.addEventListener("click", function(e) {
-  if(e.target.className === "serviceAddressButton") {
-      // Check if clicked element is a serviceAddress button.
-      const address = e.target.getAttribute("data");
-      mapDialog.showModal();
-      loadMap(address)
+bookingDetail.addEventListener("click", function (e) {
+  if (e.target.classList.contains("serviceAddressButton")) {
+    // Check if clicked element is a serviceAddress button.
+    const address = e.target.getAttribute("data");
+    mapDialog.showModal();
+    loadMap(address)
   }
 });
 
-
 // import { getCustomerAddress } from './addressPic';
-import { default as ttServices } from "@tomtom-international/web-sdk-services";
-import { default as ttMaps } from "@tomtom-international/web-sdk-maps";
+import {
+  default as ttServices
+} from "@tomtom-international/web-sdk-services";
+import {
+  default as ttMaps
+} from "@tomtom-international/web-sdk-maps";
 const mapDialog = document.getElementById("map-dialog");
 // setting and showing a map
 const APIKEY = "ebSKGOKaTk6WTADs40LNnaFX4X7lKlqG";
@@ -249,9 +412,9 @@ const optionObj = {
 
 
 function getPosition(options) {
-    return new Promise((successCallback, errorCallback) => 
-        navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
-    );
+  return new Promise((successCallback, errorCallback) =>
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
+  );
 }
 
 // create map object with SDK to show the map
@@ -281,7 +444,7 @@ function createMarkerElement(markerType) {
 function createEndPointMarkerElement() {
   let element = document.createElement("div");
   let innerElement = document.createElement("div");
-  element.className = "route-marker-end"; 
+  element.className = "route-marker-end";
   innerElement.className = "icon tt-icon -red -finish";
   element.appendChild(innerElement);
   return element;
@@ -292,15 +455,19 @@ function createEndPointMarkerElement() {
 function addMarkers(feature) {
   let startPoint, endPoint;
   if (feature.geometry.type === 'MultiLineString') {
-      startPoint = feature.geometry.coordinates[0][0]; //get first point from first line
-      endPoint = feature.geometry.coordinates.slice(-1)[0].slice(-1)[0]; //get last point from last line
+    startPoint = feature.geometry.coordinates[0][0]; //get first point from first line
+    endPoint = feature.geometry.coordinates.slice(-1)[0].slice(-1)[0]; //get last point from last line
   } else {
-      startPoint = feature.geometry.coordinates[0];
-      endPoint = feature.geometry.coordinates.slice(-1)[0];
+    startPoint = feature.geometry.coordinates[0];
+    endPoint = feature.geometry.coordinates.slice(-1)[0];
   }
 
-  new ttMaps.Marker({ element: createMarkerElement('start') }).setLngLat(startPoint).addTo(map);
-  new ttMaps.Marker({ element: createEndPointMarkerElement() }).setLngLat(endPoint).addTo(map);
+  new ttMaps.Marker({
+    element: createMarkerElement('start')
+  }).setLngLat(startPoint).addTo(map);
+  new ttMaps.Marker({
+    element: createEndPointMarkerElement()
+  }).setLngLat(endPoint).addTo(map);
 }
 
 // create a layer to show route & markers
@@ -336,7 +503,7 @@ function loadMap(address) {
   map.addControl(new ttMaps.NavigationControl());
 
   // handle map load
-  map.once("load", async() => {
+  map.once("load", async () => {
     const results = await Promise.all([getPosition(optionObj), getCustomerLocation(address)]);
     ttServices.services
       .calculateRoute({
@@ -344,10 +511,9 @@ function loadMap(address) {
         traffic: false,
         locations: `${results[0].coords.longitude},${results[0].coords.latitude}:${results[1].lon},${results[1].lat}`,
       })
-      .then(function(response) {
+      .then(function (response) {
         let geojson = response.toGeoJson();
-        map.addLayer(
-          {
+        map.addLayer({
             id: "route",
             type: "line",
             source: {
@@ -364,10 +530,13 @@ function loadMap(address) {
         addMarkers(geojson.features[0]);
 
         let bounds = new ttMaps.LngLatBounds();
-        geojson.features[0].geometry.coordinates.forEach(function(point) {
+        geojson.features[0].geometry.coordinates.forEach(function (point) {
           bounds.extend(ttMaps.LngLat.convert(point));
         });
-        map.fitBounds(bounds, { duration: 0, padding: 50 });
+        map.fitBounds(bounds, {
+          duration: 0,
+          padding: 50
+        });
       });
   });
 }
@@ -394,7 +563,6 @@ async function getCustomerLocation(address) {
 }
 
 
-document.getElementById("close-dialog").addEventListener("click", function() {
+document.getElementById("close-dialog").addEventListener("click", function () {
   mapDialog.close();
 });
-
