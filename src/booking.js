@@ -104,7 +104,7 @@ fecthLising.forEach((x, index) => {
   // Create a div container
 
   let container = document.createElement("div");
-  container.classList.add("where","listing-container","align-items-center");
+  container.classList.add("listing-container","align-items-center");
 
   let label = document.createElement("label");
   label.innerHTML = `${x.service} <br> <h3>$ ${x.price} / hour</h3>`;
@@ -112,14 +112,11 @@ fecthLising.forEach((x, index) => {
   let input = document.createElement("input");
 
   input.type = "checkbox";
-  input.classList.add("where","form-check-input")
+  input.classList.add("form-check-input")
   input.value = x.listingId;
   input.name = "listing";
   input.checked = index === 0 ? 'checked' : false;
 
-
-  let dropdownContainer = document.createElement("div");
-  dropdownContainer.classList.add("dropdown")
 
   let dropdown = document.createElement("select");
   dropdown.classList.add("where","btn","dropdown-toggle","btn-secondary","opacity-75");
@@ -146,8 +143,7 @@ fecthLising.forEach((x, index) => {
   bookingListing.prepend(container);
 
 
-  dropdownContainer.appendChild(dropdown);
-  locationSelect.appendChild(dropdownContainer);
+  locationSelect.appendChild(dropdown);
 
 });
 
@@ -162,8 +158,9 @@ bookService.addEventListener('click', (e) => {
   }
   for (let i = 0; i < radio.length; i++) {
     if (radio[i].checked) {
-      let dropdown = document.querySelector('.listing-container:nth-child(' + (i + 1) + ') .where');
-      let dropdownValue = dropdown.value;
+      let dropdowns = document.querySelectorAll('#location-select .where');
+      let dropdown = dropdowns[i];
+      let dropdownValue = dropdowns[i].value;
       let serviceName = dropdown.getAttribute('service-name');
       bookService.href = `/dist/bookingConfirm.html?${radio[i].value}?${currentUserUID}?${obj.userId}?${dropdownValue}?${serviceName}`;
     }

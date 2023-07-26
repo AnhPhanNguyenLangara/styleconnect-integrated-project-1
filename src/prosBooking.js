@@ -240,7 +240,8 @@ bookCard.addEventListener("click", function (e) {
 bookCard.addEventListener('click', async (e) => {
     let button = e.target;
     let bookingId = button.getAttribute("data");
-    if (e.target.classList.value === 'confirm') {
+    console.log(e.target.classList.value)
+    if (e.target.classList.contains('confirm')) {
         if (confirm('Are you sure you want to accept this booking?')) {
             try {
                 const docRef = doc(colRefBooking, bookingId);
@@ -255,7 +256,7 @@ bookCard.addEventListener('click', async (e) => {
         } else {
             console.log('Confirmation cancelled!');
         }
-    } else if (e.target.classList.value === 'cancel') {
+    } else if (e.target.classList.contains('cancel')) {
         if (confirm('Are you sure you want to cancel?')) {
             try {
                 const docRef = doc(colRefBooking, bookingId);
