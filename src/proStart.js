@@ -17,6 +17,7 @@ import {
   ref as sRef,
   uploadBytesResumable,
   getDownloadURL,
+  uploadBytes,
 } from "firebase/storage";
 
 const firebaseConfig = {
@@ -152,6 +153,50 @@ function showSuggestions(input, suggestions) {
   });
 }
 
+function selectGallery() {
+  let input = document.createElement("input");
+  input.type = "file";
+  input.accept = "image/*";
+  input.setAttribute("multiple", "multiple");
+  input.addEventListener("change", function showUploadModal() {
+    const files = Array.from(this.files);
+    const gallery = document.getElementById("gallery-row");
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        gallery.innerHTML += `<img src="${reader.result}" alt="" class="col-4">`;
+      };
+    });
+    document.getElementById("upgallerybtn").addEventListener("click", () => {
+      uploadGallery(files, `img/${currentUserUID}/gallery/`);
+    });
+    document.getElementById("upload-gallery-modal").showModal();
+  });
+  input.click();
+}
+
+async function uploadGallery(files, targetDir) {
+  const filesUploadPromises = files.map((file) => {
+    const metaData = {
+      contentType: file.type,
+    };
+    const storage = getStorage();
+    const storageRef = sRef(storage, targetDir + file.name);
+    return uploadBytes(storageRef,file, metaData);
+  });
+  document.getElementById("upgallerybtn").innerText="Uploading Gallery";
+  document.getElementById("upgallerybtn").setAttribute('disabled','disabled');
+  const snapShots=await Promise.all(filesUploadPromises);
+  const URLs= await Promise.all(snapShots.map((snapshot)=> getDownloadURL(snapshot.ref)));
+  console.log(URLs);
+  const HTMLstring=URLs.reduce((galleryHTML, source)=> galleryHTML+`<img src="${source}" alt="" class="col-4">` ,``);
+  document.getElementById("gallery-after-upload").insertAdjacentHTML("afterbegin",HTMLstring);
+  document.getElementById("upload-gallery-modal").close();
+}
+
+window.selectGallery = selectGallery;
+
 function showModal() {
   const modal = document.getElementById("image-modal");
   modal.showModal();
@@ -206,8 +251,8 @@ function takePicture() {
 
         // Pipe video image in a canvas feed for image capture
         const canvas = document.createElement("canvas");
-        const captureWidth= Math.floor(feed.videoHeight*400/280);
-        const captureHeight= feed.videoHeight;
+        const captureWidth = Math.floor((feed.videoHeight * 400) / 280);
+        const captureHeight = feed.videoHeight;
         canvas.width = captureWidth;
         canvas.height = captureHeight;
         const ctx = canvas.getContext("2d");
@@ -216,7 +261,17 @@ function takePicture() {
         picBtn.addEventListener("click", async () => {
           // Reference for how to "crop" video feed onto canvas
           // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-          ctx.drawImage(feed, (feed.videoWidth-captureWidth)/2, 0, captureWidth, captureHeight, 0, 0, captureWidth, captureHeight);
+          ctx.drawImage(
+            feed,
+            (feed.videoWidth - captureWidth) / 2,
+            0,
+            captureWidth,
+            captureHeight,
+            0,
+            0,
+            captureWidth,
+            captureHeight
+          );
           const dataURL = canvas.toDataURL("image/jpeg");
           document.getElementById("myimg").src = dataURL;
           const blob = await (await fetch(dataURL)).blob();
