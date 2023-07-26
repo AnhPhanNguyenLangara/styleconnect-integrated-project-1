@@ -6,6 +6,6 @@
 .listing-container{
     @include flex-display();
     @include flex-content(space-between);
-    @include border(2px, solid, $base-d);
+    // @include border(2px, solid, $base-d);
 }
 

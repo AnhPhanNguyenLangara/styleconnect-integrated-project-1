@@ -126,7 +126,7 @@
                     </a>
                 </div>
                 <div class="col-12 col-md-11  col-lg-9  mb-3">
-                    <a href="#" class="text-decoration-none text-contrast-d">
+                    <a href="./prosGallery.html" class="text-decoration-none text-contrast-d">
                         <div
                             class="container d-flex justify-content-between align-items-center p-5 border border-contrast-l rounded-2">
                             <p class="m-0">Profile Gallery</p>
@@ -165,31 +165,58 @@
                         <label for="lname" class="text-contrast-m fw-light">Last Name</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input type="text" name="bio" id="bio" class="form-control text-contrast-m fw-light" placeholder="Bio" required />
-                        <label for="bio" class="text-contrast-m fw-light">Bio</label>
+                        <textarea name="bio" id="bio" cols="30" rows="10" class="form-control text-contrast-m fw-light" placeholder="Bio" required ></textarea>
+                        <label for="bio" class="text-contrast-m fw-light">Introduce yourself</label>
                       </div>
                       <label for="profile">Profile Image</label>
                       <div id="profile-wrapper">
-                          <button type="button" name="profile" id="profile" onclick="showModal()" class="btn bg-accent-d rounded-2 text-brightness-l">
-                              <img id="image-preview" src="../img/abstract-user-flat-4.svg" alt="Upload Image" />
-                          </button>
-                          <input type="file" id="hiddenFileInput" accept="image/*" style="display: none;">
-                          <dialog id="image-modal">
+                        <button
+                          type="button"
+                          name="profile"
+                          id="profile"
+                          onclick="showModal()"
+                          class="w-25 btn bg-accent-d rounded-2 text-brightness-l"
+                          disabled
+                        >
+                          <img
+                            id="image-preview"
+                            src="../img/user-solid.svg"
+                            alt="Upload Image"
+                            class="img-fluid img-thumbnail"
+                          />
+                        </button>
+                        <dialog id="image-modal" class="w-50 rounded-4 border-0 container">
+                          <div class="row row-cols-2">
+                            <div class="col vstack justify-content-between">
                               <label for="upload">Choose from computer</label>
-                              <button class="btn bg-accent-d rounded-2 text-brightness-l" type="button" id="upload" onclick="document.getElementById('hiddenFileInput').click()">
-                                  <i class="fa-solid fa-upload" title="Upload Image"></i>
+                              <button type="button" id="upload" onclick="fromComputer()" class="btn bg-accent-d rounded-2 text-brightness-l ratio ratio-1x1">
+                                <i class="fa-solid fa-upload display-1 d-grid align-items-center" title="Upload Image"></i>
                               </button>
+                            </div>
+                            <div class="col vstack justify-content-between">
                               <label for="camera">Take a picture</label>
-                              <button class="btn bg-accent-d rounded-2 text-brightness-l" type="button" id="camera" onclick="document.getElementById('hiddenFileInput').setAttribute('capture', 'camera'); document.getElementById('hiddenFileInput').click()">
-                                  <i class="fa-solid fa-camera" title="Take a picture"></i>
+                              <button type="button" id="camera" onclick="takePicture()" class="btn bg-accent-d rounded-2 text-brightness-l ratio ratio-1x1">
+                                <i class="fa-solid fa-camera display-1 d-grid align-items-center" title="Take a picture"></i>
                               </button>
-                          </dialog>
-                          <dialog id="upload-modal">
-                              <img id="myimg">
-                              <label id="upprogress"></label>
-                              <button class="btn bg-accent-d rounded-2 text-brightness-l" type="button" id="upbtn">Upload image</button>
-                          </dialog>
+                            </div>
+                          </div>
+                        </dialog>
+                        <dialog id="cam-modal" class="w-100 rounded-4 border-0">
+                          <div class="vstack align-items-center gap-3">
+                            <video id="cam-feed" autoplay class="w-75"></video>
+                            <button type="button" id="take-pic" disabled class="btn bg-accent-d rounded-2 text-brightness-l">
+                              Take Profile Pic!
+                            </button>
+                          </div>
+                        </dialog>
+              
+                        <dialog id="upload-modal">
+                          <img id="myimg" />
+                          <label id="upprogress"></label>
+                          <button type="button" id="upbtn" class="btn bg-accent-d rounded-2 text-brightness-l">Upload image</button>
+                        </dialog>
                       </div>
+
                       
                     
                       <div class="mb-3">

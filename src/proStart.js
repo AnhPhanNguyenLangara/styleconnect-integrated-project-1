@@ -90,6 +90,7 @@ onAuthStateChanged(auth, async (user) => {
             addProfileForm.fname.disabled = false;
             addProfileForm.lname.disabled = false;
             addProfileForm.bio.disabled = false;
+            addProfileForm.profile.disabled = false;
             addProfileForm.category1.disabled = false;
             addProfileForm.category2.disabled = false;
             addProfileForm.category3.disabled = false;
@@ -332,7 +333,7 @@ addProfileForm.addEventListener("submit", async (e) => {
       console.log("Profile created successfully!");
     }
     addProfileForm.reset();
-    window.location.assign("prosDashboard.html");
+    window.location.assign("prosGallery.html");
   } catch (error) {
     console.error("Error updating or creating profile:", error);
   }
