@@ -167,13 +167,13 @@
               </div>
               <label for="gallery">Gallery</label>
               <div id="gallery-wrapper" class=".container">
-                <div id="gallery-after-upload" class="row">
+                <div id="gallery-after-upload" class="row row-cols-3 row-cols-md-2 g-3">
                   <button
                     type="button"
                     name="gallery"
                     id="gallery"
                     onclick="selectGallery()"
-                    class="col-4 w-25 btn bg-accent-d rounded-2 text-brightness-l"
+                    class="col-4 btn bg-accent-d rounded-2 text-brightness-l"
                   >
                     <img
                       id="gallery-CTA"
@@ -184,11 +184,14 @@
                   </button>
                 </div>
                 <dialog id="upload-gallery-modal" class="container">
-                  <div class="row" id="gallery-row"></div>
-                  <button type="button" id="upgallerybtn">
-                    Upload Gallery
-                  </button>
+                  <div class="vstack gap-3 align-items-center">
+                      <div class="row row-cols-3 g-3" id="gallery-row"></div>
+                      <button type="button" id="upgallerybtn" class="btn bg-accent-d rounded-2 text-brightness-l">
+                        Upload Gallery
+                      </button>
+                  </div>
                 </dialog>
+                <button id="proceed" type="button" class="btn bg-accent-d rounded-2 text-brightness-l mt-3">Proceed</button>
               </div>
             </div>
           </div>
