@@ -117,7 +117,7 @@ fecthLising.forEach((x, index) => {
   input.checked = index === 0 ? 'checked' : false;
 
   let dropdown = document.createElement("select");
-  dropdown.classList.add("where");
+  dropdown.classList.add("where", "container", "bg-black", "text-white");
   dropdown.setAttribute('service-name', x.service)
 
   if (x.onhome) {
