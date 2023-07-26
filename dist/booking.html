@@ -84,24 +84,30 @@
 
         <div class="container">
             <div class="row row-cols-1 row-cols-md-2">
-                <div class="col">
+                <div class="col mb-4">
                     <img class="img-fluid rounded" src="../img/rendy-novantino-CsMcfJjCjog-unsplash.jpg"
                         alt="featured-image">
                 </div>
-                <div class="col">
-                    <section class="container" id="booking-detail">
+                <div class="col ms-2">
+                    <section class="container d-flex" id="booking-detail">
                         <div class="col">
-                            <h3 class="display-1" id="fullname"></h3>
+                            <h3 class="display-1 fw-bold pb-3" id="fullname"></h3>
                             <p id="address"></p>
                         </div>
+                        <div class="d-flex">
+                            <p class="text-gold bg-" id="rating"></p>
+                            <a class="" id="review-link">Review: <span id="ratingCount"></span></a>
+                        </div>
+                    </section>
+
+                    <section>
 
                         <div class="container-fluid p-0">
                             <hr class="m-0 p-0 mt-3 mb-3 ">
                         </div>
 
                         <div class="row col">
-                            <p id="rating"></p>
-                            <a id="review-link">Review: <span id="ratingCount"></span></a>
+
                             <div id="reviewModal" class="modal">
                                 <div class="modal-content">
                                     <span class="close">&times;</span>
@@ -110,7 +116,7 @@
                             </div>
                         </div>
                         <div>
-                            <p class="d-none d-md-block" id="bio"></p>
+                            <p class="" id="bio"></p>
                         </div>
                     </section>
                     <form id="booking-listing">
