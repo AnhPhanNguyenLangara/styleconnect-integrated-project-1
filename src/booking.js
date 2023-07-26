@@ -14,7 +14,7 @@ document.getElementById('fullname').textContent = `${obj.firstName} ${obj.lastNa
 document.getElementById('address').textContent = `${obj.address}`;
 document.getElementById('bio').textContent = obj.bio;
 document.getElementById('rating').innerHTML += ` ${ratingShow}`;
-document.getElementById('ratingCount').textContent = obj.ratingCount;
+document.getElementById('ratingCount').textContent = `${obj.ratingCount} reviews`;
 
 
 import {
@@ -99,23 +99,30 @@ async function fetchListingData() {
 }
 const fecthLising = await fetchListingData();
 const bookingListing = document.querySelector('#booking-listing');
+const locationSelect = document.querySelector('#location-select')
 fecthLising.forEach((x, index) => {
   // Create a div container
 
   let container = document.createElement("div");
-  container.classList.add("listing-container");
+  container.classList.add("where","listing-container","align-items-center");
 
   let label = document.createElement("label");
-  label.innerText = x.service + " " + x.price + " CAD";
+  label.innerHTML = `${x.service} <br> <h3>$ ${x.price} / hour</h3>`;
 
   let input = document.createElement("input");
-  input.type = "radio";
+
+  input.type = "checkbox";
+  input.classList.add("where","form-check-input")
   input.value = x.listingId;
   input.name = "listing";
   input.checked = index === 0 ? 'checked' : false;
 
+
+  let dropdownContainer = document.createElement("div");
+  dropdownContainer.classList.add("dropdown")
+
   let dropdown = document.createElement("select");
-  dropdown.classList.add("where");
+  dropdown.classList.add("where","btn","dropdown-toggle","btn-secondary","opacity-75");
   dropdown.setAttribute('service-name', x.service)
 
   if (x.onhome) {
@@ -135,9 +142,13 @@ fecthLising.forEach((x, index) => {
   // Append the elements to the container
   container.appendChild(label);
   container.appendChild(input);
-  container.appendChild(dropdown);
   // Append the container to the bookingListing element
   bookingListing.prepend(container);
+
+
+  dropdownContainer.appendChild(dropdown);
+  locationSelect.appendChild(dropdownContainer);
+
 });
 
 
