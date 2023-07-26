@@ -30,6 +30,7 @@ onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUserUID = user.uid;
   } else {
+    console.log("This shouldn't be printed");
   }
 });
 
@@ -45,7 +46,7 @@ function selectGallery() {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function () {
-        gallery.innerHTML += `<img src="${reader.result}" alt="" class="col-4">`;
+        gallery.innerHTML += `<div class="col" style="aspect-ratio:5/4"><img src="${reader.result}" alt="" class="object-fit-cover rounded-2 h-100"></div>`;
       };
     });
     document.getElementById("upgallerybtn").addEventListener("click", () => {
@@ -76,7 +77,8 @@ async function uploadGallery(files, targetDir) {
   console.log(URLs);
   const HTMLstring = URLs.reduce(
     (galleryHTML, source) =>
-      galleryHTML + `<img src="${source}" alt="" class="col-4">`,
+      galleryHTML +
+      `<div class="col" style="aspect-ratio:5/4"><img src="${source}" alt="" class="object-fit-cover h-100 rounded-2"></div>`,
     ``
   );
   document
@@ -84,3 +86,7 @@ async function uploadGallery(files, targetDir) {
     .insertAdjacentHTML("afterbegin", HTMLstring);
   document.getElementById("upload-gallery-modal").close();
 }
+
+document.getElementById("proceed").addEventListener("click",()=> {
+    window.location.assign("prosDashBoard.html");
+})
