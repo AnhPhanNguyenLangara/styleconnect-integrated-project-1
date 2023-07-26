@@ -125,11 +125,13 @@
             name="profile"
             id="profile"
             onclick="showModal()"
+            class="w-25"
           >
             <img
               id="image-preview"
-              src="../img/abstract-user-flat-4.svg"
+              src="../img/user-solid.svg"
               alt="Upload Image"
+              class="img-fluid img-thumbnail"
             />
           </button>
           <dialog id="image-modal">
@@ -144,13 +146,39 @@
           </dialog>
           <dialog id="cam-modal">
             <video id="cam-feed" autoplay></video>
-            <button type="button" id="take-pic" disabled>Take Profile Pic!</button>
+            <button type="button" id="take-pic" disabled>
+              Take Profile Pic!
+            </button>
           </dialog>
 
           <dialog id="upload-modal">
             <img id="myimg" />
             <label id="upprogress"></label>
             <button type="button" id="upbtn">Upload image</button>
+          </dialog>
+        </div>
+        <label for="gallery">Gallery</label>
+        <div id="gallery-wrapper" class=".container">
+          <div id="gallery-after-upload" class="row">
+            <button
+              type="button"
+              name="gallery"
+              id="gallery"
+              onclick="selectGallery()"
+              class="col-4"
+            >
+              <img
+                id="gallery-CTA"
+                src="../img/plus-solid.svg"
+                alt="Upload Gallery"
+                class="img-fluid img-thumbnail"
+              />
+            </button>
+          </div>
+          <dialog id="upload-gallery-modal" class="container">
+            <div class="row" id="gallery-row">
+            </div>
+            <button type="button" id="upgallerybtn">Upload Gallery</button>
           </dialog>
         </div>
         <div class="checkbox-wrapper category">
