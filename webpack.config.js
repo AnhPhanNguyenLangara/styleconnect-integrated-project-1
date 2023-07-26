@@ -20,7 +20,8 @@ module.exports = {
     customerDashboard: "./src/customerDashboard.js",
     customerRegister: "./src/customerRegister.js",
     filterServices: "./src/filterServices.js",
-    prosBooking: "./src/prosBooking.js"
+    prosBooking: "./src/prosBooking.js",
+    prosGallery: "./src/prosGallery.js"
   },
   output: {
     path: path.resolve(__dirname, "dist"),
