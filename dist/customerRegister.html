@@ -29,16 +29,33 @@
         <nav class="navbar navbar-expand-sm flex-row flex-md-nowrap flex-wrap p-0 mt-3 mb-3">
             <a href="./index.html" class="navbar-brand d-none d-lg-block p-0"><img
                     src="../img/main_logo transparent_bg nav bar.png" alt=""></a>
-            <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"><img src="../img/logo_mobile.png" alt=""></a>
+            <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"><img src="../img/logo_mobile.png"
+                    alt=""></a>
             <button class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav"
                 aria-label="Expand Navigation">
                 <div class="navbar-toggler-icon"></div>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="nav">
-                <ul class="navbar-nav justify-content-between align-items-center pt-3 pt-sm-0">
-                    <li class="nav-item flex-xl-grow-1 text-center"><a href="./prosDashboard.html"
-                            class="nav-link p-0 fw-semibold active text-accent-d text-nowrap" aria-current="page">List
-                            Services</a></li>
+                <ul class="navbar-nav fw-semibold justify-content-between align-items-center pt-3 pt-sm-0">
+
+                    <li class="nav-item flex-xl-grow-1 text-center dropdown">
+                        <a class="nav-link dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Pros Menu
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosBooking.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Manage Booking</a>
+                            </li>
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosProfile.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Profile</a></li>
+                                    <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosGallery.html"
+                                        class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Gallery</a></li>
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosDashboard.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">List
+                                    Services</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item flex-xl-grow-1 text-center"><a href="./services.html"
                             class="nav-link p-0 fw-semibold">Services</a></li>
                     <li class="nav-item flex-xl-grow-1 text-center"><a href="./customerDashboard.html"
@@ -82,20 +99,20 @@
                 <div id="button-container"></div>
                 <form class="add">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control text-contrast-m fw-light" name="fname" id="fname" placeholder="First Name" required />
-                        <label for="fname" class="text-contrast-m fw-light">First Name</label>
+                        <input type="text" class="form-control text-contrast-d border-contrast-m" name="fname" id="fname" placeholder="First Name" required />
+                        <label for="fname" class="text-contrast-d fw-light">First Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control text-contrast-m fw-light" name="lname" id="lname" placeholder="Last Name" required />
-                        <label for="lname" class="text-contrast-m fw-light">Last Name</label>
+                        <input type="text" class="form-control text-contrast-d border-contrast-m" name="lname" id="lname" placeholder="Last Name" required />
+                        <label for="lname" class="text-contrast-d fw-light">Last Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control text-contrast-m fw-light" name="phone" id="phone" placeholder="Phone Number" required />
-                        <label for="phone" class="text-contrast-m fw-light">Phone Number</label>
+                        <input type="text" class="form-control text-contrast-d border-contrast-m" name="phone" id="phone" placeholder="Phone Number" required />
+                        <label for="phone" class="text-contrast-d fw-light">Phone Number</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control text-contrast-m fw-light" name="address1" id="address1" placeholder="Address Line" />
-                        <label for="address1" class="text-contrast-m fw-light ">Address Line</label>
+                        <input type="text" class="form-control text-contrast-d border-contrast-m" name="address1" id="address1" placeholder="Address Line" />
+                        <label for="address1" class="text-contrast-d fw-light ">Address Line</label>
                     </div>
                     <div id="suggestions"></div>
                     <button class="btn bg-accent-d rounded-2 text-brightness-l mt-3">Submit</button>

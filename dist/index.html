@@ -15,42 +15,63 @@
         <nav class="navbar navbar-expand-sm flex-row flex-md-nowrap flex-wrap p-0 mt-3 mb-3">
             <a href="./index.html" class="navbar-brand d-none d-lg-block p-0"><img
                     src="../img/main_logo transparent_bg nav bar.png" alt=""></a>
-            <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"><img src="../img/logo_mobile.png" alt=""></a>
+            <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"><img src="../img/logo_mobile.png"
+                    alt=""></a>
             <button class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav"
                 aria-label="Expand Navigation">
                 <div class="navbar-toggler-icon"></div>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="nav">
-                <ul class="navbar-nav justify-content-between align-items-center pt-3 pt-sm-0">
-                    <li class="nav-item flex-xl-grow-1 text-center"><a href="./prosDashboard.html"
-                            class="nav-link p-0 fw-semibold text-accent-d text-nowrap" aria-current="page">List
-                            Services</a></li>
+                <ul class="navbar-nav fw-semibold justify-content-between align-items-center pt-3 pt-sm-0">
+
+                    <li class="nav-item flex-xl-grow-1 text-center dropdown">
+                        <a class="nav-link dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Pros Menu
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosBooking.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Manage Booking</a>
+                            </li>
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosProfile.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Profile</a></li>
+                                    <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosGallery.html"
+                                        class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">Gallery</a></li>
+                            <li class="nav-item dropdown-item flex-xl-grow-1 text-center"><a href="./prosDashboard.html"
+                                    class="nav-link p-0 fw-semibold text-nowrap" aria-current="page">List
+                                    Services</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item flex-xl-grow-1 text-center"><a href="./services.html"
                             class="nav-link p-0 fw-semibold">Services</a></li>
                     <li class="nav-item flex-xl-grow-1 text-center"><a href="./customerDashboard.html"
                             class="nav-link p-0 fw-semibold">Schedule</a></li>
-                            <div class="profile-nav-bar d-flex flex-column-reverse align-items-center flex-sm-row flex-xl-grow-1 ps-sm-3 pe-sm-3 ">
-                                <li id="login1" class="nav-item visually-hidden">
-                                    <a href="./customerRegister.html" class="nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2">Profile</a>
-                                </li>
-                                <li id="login2" class="nav-item visually-hidden">
-                                    <a href="./customerRegister.html" class="nav-link m-0 p-0 ">
-                                        <img src="../img/dummy_profile.jpg" class="img-profile m-auto" alt="">
-                                    </a>
-                                </li>
-                                <li id="login3" class="nav-item login">
-                                    <a href="./login.html" class="nav-link nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2">Log in</a>
-                                </li>
-                                <li id="login4" class="nav-item flex-xl text-center">
-                                    <a href="./login.html" class="nav-link p-0 fw-semibold">Register</a>
-                                </li>
-                            </div>
-                            
+                    <div
+                        class="profile-nav-bar d-flex flex-column-reverse align-items-center flex-sm-row flex-xl-grow-1 ps-sm-3 pe-sm-3 ">
+                        <li id="login1" class="nav-item visually-hidden">
+                            <a href="./customerRegister.html"
+                                class="nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2">Profile</a>
+                        </li>
+                        <li id="login2" class="nav-item visually-hidden">
+                            <a href="./customerRegister.html" class="nav-link m-0 p-0 ">
+                                <img src="../img/dummy_profile.jpg" class="img-profile m-auto" alt="">
+                            </a>
+                        </li>
+                        <li id="login3" class="nav-item login">
+                            <a href="./login.html"
+                                class="nav-link nav-link m-0 p-2 me-sm-3 bg-contrast-d text-brightness-l fw-semibold rounded-2">Log
+                                in</a>
+                        </li>
+                        <li id="login4" class="nav-item flex-xl text-center">
+                            <a href="./login.html" class="nav-link p-0 fw-semibold">Register</a>
+                        </li>
+                    </div>
+
                 </ul>
             </div>
 
         </nav>
-        <div class="container-xl mt-5 p-0 p-md-5">
+        <div class="container-xl mt-5 p-0 p-xl-5">
             <div class="row justify-content-between">
                 <div class="col-lg-6">
                     <div
@@ -115,44 +136,53 @@
             <h3 class="spacing-header fw-semibold mb-5">Professionals by Cities</h3>
             <div class="d-lg-none">
                 <div class="dropdown w-100  mb-3">
-                    <a class="text-decoration-none dropdown-toggle col-12" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="text-decoration-none dropdown-toggle col-12" href="#" role="button" id="dropdownMenuLink"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-filter pe-3"></i>Services
                     </a>
                     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#listHair"><i class="fa-solid fa-scissors pe-3"></i>Hair care</a></li>
-                        <li><a class="dropdown-item" href="#listEye"><i class="fa-solid fa-eye pe-3"></i>Eyelash & Eyebrow</a></li>
-                        <li><a class="dropdown-item" href="#listMassage"><i class="fa-solid fa-hot-tub-person pe-3"></i>Massage</a></li>
-                        <li><a class="dropdown-item" href="#listNail"><i class="fa-solid fa-hand-sparkles pe-3"></i>Nail</a></li>
+                        <li><a class="dropdown-item" href="#listHair"><i class="fa-solid fa-scissors pe-3"></i>Hair
+                                care</a></li>
+                        <li><a class="dropdown-item" href="#listEye"><i class="fa-solid fa-eye pe-3"></i>Eyelash &
+                                Eyebrow</a></li>
+                        <li><a class="dropdown-item" href="#listMassage"><i
+                                    class="fa-solid fa-hot-tub-person pe-3"></i>Massage</a></li>
+                        <li><a class="dropdown-item" href="#listNail"><i
+                                    class="fa-solid fa-hand-sparkles pe-3"></i>Nail</a></li>
                     </ul>
                 </div>
             </div>
-            
+
             <div class="row text-center mb-5 d-none d-lg-flex">
                 <div class="col-12 col-md-3 border-2 border-bottom border-contrast-l pb-3">
-                    <a class="nav-link service-active fs-3  d-flex align-items-center justify-content-center" id="listHairLI" href="#listHair">
+                    <a class="nav-link service-active fs-3  d-flex align-items-center justify-content-center"
+                        id="listHairLI" href="#listHair">
                         <i class="fa-solid fa-scissors pe-3"></i><span class="fs-5">Hair care</span>
                     </a>
                 </div>
                 <div class="col-12 col-md-3 border-2 border-bottom border-contrast-l pb-3">
-                    <a class="nav-link fs-3  d-flex align-items-center justify-content-center" id="listEyeLI" href="#listEye">
+                    <a class="nav-link fs-3  d-flex align-items-center justify-content-center" id="listEyeLI"
+                        href="#listEye">
                         <i class="fa-solid fa-eye pe-3"></i><span class="fs-5">Eyelash & Eyebrow</span>
                     </a>
                 </div>
                 <div class="col-12 col-md-3 border-2 border-bottom border-contrast-l pb-3">
-                    <a class="nav-link fs-3  d-flex align-items-center justify-content-center" id="listMassageLI" href="#listMassage">
+                    <a class="nav-link fs-3  d-flex align-items-center justify-content-center" id="listMassageLI"
+                        href="#listMassage">
                         <i class="fa-solid fa-hot-tub-person pe-3"></i><span class="fs-5">Massage</span>
                     </a>
                 </div>
                 <div class="col-12 col-md-3 border-2 border-bottom border-contrast-l pb-3">
-                    <a class="nav-link fs-3 d-flex align-items-center justify-content-center" id="listNailLI" href="#listNail">
+                    <a class="nav-link fs-3 d-flex align-items-center justify-content-center" id="listNailLI"
+                        href="#listNail">
                         <i class="fa-solid fa-hand-sparkles pe-3"></i><span class="fs-5">Nail</span>
                     </a>
                 </div>
             </div>
-            
-            
-            
-            
+
+
+
+
             <div class="services row" id="listHair">
             </div>
             <div class="services row" id="listEye">
