@@ -17,11 +17,12 @@
 </head>
 
 <body>
-    <header class="pe-5 ps-5 pt-4 pb-4 mb-5">
+    <header class="4  pt-4 pb-4">
         <nav class="navbar navbar-expand-sm flex-row flex-md-nowrap flex-wrap p-0 mt-3 mb-3">
             <a href="./index.html" class="navbar-brand d-none d-lg-block p-0"><img
                     src="../img/main_logo transparent_bg nav bar.png" alt=""></a>
-            <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"><img src="../img/logo_mobile.png" alt=""></a>
+            <a href="./index.html" class="navbar-brand d-block d-lg-none p-0"><img src="../img/logo_mobile.png"
+                    alt=""></a>
             <button class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav"
                 aria-label="Expand Navigation">
                 <div class="navbar-toggler-icon"></div>
@@ -60,27 +61,31 @@
             </div>
 
         </nav>
-        <div id="snackbar"></div>
     </header>
+    <div class="container-fluid d-md-none p-0">
+        <hr class="m-0 mb-5 p-0">
+    </div>
 
     <main>
-        <nav aria-label="breadcrumb">
+        <nav class="container d-none d-md-block" aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./index.html">Service</a></li>
               <li class="breadcrumb-item"><a href="./booking.html">Booking</a></li>
               <li class="breadcrumb-item active" aria-current="page">Confirm Booking</li>
             </ol>
-          </nav>
+        </nav>
         
-        <h2>Confirm Booking</h2>
-        <section id="where-description">
+        <!-- heading -->
+        <section class="container mt-5" id="where-description">
+            <h2>Confirm Booking</h2>
         </section>
 
-        <section id="booking-detail">
-            <form class="add" action="submit">
+        <!--  -->
+        <section class="container mt-5 mb-5" id="booking-detail">
+            <form class="add container" action="submit">
                 <label for="booking-time">Choose a time for your appointment:</label>
                 <input type="datetime-local" id="booking-time" name="bookingTime" value="20123-06-24T8:30">
-                <button>Book</button>
+                <button class="btn mt-5　t">Book</button>
             </form>
         </section>
         <section id="booking-listing">

@@ -112,10 +112,17 @@ fecthLising.forEach((x, index) => {
   let input = document.createElement("input");
 
   input.type = "checkbox";
-  input.classList.add("where","form-check-input")
+  input.classList.add("where","form-check-input","border-black")
   input.value = x.listingId;
   input.name = "listing";
-  input.checked = index === 0 ? 'checked' : false;
+  input.checked = false;
+  // input.checked = index === 0 ? 'checked' : false;
+
+    // Append the elements to the container
+    container.appendChild(label);
+    container.appendChild(input);
+    // Append the container to the bookingListing element
+    bookingListing.prepend(container);
 
 
   let dropdownContainer = document.createElement("div");
@@ -135,20 +142,12 @@ fecthLising.forEach((x, index) => {
   if (x.onlocation) {
     let option2 = document.createElement("option");
     option2.value = "onlocation";
-    option2.text = "On Your Location";
+    option2.text = "On Customer's Location";
     dropdown.appendChild(option2);
   }
 
-  // Append the elements to the container
-  container.appendChild(label);
-  container.appendChild(input);
-  // Append the container to the bookingListing element
-  bookingListing.prepend(container);
-
-
   dropdownContainer.appendChild(dropdown);
   locationSelect.appendChild(dropdownContainer);
-
 });
 
 
