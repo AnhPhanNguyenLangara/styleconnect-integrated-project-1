@@ -74,7 +74,7 @@
                     <li class="breadcrumb-item"><a
                             class="text-light-emphasis active text-decoration-none text-opacity-50"
                             href="./services.html">Service</a></li>
-                    <li class="breadcrumb-item active text-black" aria-current="page">Service by Professionals</li>
+                    <li class="breadcrumb-item active text-contrast-d" aria-current="page">Service by Professionals</li>
                 </ol>
             </div>
         </nav>
@@ -88,23 +88,34 @@
                     <img class="img-fluid rounded" src="../img/rendy-novantino-CsMcfJjCjog-unsplash.jpg"
                         alt="featured-image">
                 </div>
-                <div class="col ms-2">
-                    <section class="container d-flex" id="booking-detail">
-                        <div class="col">
-                            <h3 class="display-1 fw-bold pb-3" id="fullname"></h3>
-                            <p id="address"></p>
+                <div class="col m-2">
+                    <section class="container pb-0" id="booking-detail">
+                        <div class="col d-flex justify-content-between align-items-start">
+                            <h3 class="display-1 flex-grow-1 fw-bold pb-3" id="fullname"></h3>
+                            <div class="d-flex gap-4">
+                                <p class="text-gold bg-l-gold bg-opacity-25 p-3 pt-2 pb-2  mb-0" id="rating"><i class="fa-regular fa-star"></i> </p>
+                                <a class="bg-primary bg-opacity-25 p-3 pt-2 pb-2 mt-0" id="review-link"><i class="fa-regular fa-message"></i> Review<span id="ratingCount"></span></a>
+                            </div>
                         </div>
-                        <div class="d-flex">
-                            <p class="text-gold bg-" id="rating"></p>
-                            <a class="" id="review-link">Review: <span id="ratingCount"></span></a>
-                        </div>
+                        <p  class="mt-3" id="address"></p>
                     </section>
+
+                    <div class="container-fluid p-0">
+                        <hr class="m-0 p-0 mt-3 mb-3 ">
+                    </div>
+
+                    <form id="booking-listing">
+
+                        <div>
+                            <p class="" id="bio"></p>
+                        </div>
+
+                        <a href="" class="fs-2 btn d-block bg-contrast-d text-brightness-l btn-show btn-animated mt-5 mb-5 text-capitalize" id="book-service" alt="Booking confirmation button">Schedule
+                            Booking</a>
+                    </form>
 
                     <section>
 
-                        <div class="container-fluid p-0">
-                            <hr class="m-0 p-0 mt-3 mb-3 ">
-                        </div>
 
                         <div class="row col">
 
@@ -115,14 +126,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <p class="" id="bio"></p>
-                        </div>
+
                     </section>
-                    <form id="booking-listing">
-                        <a href="" class="btn bg-primary btn-show btn-animated" id="book-service">Schedule
-                            Booking</a>
-                    </form>
+
                 </div>
             </div>
         </div>

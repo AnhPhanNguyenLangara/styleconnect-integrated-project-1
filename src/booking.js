@@ -13,10 +13,8 @@ let ratingShow = obj.rating === undefined? '-':obj.rating
 document.getElementById('fullname').textContent = `${obj.firstName} ${obj.lastName}`;
 document.getElementById('address').textContent = `${obj.address}`;
 document.getElementById('bio').textContent = obj.bio;
-document.getElementById('rating').textContent = `Rating:${ratingShow}`;
+document.getElementById('rating').innerHTML += ` ${ratingShow}`;
 document.getElementById('ratingCount').textContent = obj.ratingCount;
-
-
 
 
 import {
