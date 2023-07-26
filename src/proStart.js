@@ -333,7 +333,7 @@ addProfileForm.addEventListener("submit", async (e) => {
       console.log("Profile created successfully!");
     }
     addProfileForm.reset();
-    window.location.assign("prosDashboard.html");
+    window.location.assign("prosGallery.html");
   } catch (error) {
     console.error("Error updating or creating profile:", error);
   }
