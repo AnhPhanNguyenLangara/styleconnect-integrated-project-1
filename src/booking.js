@@ -16,7 +16,7 @@ document.getElementById("bio").textContent = obj.bio;
 document.getElementById("rating").innerHTML += ` ${ratingShow}`;
 document.getElementById(
   "ratingCount"
-).textContent = `${obj.ratingCount} reviews`;
+).textContent = `${obj.ratingCount === undefined ? "0" : obj.ratingCount} reviews`;
 
 import { initializeApp } from "firebase/app";
 import {
