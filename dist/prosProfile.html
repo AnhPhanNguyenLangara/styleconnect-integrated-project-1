@@ -176,6 +176,7 @@
                           id="profile"
                           onclick="showModal()"
                           class="w-25 btn bg-accent-d rounded-2 text-brightness-l"
+                          disabled
                         >
                           <img
                             id="image-preview"
@@ -184,21 +185,29 @@
                             class="img-fluid img-thumbnail"
                           />
                         </button>
-                        <dialog id="image-modal">
-                          <label for="upload">Choose from computer</label>
-                          <button type="button" id="upload" onclick="fromComputer()" class="btn bg-accent-d rounded-2 text-brightness-l">
-                            <i class="fa-solid fa-upload" title="Upload Image"></i>
-                          </button>
-                          <label for="camera">Take a picture</label>
-                          <button type="button" id="camera" onclick="takePicture()" class="btn bg-accent-d rounded-2 text-brightness-l">
-                            <i class="fa-solid fa-camera" title="Take a picture"></i>
-                          </button>
+                        <dialog id="image-modal" class="w-25 rounded-4 border-0 container">
+                          <div class="row row-cols-2">
+                            <div class="col vstack justify-content-between">
+                              <label for="upload">Choose from computer</label>
+                              <button type="button" id="upload" onclick="fromComputer()" class="btn bg-accent-d rounded-2 text-brightness-l ratio ratio-1x1">
+                                <i class="fa-solid fa-upload display-1 d-grid align-items-center" title="Upload Image"></i>
+                              </button>
+                            </div>
+                            <div class="col vstack justify-content-between">
+                              <label for="camera">Take a picture</label>
+                              <button type="button" id="camera" onclick="takePicture()" class="btn bg-accent-d rounded-2 text-brightness-l ratio ratio-1x1">
+                                <i class="fa-solid fa-camera display-1 d-grid align-items-center" title="Take a picture"></i>
+                              </button>
+                            </div>
+                          </div>
                         </dialog>
-                        <dialog id="cam-modal">
-                          <video id="cam-feed" autoplay></video>
-                          <button type="button" id="take-pic" disabled class="btn bg-accent-d rounded-2 text-brightness-l">
-                            Take Profile Pic!
-                          </button>
+                        <dialog id="cam-modal" class="w-100 rounded-4 border-0">
+                          <div class="vstack align-items-center gap-3">
+                            <video id="cam-feed" autoplay class="w-75"></video>
+                            <button type="button" id="take-pic" disabled class="btn bg-accent-d rounded-2 text-brightness-l">
+                              Take Profile Pic!
+                            </button>
+                          </div>
                         </dialog>
               
                         <dialog id="upload-modal">

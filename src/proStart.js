@@ -90,6 +90,7 @@ onAuthStateChanged(auth, async (user) => {
             addProfileForm.fname.disabled = false;
             addProfileForm.lname.disabled = false;
             addProfileForm.bio.disabled = false;
+            addProfileForm.profile.disabled = false;
             addProfileForm.category1.disabled = false;
             addProfileForm.category2.disabled = false;
             addProfileForm.category3.disabled = false;
