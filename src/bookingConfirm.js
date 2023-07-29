@@ -65,8 +65,8 @@ onAuthStateChanged(auth, async (user) => {
       <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+ff2600(${coordinates.lon},${coordinates.lat})/${coordinates.lon},${coordinates.lat},10,0/400x400@2x?access_token=pk.eyJ1IjoicG5ndXllbjYzIiwiYSI6ImNsazk1aWlxNTA2djIzZWxueHo4M2NjbWIifQ.Gl4sErrXg13DhcvO_qgDMw" alt="">`
     }else{
       addressData = await addressFectching(arr[2], 'customer_profile');
-      whereDescription.innerHTML = `<h4>For this booking, the professional will come to your location as per below address.</h4>
-      <p>${addressData.address1}</p>`
+      whereDescription.innerHTML += `<p>For this booking, the professional will come to <span class="text-danger fs-4 "> customer's location </span> as per below address.</p>
+      <h4 class="mt-4">${addressData.address1}</h4>`
     }
     // ...
   } else {
