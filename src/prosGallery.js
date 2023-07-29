@@ -34,6 +34,15 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+const imgElems = [
+  document.querySelector('#gallery-CTA1'),
+  document.querySelector('#gallery-CTA2'),
+  document.querySelector('#gallery-CTA3'),
+  document.querySelector('#gallery-CTA4'),
+  document.querySelector('#gallery-CTA5'),
+  document.querySelector('#gallery-CTA6'),
+];
+
 function selectGallery() {
   let input = document.createElement("input");
   input.type = "file";
@@ -42,7 +51,7 @@ function selectGallery() {
   input.addEventListener("change", function showUploadModal() {
     const files = Array.from(this.files);
     const gallery = document.getElementById("gallery-row");
-    files.forEach((file) => {
+    files.forEach((file, idx) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function () {
@@ -56,6 +65,7 @@ function selectGallery() {
   });
   input.click();
 }
+
 
 window.selectGallery = selectGallery;
 
@@ -74,18 +84,16 @@ async function uploadGallery(files, targetDir) {
   const URLs = await Promise.all(
     snapShots.map((snapshot) => getDownloadURL(snapshot.ref))
   );
-  console.log(URLs);
-  const HTMLstring = URLs.reduce(
-    (galleryHTML, source) =>
-      galleryHTML +
-      `<div class="col" style="aspect-ratio:5/4"><img src="${source}" alt="" class="object-fit-cover h-100 rounded-2"></div>`,
-    ``
-  );
-  document
-    .getElementById("gallery-after-upload")
-    .insertAdjacentHTML("afterbegin", HTMLstring);
+ 
+  URLs.forEach((url, index) => {
+    if (imgElems[index]) {
+      imgElems[index].src = url;
+    }
+  });
+
   document.getElementById("upload-gallery-modal").close();
 }
+
 
 document.getElementById("proceed").addEventListener("click",()=> {
     window.location.assign("prosDashBoard.html");
