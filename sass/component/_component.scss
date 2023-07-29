@@ -48,3 +48,14 @@
 .textarea{
     height: 10rem;
 }
+#gallery-after-upload{
+    gap:1rem;
+}
+.img-gallery-button{
+    flex-grow: 1 !important;
+    width: calc(50% - 1rem) !important;
+    @media screen and (min-width: 996px) {
+        width: 30% !important;
+    }
+
+}

@@ -144,7 +144,6 @@ const mergePromise = Promise.all([listingsPromise, usersPromise])
 
 const displayListing = async () => {
   const storage = getStorage();
-
   const displayOBJ = await mergePromise;
   let listingDisplay = {
     haircut: "",
