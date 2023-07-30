@@ -38,6 +38,7 @@ self.addEventListener("fetch", (event) => {
       try {
         return await fetch(event.request);
       } catch (error) {
+        console.log("What happened to the request:",error);
         return caches.match(offlinePageURL);
       }
     })()
