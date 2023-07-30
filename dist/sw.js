@@ -1,5 +1,6 @@
 const cacheName = "v1"; // you need a name for your cache. It also helps w. invalidation later.
 const urlsToCache = ["./offline.html"];
+const offlinePageURL = "./offline.html";
 
 self.addEventListener("install", (event) => {
   // self is a global variable refers to worker itself
@@ -37,7 +38,7 @@ self.addEventListener("fetch", (event) => {
       try {
         return await fetch(event.request);
       } catch (error) {
-        return caches.match('./offline.html');
+        return caches.match(offlinePageURL);
       }
     })()
   );
