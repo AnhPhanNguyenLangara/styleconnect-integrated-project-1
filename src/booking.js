@@ -139,6 +139,10 @@ fecthLising.forEach((x, index) => {
   let container = document.createElement("div");
   container.classList.add("listing-container","align-items-center");
 
+  let serviceTitle = document.createElement("h2");
+  serviceTitle.classList.add("where", "mt-3", "mb-3", "serviceHeading");
+  serviceTitle.innerHTML = "Service";
+
   let label = document.createElement("label");
   label.innerHTML = `${x.service} <br> <h3>$ ${x.price} / hour</h3>`;
 
@@ -156,6 +160,7 @@ fecthLising.forEach((x, index) => {
     container.appendChild(input);
     // Append the container to the bookingListing element
     bookingListing.prepend(container);
+    bookingListing.prepend(serviceTitle);
 
 
   let dropdownContainer = document.createElement("div");
@@ -205,6 +210,12 @@ bookService.addEventListener("click", (e) => {
       let dropdownValue = dropdowns[i].value;
       let serviceName = dropdown.getAttribute('service-name');
       bookService.href = `/dist/bookingConfirm.html?${radio[i].value}?${currentUserUID}?${obj.userId}?${dropdownValue}?${serviceName}`;
+    } else {
+        let bookingErrMsg = document.createElement("p")
+        bookingErrMsg.classList.add("where", "text-alert", "ps-0", "ms-0", "text-danger")
+        bookingErrMsg.innerHTML = "Please check more than one service";
+        let serviceHeading = document.querySelector(".serviceHeading");
+        serviceHeading.append(bookingErrMsg);    
     }
   }
 });
