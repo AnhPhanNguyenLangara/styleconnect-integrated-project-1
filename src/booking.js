@@ -148,8 +148,8 @@ fecthLising.forEach((x, index) => {
 
   let input = document.createElement("input");
 
-  input.type = "checkbox";
-  input.classList.add("where","form-check-input","border-black")
+  input.type = "radio";
+  input.classList.add("form-check-input","border-black")
   input.value = x.listingId;
   input.name = "listing";
   input.checked = false;
@@ -210,12 +210,6 @@ bookService.addEventListener("click", (e) => {
       let dropdownValue = dropdowns[i].value;
       let serviceName = dropdown.getAttribute('service-name');
       bookService.href = `/dist/bookingConfirm.html?${radio[i].value}?${currentUserUID}?${obj.userId}?${dropdownValue}?${serviceName}`;
-    } else {
-        let bookingErrMsg = document.createElement("p")
-        bookingErrMsg.classList.add("where", "text-alert", "ps-0", "ms-0", "text-danger")
-        bookingErrMsg.innerHTML = "Please check more than one service";
-        let serviceHeading = document.querySelector(".serviceHeading");
-        serviceHeading.append(bookingErrMsg);    
     }
   }
 });
