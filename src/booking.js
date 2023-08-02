@@ -73,12 +73,11 @@ onAuthStateChanged(auth, async (user) => {
         reviewElement.className = "review";
         reviewElement.innerHTML = `
               <p><strong>Service:</strong> ${review.serviceName}</p>
-              <p><strong>Customer:</strong> ${review.customerFirstName} ${
-          review.customerLastName
-        }</p>
+              <p><strong>Customer:</strong> ${review.customerFirstName} ${review.customerLastName
+          }</p>
               <p><strong>Rating:</strong> <span class="stars">${"★".repeat(
-                review.rating
-              )}</span></p>
+            review.rating
+          )}</span></p>
               <p><strong>Review:</strong> ${review.review}</p>  
           `;
         reviewModalContent.appendChild(reviewElement);
@@ -91,26 +90,26 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 async function fetchGallery() {
-  const docRef = doc(db, "professional_profile_v2",fetchId);
+  const docRef = doc(db, "professional_profile_v2", fetchId);
   const docSnap = await getDoc(docRef);
   console.log(docSnap.data());
-  const imageID=docSnap.data().customerId;
+  const imageID = docSnap.data().customerId;
 
   const storage = getStorage();
   const profileRef = sRef(storage, `img/${imageID}/profile`);
   const galleryRef = sRef(storage, `img/${imageID}/gallery`);
   const carousel = document.querySelector(".carousel-inner");
 
-  const profile_result= await listAll(profileRef);
+  const profile_result = await listAll(profileRef);
   const profileURL = await getDownloadURL((profile_result).items[0]);
   carousel.insertAdjacentHTML(
     "beforeend",
     `<div class="carousel-item active object-fit-cover"><img src="${profileURL}" class="img-booking d-block w-100  rounded-start-1" alt=""></div>`
   );
 
-  const gallery_result= await listAll(galleryRef);
-  const galleryURlarr= await Promise.all(gallery_result.items.map(async (file)=> await getDownloadURL(file)));
-  galleryURlarr.forEach((galleryURL)=> {
+  const gallery_result = await listAll(galleryRef);
+  const galleryURlarr = await Promise.all(gallery_result.items.map(async (file) => await getDownloadURL(file)));
+  galleryURlarr.forEach((galleryURL) => {
     carousel.insertAdjacentHTML(
       "beforeend",
       `<div class="carousel-item object-fit-cover"><img src="${galleryURL}" class="img-booking d-block w-100  rounded-start-1" alt=""></div>`
@@ -135,13 +134,8 @@ const bookingListing = document.querySelector("#booking-listing");
 const locationSelect = document.querySelector("#location-select");
 fecthLising.forEach((x, index) => {
   // Create a div container
-
   let container = document.createElement("div");
-  container.classList.add("listing-container","align-items-center");
-
-  let serviceTitle = document.createElement("h2");
-  serviceTitle.classList.add("where", "mt-3", "mb-3", "serviceHeading");
-  serviceTitle.innerHTML = "Service";
+  container.classList.add("listing-container", "align-items-center", "pt-3");
 
   let label = document.createElement("label");
   label.innerHTML = `${x.service} <br> <h3>$ ${x.price} / hour</h3>`;
@@ -149,33 +143,34 @@ fecthLising.forEach((x, index) => {
   let input = document.createElement("input");
 
   input.type = "radio";
-  input.classList.add("form-check-input","border-black")
+  input.classList.add("form-check-input", "border-black")
+  // input.setAttribute("id", `booking${[index+1]}`);
   input.value = x.listingId;
   input.name = "listing";
-  input.checked = false;
-  // input.checked = index === 0 ? 'checked' : false;
+  input.checked = index === 0 ? 'checked' : false;
 
-    // Append the elements to the container
-    container.appendChild(label);
-    container.appendChild(input);
-    // Append the container to the bookingListing element
-    bookingListing.prepend(container);
-    bookingListing.prepend(serviceTitle);
-
+  // Append the elements to the container
+  container.appendChild(label);
+  container.appendChild(input);
+  // Append the container to the bookingListing element
+  bookingListing.append(container);
 
   let dropdownContainer = document.createElement("div");
-  dropdownContainer.classList.add("dropdown")
+  dropdownContainer.classList.add("dropdown");
+  dropdownContainer.setAttribute("data-listing",`${x.listingId}`);
+  dropdownContainer.style.display = index===0? 'block': 'none';
 
   let dropdown = document.createElement("select");
   dropdown.classList.add(
     "where",
     "btn",
     "dropdown-toggle",
-    "btn-secondary",
-    "opacity-75"
+    "border-dark"
+    // "btn-secondary",
+    // "opacity-75",
   );
   dropdown.setAttribute("service-name", x.service);
-
+ 
   if (x.onhome) {
     let option1 = document.createElement("option");
     option1.value = "onhome";
@@ -190,8 +185,24 @@ fecthLising.forEach((x, index) => {
     dropdown.appendChild(option2);
   }
 
+    
+  input.addEventListener("change", () => {
+    for (let dropdowndiv of document.querySelectorAll(".dropdown")) {
+      console.log(dropdowndiv.dataset);
+      if (dropdowndiv.dataset.listing===input.value) {
+        dropdowndiv.style.display='block';
+      }
+      else {
+        dropdowndiv.style.display='none';
+      }
+    }
+  })
+
   dropdownContainer.appendChild(dropdown);
   locationSelect.appendChild(dropdownContainer);
+
+
+
 
 });
 
