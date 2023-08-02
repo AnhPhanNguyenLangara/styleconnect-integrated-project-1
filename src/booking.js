@@ -132,12 +132,10 @@ async function fetchListingData() {
 const fecthLising = await fetchListingData();
 const bookingListing = document.querySelector("#booking-listing");
 const locationSelect = document.querySelector("#location-select");
-const selectedDropdown = null;
 fecthLising.forEach((x, index) => {
   // Create a div container
-
   let container = document.createElement("div");
-  container.classList.add("listing-container", "align-items-center");
+  container.classList.add("listing-container", "align-items-center", "pt-3");
 
   let label = document.createElement("label");
   label.innerHTML = `${x.service} <br> <h3>$ ${x.price} / hour</h3>`;
@@ -146,7 +144,7 @@ fecthLising.forEach((x, index) => {
 
   input.type = "radio";
   input.classList.add("form-check-input", "border-black")
-  input.setAttribute("id", `booking${[index+1]}`);
+  // input.setAttribute("id", `booking${[index+1]}`);
   input.value = x.listingId;
   input.name = "listing";
   input.checked = index === 0 ? 'checked' : false;
@@ -167,8 +165,9 @@ fecthLising.forEach((x, index) => {
     "where",
     "btn",
     "dropdown-toggle",
-    "btn-secondary",
-    "opacity-75"
+    "border-dark"
+    // "btn-secondary",
+    // "opacity-75",
   );
   dropdown.setAttribute("service-name", x.service);
  
