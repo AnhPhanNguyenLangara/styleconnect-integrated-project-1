@@ -137,8 +137,8 @@ addServiceForm.addEventListener('submit', async (e) => {
     await setDoc(newDocRef, {
       userId: prosId,
       listingId: newDocRef.id,
-      onlocation: addServiceForm.onlocation.value,
-      onhome: addServiceForm.onhome.value,
+      onlocation: Boolean(parseInt(addServiceForm.onlocation.value)),
+      onhome: Boolean(parseInt(addServiceForm.onhome.value)),
       servicedescription: addServiceForm.servicedescription.value,
       service: addServiceForm.service.value,
       price: +addServiceForm.price.value,
