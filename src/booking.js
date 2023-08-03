@@ -104,7 +104,7 @@ async function fetchGallery() {
   const profileURL = await getDownloadURL((profile_result).items[0]);
   carousel.insertAdjacentHTML(
     "beforeend",
-    `<div class="carousel-item active object-fit-cover"><img src="${profileURL}" class="img-booking d-block w-100  rounded-start-1" alt=""></div>`
+    `<div class="carousel-item active object-fit-cover"><img src="${profileURL}" class="img-booking d-block w-100  rounded-2" alt="listing photo"></div>`
   );
 
   const gallery_result = await listAll(galleryRef);
@@ -112,7 +112,7 @@ async function fetchGallery() {
   galleryURlarr.forEach((galleryURL) => {
     carousel.insertAdjacentHTML(
       "beforeend",
-      `<div class="carousel-item object-fit-cover"><img src="${galleryURL}" class="img-booking d-block w-100  rounded-start-1" alt=""></div>`
+      `<div class="carousel-item object-fit-cover"><img src="${galleryURL}" class="img-booking d-block w-100  rounded-2" alt="listing photo"></div>`
     );
   })
 }

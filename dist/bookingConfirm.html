@@ -96,22 +96,26 @@
         </nav>
 
 
-        <section id="where-description" class="container">
-            
-        </section>
+        <div class="container map-wrapper d-lg-flex mb-5">
+            <section class="container align-self-start pb-lg-0" id="booking-detail">
+                <form class="add container" action="submit">
+                    <label for="booking-time">Choose a time for your appointment:</label>
+                    <input type="datetime-local" id="booking-time" name="bookingTime" value="20123-06-24T8:30">
+                    <button id="bookconfirm-service" class="fs-2 btn d-block bg-contrast-d text-brightness-l btn-show btn-animated mt-5 mb-5 text-capitalize w-100 mb-lg-0">Book</button>
+                </form>
+            </section>
 
-        <section class="container" id="booking-detail">
-            <form class="add container" action="submit">
-                <label for="booking-time">Choose a time for your appointment:</label>
-                <input type="datetime-local" id="booking-time" name="bookingTime" value="20123-06-24T8:30">
-                <button class="fs-2 btn d-block bg-contrast-d text-brightness-l btn-show btn-animated mt-5 mb-5 text-capitalize w-100">Book</button>
-            </form>
-        </section>
+            <section id="where-description" class="container">
+            </section>
+        </div>
         <section id="booking-listing">
         </section>
     </main>
-
-
+    <style>
+        #bookconfirm-service:hover {
+            background-color: #6E6E74 !important;
+        }
+    </style>
     <footer class=" p-5">
         <div class="footer-wrapper container-xl p-0 p-md-5">
             <div class="footer-menu1">

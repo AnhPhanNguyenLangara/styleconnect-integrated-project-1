@@ -14097,3 +14097,6 @@ textarea.form-control-lg {
 }
 
 /*# sourceMappingURL=prosProfile.css.map */
+.hover-link:hover {
+  background-color: var(--bs-contrast-l);
+}
