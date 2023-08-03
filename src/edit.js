@@ -6,8 +6,8 @@ const searchParams = new URL(url).searchParams;
 const entries = new URLSearchParams(searchParams).values();
 const array = Array.from(entries);
 const obj = JSON.parse(array[0])
-addServiceForm.onlocation.value = obj.onlocation;
-addServiceForm.onhome.value = obj.onhome;
+addServiceForm.onlocation.value = obj.onlocation ? "1" : "0";
+addServiceForm.onhome.value = obj.onhome ? "1" : "0";
 addServiceForm.servicedescription.value = obj.servicedescription;
 addServiceForm.service.value = obj.service;
 addServiceForm.price.value = obj.price;
@@ -61,8 +61,8 @@ addServiceForm.addEventListener('submit', async (e) =>{
     try{
     const docRef = doc(colRefListing,obj.listingId);
     await updateDoc(docRef,{ 
-        onlocation:  addServiceForm.onlocation.value,
-        onhome:  addServiceForm.onhome.value,    
+        onlocation:  Boolean(parseInt(addServiceForm.onlocation.value)),
+        onhome:  Boolean(parseInt(addServiceForm.onhome.value)),    
         servicedescription: addServiceForm.servicedescription.value,
         service: addServiceForm.service.value,
         price: +addServiceForm.price.value,
