@@ -60,7 +60,7 @@ onAuthStateChanged(auth, async (user) => {
       const geoCodeJSON= await geoCodeResponse.json();
       const coordinates= geoCodeJSON.results[0].position;
 
-      whereDescription.innerHTML = `<h2 class="mt-md-5">Confirm Booking</h2> <p class="mt-3 mb-5">For this booking, you will need to go and get the service at the <span class="text-danger fs-5 fw-bold">Professional's location </span> as per below address.</p>
+      whereDescription.innerHTML = `<h2>Confirm Booking</h2> <p class="mt-3 mb-5">For this booking, you will need to go and get the service at the <span class="text-danger fs-5 fw-bold">Professional's location </span> as per below address.</p>
       <h5 class="mb-5">Address: ${addressData.address1}</h5>
       <img class="img-fluid" src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+ff2600(${coordinates.lon},${coordinates.lat})/${coordinates.lon},${coordinates.lat},10,0/400x400@2x?access_token=pk.eyJ1IjoicG5ndXllbjYzIiwiYSI6ImNsazk1aWlxNTA2djIzZWxueHo4M2NjbWIifQ.Gl4sErrXg13DhcvO_qgDMw" alt="map">`
     }else{
@@ -110,12 +110,23 @@ confirmBooking.addEventListener('submit', async (e) => {
       createdAt: serverTimestamp()
     })
     confirmBooking.reset()
-    window.location.assign("customerDashboard.html");
+    toastDisplay('Booking Confirm')
+
   } catch (error) {
     console.log(error);
   }
-  alert('Booking Confirm')
+
   /* window.location.href = '/dist/'; */
 })
 
 
+function toastDisplay(text) {
+  let toast = document.getElementById("snackbar");
+  // Add the "show" class to DIV
+  toast.className = "show";
+  toast.innerText = text;
+  setTimeout(function () {
+      toast.className = toast.className.replace("show", "");
+      window.location.assign("customerDashboard.html");
+  }, 2500);
+}

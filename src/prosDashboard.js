@@ -126,6 +126,9 @@ function displayListing(prosListArr) {
 // Service listing to firebase
 const addServiceForm = document.querySelector('.list');
 const addServiceButton = document.querySelector('#add-service');
+const addModal = document.querySelector('#addmodal');
+
+
 addServiceButton.addEventListener('click', (e)=>{
 
 
@@ -145,6 +148,7 @@ addServiceForm.addEventListener('submit', async (e) => {
       createdAt: serverTimestamp()
     })
     addServiceForm.reset()
+    addModal.click();
   } catch (error) {
     console.log(error);
   }
