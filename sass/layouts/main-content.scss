@@ -9,6 +9,11 @@
   gap:2rem;
   @media screen and (min-width: 768px){
  
+    grid-template-columns: repeat(2, 1fr);
+  
+  }
+  @media screen and (min-width: 996px){
+ 
     grid-template-columns: repeat(3, 1fr);
   
   }

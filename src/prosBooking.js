@@ -138,6 +138,7 @@ let baseHTML = `
                         <p class="m-0 ms-2">${formattedTime}</p>
                     </div>
                     <p class="fw-bold m-0">${x.customerfirstName} ${x.customerlastName}</p>
+                    <p class="fw-bold m-0">Service Name: ${x.serviceName}</p>
                     <p class="fw-bold m-0">Location: ${bookingType}</p>
                     <p class="fw-bold m-0">Address: ${x.address}</p>
                     ${serviceAddress}
@@ -328,7 +329,7 @@ const errorCallback = (error) => {
     // displayGeo.appendChild(errorMsg);
 };
 const optionObj = {
-    timeout: 5000,
+    timeout: 10000,
     enableHighAccuracy: false,
     maximumAge: 0,
 };

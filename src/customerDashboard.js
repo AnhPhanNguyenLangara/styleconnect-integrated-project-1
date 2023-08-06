@@ -405,7 +405,7 @@ const errorCallback = (error) => {
   // displayGeo.appendChild(errorMsg);
 };
 const optionObj = {
-  timeout: 5000,
+  timeout: 10000,
   enableHighAccuracy: false,
   maximumAge: 0,
 };
@@ -461,6 +461,7 @@ function addMarkers(feature) {
     startPoint = feature.geometry.coordinates[0];
     endPoint = feature.geometry.coordinates.slice(-1)[0];
   }
+  console.log(startPoint, endPoint)
 
   new ttMaps.Marker({
     element: createMarkerElement('start')
